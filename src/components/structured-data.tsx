@@ -48,7 +48,7 @@ export function OrganizationSchema() {
     ],
     founder: clean({
       "@type": "Person",
-      name: founder.name,
+      name: founder.fullName,
       jobTitle: founder.role,
     }),
     address: isPlaceholder(founder.location)

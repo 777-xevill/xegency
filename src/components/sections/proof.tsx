@@ -12,7 +12,7 @@ export function CapabilitiesBand() {
 
 export function Manifesto() {
   return (
-    <section className="grain relative bg-bone-50 py-24 md:py-36">
+    <section className="grain relative bg-bone-50 py-24 text-ink md:py-36">
       <Shell>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">

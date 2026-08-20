@@ -14,7 +14,7 @@ export function Faq({
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="grain relative bg-bone-50 py-24 md:py-36">
+    <section id="faq" className="grain relative bg-bone-50 py-24 text-ink md:py-36">
       <Shell>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-4">

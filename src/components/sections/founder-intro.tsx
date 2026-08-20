@@ -28,7 +28,7 @@ export function FounderIntro() {
               />
             </div>
             <p className="eyebrow mt-4 text-bone/45">
-              {founder.name} — {founder.role}
+              {founder.fullName} — {founder.role}
             </p>
           </div>
 

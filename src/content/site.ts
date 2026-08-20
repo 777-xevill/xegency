@@ -22,7 +22,7 @@ export const siteStatus: "draft" | "live" = "draft";
 export const site = {
   name: "Xegency",
   // Used for canonical URLs, sitemap and Open Graph. Update when you buy the domain.
-  url: "https://xegency.com",
+  url: "https://xegency.vercel.app",
   tagline: "Independent web design & development studio",
   description:
     "Xegency is a small, senior web studio. We design and build fast, considered websites for founders and brands who are tired of looking smaller than they are.",
@@ -41,19 +41,21 @@ export const brand = {
 };
 
 export const founder = {
-  // ⚠️ Guessed from your email address — correct this to your full name.
+  // Conversational display name, used in headlines and the signature.
   name: "Rifat",
+  // Formal name — used on the fact sheet and in structured data.
+  fullName: "Ashikur Rahman Rifat",
   role: "Founder & CEO",
   // ⚠️ Clients ask this constantly. Be specific — vagueness reads as evasion.
-  location: "[CITY, COUNTRY]",
-  timezone: "[GMT+0]",
+  location: "Dhaka, Bangladesh",
+  timezone: "GMT+6",
   // How long you have actually been doing this work, agency or freelance.
-  since: "[YEAR]",
+  since: "2026",
   bio: "I started Xegency because I kept meeting founders with a real business and a website that quietly undersold it. I do the work myself, with a small circle of specialists I have worked with for years. You will not be handed to a junior after the kickoff call — the person you meet is the person who builds it.",
 };
 
 export const contact = {
-  email: "[you@xegency.com]",
+  email: "support@xevill.com",
   // Optional. Leave as an empty string to hide it.
   phone: "",
   // A Cal.com / Calendly / Google Appointment link. Empty string hides the button.
@@ -61,13 +63,14 @@ export const contact = {
   socials: [
     { label: "LinkedIn", href: "[https://linkedin.com/in/your-handle]" },
     { label: "Instagram", href: "[https://instagram.com/your-handle]" },
-    { label: "GitHub", href: "[https://github.com/your-handle]" },
+    { label: "GitHub", href: "https://github.com/777-xevill" },
+    { label: "X", href: "https://x.com/777_xevill" },
   ],
 };
 
 export const availability = {
   status: "limited" as "open" | "limited" | "closed",
-  label: "Taking on 2 projects for [MONTH YEAR]",
+  label: "Taking on 2 projects for September 2026",
   responseTime: "Replies within one business day",
 };
 
@@ -77,10 +80,12 @@ export const availability = {
    studio that shows the work beats "150+" from one that does not.
    -------------------------------------------------------------------------- */
 export const stats = [
-  { value: "[00]", label: "Websites shipped" },
-  { value: "[00]", label: "Countries worked with" },
-  { value: "[0.0s]", label: "Median load time at launch" },
-  { value: "[00%]", label: "Clients who came back" },
+  { value: "11+", label: "Websites shipped" },
+  { value: "5+", label: "Countries worked with" },
+  { value: "76%", label: "Clients who came back" },
+  // Not a measurement — a commitment already made in the process section,
+  // so it is true by definition rather than a number anyone can disprove.
+  { value: "30 days", label: "Free support after launch" },
 ];
 
 export const capabilities = [
@@ -242,7 +247,7 @@ export const faqs = [
   },
   {
     q: "Where are you based, and does that matter?",
-    a: "I work from [CITY, COUNTRY], on [GMT+0]. In practice it has never been the problem people expect. I keep overlapping hours with your team, everything is agreed in writing, and you can see the work on a live staging link at any hour without waiting for me to wake up.",
+    a: "I work from Dhaka, Bangladesh, on GMT+6. In practice it has never been the problem people expect. I keep overlapping hours with your team, everything is agreed in writing, and you can see the work on a live staging link at any hour without waiting for me to wake up.",
   },
   {
     q: "How much does a website cost?",
@@ -250,7 +255,7 @@ export const faqs = [
   },
   {
     q: "How do payments work?",
-    a: "Split across milestones: a deposit to book the slot, one at design sign-off, one at launch. Invoiced through [PAYMENT METHOD — e.g. Wise, Stripe, bank transfer], with a proper invoice every time for your accounts.",
+    a: "Split across milestones: a deposit to book the slot, one at design sign-off, one at launch. Invoiced through Wise or bank transfer, with a proper invoice every time for your accounts.",
   },
   {
     q: "What if I do not like the design?",
@@ -276,14 +281,14 @@ export const faqs = [
    than anything else on the site.
    -------------------------------------------------------------------------- */
 export const studioFacts = [
-  { label: "Studio lead", value: "[Your full name], Founder & CEO" },
-  { label: "Founded", value: "[YEAR]" },
-  { label: "Based in", value: "[CITY, COUNTRY]" },
-  { label: "Working hours", value: "[GMT+0], [09:00–18:00]" },
-  { label: "Languages", value: "[English, ...]" },
+  { label: "Studio lead", value: "Ashikur Rahman Rifat, Founder & CEO" },
+  { label: "Founded", value: "2026" },
+  { label: "Based in", value: "Dhaka, Bangladesh" },
+  { label: "Working hours", value: "GMT+6, 09:00–18:00" },
+  { label: "Languages", value: "English, Bengali" },
   { label: "Team", value: "Studio lead plus [0] specialist collaborators" },
   { label: "Contracts", value: "Written agreement on every project · NDAs on request" },
-  { label: "Invoicing", value: "[Wise / Stripe / bank transfer], milestone-based" },
+  { label: "Invoicing", value: "Wise or bank transfer, milestone-based" },
   { label: "Typical project", value: "[$0,000] – [$00,000]" },
   { label: "Currently", value: availability.label },
 ];

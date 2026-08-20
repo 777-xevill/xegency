@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
-  authors: [{ name: founder.name }],
+  authors: [{ name: founder.fullName }],
   keywords: [
     "web design studio",
     "website development agency",

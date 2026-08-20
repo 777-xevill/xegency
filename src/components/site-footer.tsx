@@ -64,7 +64,7 @@ export function SiteFooter() {
               <Wordmark />
             )}
             <p className="pretty mt-6 max-w-xs text-sm leading-relaxed text-bone/55">
-              {site.tagline}. Founded and run by {founder.name}
+              {site.tagline}. Founded and run by {founder.fullName}
               {!isPlaceholder(founder.location) && <> in {founder.location}</>}.
             </p>
           </div>

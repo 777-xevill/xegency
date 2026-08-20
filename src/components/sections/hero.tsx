@@ -92,7 +92,7 @@ export function Hero() {
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7">
                 <p className="display text-[clamp(1.4rem,2.2vw,2rem)] leading-tight">
-                  {founder.name}
+                  {founder.fullName}
                 </p>
                 <p className="eyebrow mt-2 text-stone">{founder.role}</p>
               </div>
