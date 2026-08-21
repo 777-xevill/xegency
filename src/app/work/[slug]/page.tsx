@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { portfolio, getPortfolioItem, isProduct } from "@/content/portfolio";
 import { Shell, Eyebrow, Cta, Arrow, cx } from "@/components/ui";
 import { isPlaceholder, safeHref } from "@/lib/format";
+import { XedineosDemo } from "@/components/sections/xedineos-demo";
+import { AlphaFuelCover } from "@/components/sections/alpha-fuel-cover";
 
 export function generateStaticParams() {
   return portfolio.map((item) => ({ slug: item.slug }));
@@ -88,6 +90,11 @@ export default async function PortfolioItemPage({
       {/* ---------------------------------------------------------- visual */}
       <section className="grain relative bg-ink-800 pb-20 md:pb-28">
         <Shell>
+          {slug === "qr-ordering-platform" ? (
+            <XedineosDemo />
+          ) : slug === "alpha-fuel" ? (
+            <AlphaFuelCover />
+          ) : (
           <div className="relative aspect-[16/10] overflow-hidden bg-ink-800 md:aspect-[16/8]">
             {item.cover ? (
               <Image
@@ -116,12 +123,13 @@ export default async function PortfolioItemPage({
               </div>
             )}
           </div>
+          )}
           {!product && item.nda && (
             <p className="eyebrow mt-4 text-bone/40">
               Client name withheld at their request
             </p>
           )}
-          {product && (
+          {product && slug !== "qr-ordering-platform" && (
             <p className="eyebrow mt-4 text-bone/40">
               Built and owned by Xegency — not client work
             </p>

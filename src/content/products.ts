@@ -30,23 +30,23 @@ export const products: Product[] = [
     kind: "product",
     status: "Built — pre-launch",
     client: "Founder-led product",
-    title: "[PRODUCT NAME] — QR ordering for restaurants",
+    title: "Xedineos — QR ordering for restaurants",
     sector: "Restaurant tech / SaaS",
     region: "[Where it's built for]",
     year: "[YEAR]",
     nda: false,
     services: ["Product design", "Full-stack build", "Founder-led"],
     summary:
-      "[One or two sentences: a diner scans a code at the table and orders directly — describe what the restaurant gets on their side.]",
+      "A diner scans the code at the table and orders straight from their phone — the kitchen sees it land in real time, and the floor gets told the moment something needs attention, without a waiter ever having to check.",
     problem:
-      "[The real problem you saw with how restaurants were handling QR ordering before you built this — slow menus, no live kitchen view, clunky payment, whatever it actually was.]",
+      "Most QR ordering is half a product: it gets the order from the table to a screen, and stops there. Nobody tells the kitchen the order actually arrived, nobody tells the floor a table is waiting on water or that food is ready to run — a human still has to notice, which is the exact job QR ordering was supposed to remove.",
     approach: [
-      "[What you built first, and why that came before anything else.]",
-      "[The next real decision — e.g. how orders reach the kitchen, how menus are managed.]",
-      "[Anything about payments, multi-location support, or offline handling worth mentioning.]",
+      "Built the guest-facing menu and order flow first — scan, order, watch it move through Order placed → Accepted → Being prepared → Ready → Served, with Water, Waiter and Bill as one-tap requests instead of a raised hand.",
+      "Paired it with a live kitchen display per table, so orders land as tickets the kitchen accepts and progresses themselves — no relay through a waiter's notepad.",
+      "Closed the loop with a locked waiter's-phone screen that surfaces only what needs a human: a table asking for water, an order that's ready to run. Everything else stays automatic — that's the Autopilot.",
     ],
     outcome:
-      "[Where it stands today: built and tested, in pilot with a restaurant, waiting on X before launch — whatever is true right now.]",
+      "Built and tested end to end — guest ordering, kitchen display and waiter notifications all working together. In pre-launch, looking for the first pilot restaurant.",
     metrics: [
       { value: "Pre-launch", label: "Status" },
       { value: "[00]", label: "Restaurants in pilot" },

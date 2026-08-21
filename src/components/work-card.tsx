@@ -3,6 +3,8 @@ import Image from "next/image";
 import type { PortfolioItem } from "@/content/portfolio";
 import { isProduct } from "@/content/portfolio";
 import { Arrow, cx } from "@/components/ui";
+import { XedineosCardPreview } from "@/components/sections/xedineos-demo";
+import { AlphaFuelCardPreview } from "@/components/sections/alpha-fuel-cover";
 
 /**
  * The visual half of a card.
@@ -14,6 +16,13 @@ import { Arrow, cx } from "@/components/ui";
  * (products) and set `cover` when you have them.
  */
 function Panel({ item }: { item: PortfolioItem }) {
+  if (item.slug === "qr-ordering-platform") {
+    return <XedineosCardPreview />;
+  }
+  if (item.slug === "alpha-fuel") {
+    return <AlphaFuelCardPreview />;
+  }
+
   if (item.cover) {
     return (
       <Image
