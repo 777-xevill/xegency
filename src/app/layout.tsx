@@ -5,7 +5,6 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { RevealObserver } from "@/components/reveal";
-import { DraftBanner } from "@/components/draft-banner";
 import { site, siteStatus, founder } from "@/content/site";
 
 const display = Instrument_Serif({
@@ -37,11 +36,14 @@ export const metadata: Metadata = {
   applicationName: site.name,
   authors: [{ name: founder.fullName }],
   keywords: [
-    "web design studio",
-    "website development agency",
+    "AI automation agency",
+    "AI agents",
+    "custom software development",
+    "SaaS development",
+    "web development agency",
+    "mobile app development",
     "Next.js development",
-    "landing page design",
-    "brand identity",
+    "Bangladesh software studio",
     site.name,
   ],
   openGraph: {
@@ -81,7 +83,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
-        {siteStatus === "draft" && <DraftBanner />}
       </body>
     </html>
   );

@@ -40,11 +40,12 @@ export function OrganizationSchema() {
     telephone: contact.phone || undefined,
     areaServed: "Worldwide",
     knowsAbout: [
-      "Web design",
+      "AI agents",
+      "Workflow automation",
+      "Custom software",
       "Web development",
-      "Next.js",
-      "Brand identity",
-      "Conversion optimisation",
+      "Mobile app development",
+      "UI/UX design",
     ],
     founder: clean({
       "@type": "Person",

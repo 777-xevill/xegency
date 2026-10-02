@@ -6,9 +6,14 @@ import { isPlaceholder } from "@/lib/format";
 import { Arrow, cx } from "@/components/ui";
 
 const projectTypes = [
-  "Website design & build",
-  "Landing page",
-  "Brand & identity",
+  "AI audit",
+  "AI agents & automation",
+  "AI inside my product",
+  "Custom software / SaaS",
+  "Website or web app",
+  "Mobile app",
+  "UI/UX & brand",
+  "Cloud, DevOps & integrations",
   "Care retainer",
   "Not sure yet",
 ];

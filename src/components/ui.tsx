@@ -27,35 +27,6 @@ export function Arrow({ className = "" }: { className?: string }) {
   );
 }
 
-/* --------------------------------------------------------------- wordmark */
-
-export function Wordmark({
-  invert = false,
-  className = "",
-}: {
-  invert?: boolean;
-  className?: string;
-}) {
-  return (
-    <span
-      className={cx(
-        "inline-flex items-center gap-2.5 font-sans text-[15px] font-medium uppercase tracking-[0.3em] leading-none",
-        invert ? "text-ink" : "text-bone",
-        className,
-      )}
-    >
-      <span
-        aria-hidden="true"
-        className={cx(
-          "h-[7px] w-[7px] rotate-45",
-          invert ? "bg-ink" : "bg-bone",
-        )}
-      />
-      <span className="pr-[0.3em]">Xegency</span>
-    </span>
-  );
-}
-
 /* ---------------------------------------------------------------- eyebrow */
 
 export function Eyebrow({

@@ -1,34 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { brand, nav, availability } from "@/content/site";
-import { cx, Wordmark, Arrow } from "@/components/ui";
+import { nav, availability } from "@/content/site";
+import { cx, Arrow } from "@/components/ui";
+import { Logo } from "@/components/logo";
 
 const statusDot = {
   open: "bg-emerald-500",
   limited: "bg-amber-500",
   closed: "bg-stone",
 };
-
-function Logo({ invert = false }: { invert?: boolean }) {
-  const src = invert ? brand.logoInvert ?? brand.logo : brand.logo;
-  if (src) {
-    return (
-      <Image
-        src={src}
-        alt="Xegency"
-        width={132}
-        height={28}
-        priority
-        className="h-6 w-auto md:h-7"
-      />
-    );
-  }
-  return <Wordmark invert={invert} />;
-}
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -61,7 +44,11 @@ export function SiteHeader() {
         )}
       >
         <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-6 py-5 md:px-10 md:py-6 lg:px-14">
-          <Link href="/" aria-label="Xegency — home" className="shrink-0">
+          <Link
+            href="/"
+            aria-label="Xegency — home"
+            className="shrink-0 text-[13px] text-bone md:text-[14px]"
+          >
             <Logo />
           </Link>
 

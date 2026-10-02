@@ -12,7 +12,7 @@ import { FaqSchema } from "@/components/structured-data";
 export const metadata: Metadata = {
   title: "Services & pricing",
   description:
-    "Website design and build, landing pages, brand identity and care retainers — with scope, timelines and starting prices written down.",
+    "AI agents and automation, custom software, websites, web and mobile apps, design and DevOps — with scope, timelines and starting prices written down.",
 };
 
 export default function ServicesPage() {
@@ -29,7 +29,7 @@ export default function ServicesPage() {
             written down.
           </>
         }
-        lead="Four ways to work together, each with a defined scope, a timeline and a starting price. You will get a fixed number in your proposal — never an open-ended hourly meter."
+        lead="Everything we build, each with a defined scope, a timeline and a starting price. You will get a fixed number in your proposal — never an open-ended hourly meter."
       />
 
       <CapabilitiesBand />
@@ -41,8 +41,9 @@ export default function ServicesPage() {
             {services.map((s) => (
               <article
                 key={s.number}
+                id={s.number}
                 data-reveal=""
-                className="grid gap-10 border-t border-bone/12 pt-10 lg:grid-cols-12 lg:gap-10"
+                className="scroll-mt-28 grid gap-10 border-t border-bone/12 pt-10 lg:grid-cols-12 lg:gap-10"
               >
                 <div className="lg:col-span-5">
                   <span className="eyebrow text-stone">{s.number}</span>
@@ -122,9 +123,10 @@ export default function ServicesPage() {
                   shape actually cost.
                 </p>
                 <p className="pretty text-base leading-relaxed text-bone/70">
-                  What moves the number is page count, how much of the content
-                  and photography you already have, CMS complexity, and how
-                  many stakeholders need to sign off. Your proposal fixes the
+                  What moves the number is the number of screens and
+                  integrations, how much of the content you already have, how
+                  much AI usage the system needs to run, and how many
+                  stakeholders need to sign off. Your proposal fixes the
                   price before any work starts, and anything outside that scope
                   is quoted separately and approved by you first.
                 </p>

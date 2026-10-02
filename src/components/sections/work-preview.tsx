@@ -41,8 +41,8 @@ export function WorkPreview() {
         </div>
 
         <p className="pretty mt-16 max-w-2xl border-t border-bone/12 pt-8 text-sm leading-relaxed text-bone/55">
-          Xegency is both: a studio that builds websites for clients, and a
-          founder who builds his own software alongside it. Most client names
+          Xegency is both: a studio that builds software for clients, and a
+          founder who builds his own products alongside it. Most client names
           are withheld on request — the products are ours, so we can show more.
         </p>
       </Shell>

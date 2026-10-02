@@ -44,11 +44,11 @@ export function Hero() {
               style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
               className="display mt-8 text-[clamp(2.9rem,7.6vw,6.6rem)]"
             >
-              Your work is good.
+              If it runs on
               <br />
-              Your website
+              a computer,
               <br />
-              <span className="italic text-stone">should say so.</span>
+              <span className="italic text-stone">we build it.</span>
             </h1>
 
             <p
@@ -56,10 +56,10 @@ export function Hero() {
               style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
               className="pretty mt-8 max-w-xl text-lg leading-relaxed text-bone/60 md:text-xl"
             >
-              {site.name} is an independent studio. We design and build fast,
-              considered websites for founders and brands who are tired of
-              looking smaller than they are — and we build our own SaaS
-              products and startups the same way, end to end.
+              {site.name} is an AI-native software studio. AI agents and
+              automation, custom software, websites, web and mobile apps —
+              designed and engineered end to end by the person you actually
+              talk to.
             </p>
 
             <div
@@ -67,9 +67,9 @@ export function Hero() {
               style={{ "--reveal-delay": "240ms" } as React.CSSProperties}
               className="mt-10 flex flex-col gap-3 sm:flex-row"
             >
-              <Cta href="/work">See the work</Cta>
-              <Cta href="/contact" variant="outline">
-                Start a project
+              <Cta href="/contact">Start a project</Cta>
+              <Cta href="#ai-audit" variant="outline">
+                Get an AI audit
               </Cta>
             </div>
           </div>

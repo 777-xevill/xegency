@@ -212,7 +212,7 @@ export default function AboutPage() {
             Still deciding whether to send that first email?
           </h2>
           <p className="pretty mx-auto mt-8 max-w-xl text-base leading-relaxed text-bone/65">
-            Send it. Worst case you get an honest opinion on your website and a
+            Send it. Worst case you get an honest opinion on your project and a
             recommendation for someone better suited. There is no pitch deck
             waiting on the other side.
           </p>

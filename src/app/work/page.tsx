@@ -10,7 +10,7 @@ import { Stats } from "@/components/sections/proof";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Client websites and founder-led software products from Xegency — described in full, with client names withheld where asked.",
+    "Client software and founder-led products from Xegency — described in full, with client names withheld where asked.",
 };
 
 export default function WorkPage() {
@@ -27,7 +27,7 @@ export default function WorkPage() {
             clients — and ourselves.
           </>
         }
-        lead="Two kinds of work live here: websites built for clients, and software we own and build ourselves. Each one is written out properly — the problem, the decisions, and where it stands today."
+        lead="Two kinds of work live here: software built for clients, and products we own and build ourselves. Each one is written out properly — the problem, the decisions, and where it stands today."
         meta={[
           { label: "Client projects", value: work.length },
           { label: "Founder products", value: products.length },

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
-import { brand, contact, founder, nav, site, availability } from "@/content/site";
+import { contact, founder, nav, site, availability } from "@/content/site";
 import { services } from "@/content/site";
-import { Shell, Wordmark, Arrow, cx } from "@/components/ui";
+import { Shell, Arrow, cx } from "@/components/ui";
+import { Logo } from "@/components/logo";
 import { isPlaceholder, mailtoHref, safeHref } from "@/lib/format";
 
 export function SiteFooter() {
@@ -52,17 +52,7 @@ export function SiteFooter() {
         {/* columns */}
         <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            {brand.logoInvert || brand.logo ? (
-              <Image
-                src={(brand.logoInvert ?? brand.logo) as string}
-                alt="Xegency"
-                width={132}
-                height={28}
-                className="h-7 w-auto"
-              />
-            ) : (
-              <Wordmark />
-            )}
+            <Logo className="text-[15px] text-bone" />
             <p className="pretty mt-6 max-w-xs text-sm leading-relaxed text-bone/55">
               {site.tagline}. Founded and run by {founder.fullName}
               {!isPlaceholder(founder.location) && <> in {founder.location}</>}.

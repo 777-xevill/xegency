@@ -21,23 +21,11 @@ export const siteStatus: "draft" | "live" = "draft";
 
 export const site = {
   name: "Xegency",
-  // Used for canonical URLs, sitemap and Open Graph. Update when you buy the domain.
-  url: "https://xegency.vercel.app",
-  tagline: "Independent web design & development studio",
+  // Used for canonical URLs, sitemap and Open Graph.
+  url: "https://xegency.com",
+  tagline: "AI-native software studio",
   description:
-    "Xegency is a small, senior web studio. We design and build fast, considered websites for founders and brands who are tired of looking smaller than they are.",
-};
-
-export const brand = {
-  /**
-   * When your logo is ready: drop it at /public/brand/logo.svg and set
-   * `logo` to "/brand/logo.svg". Add a light-on-dark version as
-   * /public/brand/logo-invert.svg for the dark sections and footer.
-   * While both are null the site uses a typographic wordmark, which is a
-   * perfectly respectable place to start.
-   */
-  logo: null as string | null,
-  logoInvert: null as string | null,
+    "Xegency designs and builds software end to end — AI agents and automation, custom software and SaaS, websites, web and mobile apps. If it runs on a computer, we build it.",
 };
 
 export const founder = {
@@ -51,7 +39,7 @@ export const founder = {
   timezone: "GMT+6",
   // How long you have actually been doing this work, agency or freelance.
   since: "2026",
-  bio: "I started Xegency because I kept meeting founders with a real business and a website that quietly undersold it. I do the work myself, with a small circle of specialists I have worked with for years. You will not be handed to a junior after the kickoff call — the person you meet is the person who builds it.",
+  bio: "I started Xegency because I kept meeting founders with a real business running on duct tape — a website that undersold it, spreadsheets doing a database's job, hours lost to work a machine should be doing. I do the work myself, with a small circle of specialists I have worked with for years. You will not be handed to a junior after the kickoff call — the person you meet is the person who builds it.",
 };
 
 export const contact = {
@@ -80,7 +68,7 @@ export const availability = {
    studio that shows the work beats "150+" from one that does not.
    -------------------------------------------------------------------------- */
 export const stats = [
-  { value: "11+", label: "Websites shipped" },
+  { value: "11+", label: "Projects shipped" },
   { value: "5+", label: "Countries worked with" },
   { value: "76%", label: "Clients who came back" },
   // Not a measurement — a commitment already made in the process section,
@@ -88,78 +76,156 @@ export const stats = [
   { value: "30 days", label: "Free support after launch" },
 ];
 
+/* --------------------------------------------------------------------------
+   Who the work has been for. Names only, shown as a band under the hero.
+   Only list a business you actually built for and would be happy to have
+   phone you about it. ⚠️ Check Mito Skin Lab — if that build went through
+   another agency, remove it.
+   -------------------------------------------------------------------------- */
+export const clients = [
+  "Alpha Fuel",
+  "Mito Skin Lab",
+  "Cherry Drops",
+  "Takeout Burgers",
+  "Xedineos",
+];
+
 export const capabilities = [
-  "Website design",
-  "SaaS product design",
-  "Next.js builds",
-  "Startup MVPs",
-  "Landing pages",
-  "Product engineering",
-  "Performance",
-  "SEO foundations",
-  "Founder-led builds",
-  "Analytics",
-  "Maintenance",
-  "Art direction",
+  "AI agents",
+  "Workflow automation",
+  "Custom software",
+  "SaaS products",
+  "Web apps",
+  "Mobile apps",
+  "Websites",
+  "Chatbots & assistants",
+  "Dashboards & admin panels",
+  "Browser extensions",
+  "Telegram & WhatsApp bots",
+  "Scrapers & data pipelines",
+  "API integrations",
+  "UI/UX design",
 ];
 
 export const services = [
   {
     number: "01",
-    title: "Website design & build",
+    title: "AI agents & automation",
     summary:
-      "The full thing, end to end. Strategy, art direction, design, build and launch — one team, one thread, one invoice.",
+      "Software that does the repetitive work for you — lead research, inbox triage, reporting, data entry, follow-ups — wired into the tools you already use.",
     deliverables: [
-      "Discovery & positioning workshop",
-      "Sitemap, wireframes and copy direction",
-      "Full visual design in Figma",
-      "Responsive build in Next.js or Webflow",
-      "CMS setup so you can edit it yourself",
-      "Launch, analytics and 30 days of support",
+      "Workflow mapping: what to automate, what to leave alone",
+      "Agent design with human approval where it matters",
+      "Integrations: Gmail, Sheets, CRMs, Slack, WhatsApp, Telegram",
+      "Logs and a dashboard so you can see what it did",
+      "Cost and failure alerts",
+      "Handover docs and 30 days of tuning",
     ],
-    timeline: "4–7 weeks",
+    timeline: "2–4 weeks",
     from: "[$0,000]",
   },
   {
     number: "02",
-    title: "Landing pages that convert",
+    title: "AI inside your product",
     summary:
-      "One page, built to do one job. For launches, paid campaigns and offers that need to earn their ad spend back.",
+      "Assistants that answer from your own documents, smart search, support bots, and AI features added to software you already run.",
     deliverables: [
-      "Offer and message audit",
-      "Conversion-led wireframe",
-      "Design and build",
-      "A/B-ready section structure",
-      "Event tracking and dashboards",
+      "Use-case and data review",
+      "Retrieval over your docs, products or tickets (RAG)",
+      "Chat, search or copilot interface",
+      "Guardrails, evaluation set and usage limits",
+      "Model choice tuned for cost and quality",
     ],
-    timeline: "10–14 days",
+    timeline: "2–5 weeks",
     from: "[$0,000]",
   },
   {
     number: "03",
-    title: "Brand & digital identity",
+    title: "Custom software & SaaS",
     summary:
-      "For teams whose visual language stopped matching their ambition. A system, not a logo file dropped in a folder.",
+      "Platforms built around how your operation actually runs — internal tools, booking and ordering systems, member portals, full SaaS products.",
     deliverables: [
-      "Identity direction and moodboarding",
-      "Typography and colour system",
-      "Component and layout library",
-      "Social and deck templates",
-      "A written guideline your team can follow",
+      "Discovery and requirement mapping",
+      "System architecture and data model",
+      "Admin panel your team can run without us",
+      "Auth, roles, payments and notifications",
+      "Weekly demos on a live staging link",
+      "Launch, documentation and 30 days of support",
     ],
-    timeline: "3–5 weeks",
+    timeline: "6–12 weeks",
     from: "[$0,000]",
   },
   {
     number: "04",
+    title: "Websites & web apps",
+    summary:
+      "Fast, search-ready websites and landing pages that make a business look as serious as it is — built in Next.js, editable by you.",
+    deliverables: [
+      "Positioning, sitemap and copy direction",
+      "Full visual design",
+      "Responsive Next.js build",
+      "CMS or admin so you can edit it yourself",
+      "SEO foundations, analytics and event tracking",
+      "Launch and 30 days of support",
+    ],
+    timeline: "2–6 weeks",
+    from: "[$0,000]",
+  },
+  {
+    number: "05",
+    title: "Mobile apps",
+    summary:
+      "iOS and Android apps from one codebase, sharing a backend with your web product — from first screen to store listing.",
+    deliverables: [
+      "Product scope and user flows",
+      "App design for both platforms",
+      "Cross-platform build (React Native)",
+      "Push notifications, auth and payments",
+      "App Store and Play Store submission",
+    ],
+    timeline: "6–10 weeks",
+    from: "[$0,000]",
+  },
+  {
+    number: "06",
+    title: "UI/UX & brand identity",
+    summary:
+      "Interfaces people understand on first use, and a visual identity that matches the ambition — a system, not a logo dropped in a folder.",
+    deliverables: [
+      "UX research and user flows",
+      "Wireframes and clickable prototypes",
+      "Logo, type and colour system",
+      "Component library for your product",
+      "A written guideline your team can follow",
+    ],
+    timeline: "2–5 weeks",
+    from: "[$0,000]",
+  },
+  {
+    number: "07",
+    title: "Cloud, DevOps & integrations",
+    summary:
+      "Deployment, databases and the glue between your systems — so the software stays up, stays fast and talks to everything else.",
+    deliverables: [
+      "Hosting and database setup or migration",
+      "CI/CD pipelines and preview deployments",
+      "Payment, CRM and third-party API integrations",
+      "Monitoring, uptime alerts and backups",
+      "Security review and access cleanup",
+    ],
+    timeline: "1–3 weeks",
+    from: "[$0,000]",
+  },
+  {
+    number: "08",
     title: "Care & growth retainer",
     summary:
-      "A site is a living thing. Monthly hours for changes, new pages, speed work and the small fixes that otherwise never happen.",
+      "Software is a living thing. Monthly hours for new features, fixes, speed work and keeping your AI and automations tuned.",
     deliverables: [
       "Priority queue with agreed response times",
-      "New sections and pages on request",
+      "New features and pages on request",
       "Performance and uptime monitoring",
-      "Monthly analytics readout",
+      "Automation and model-cost tuning",
       "Security patching and backups",
     ],
     timeline: "Monthly, cancel anytime",
@@ -167,36 +233,87 @@ export const services = [
   },
 ];
 
+/* --------------------------------------------------------------------------
+   The engine room — the tools the work is built with. Keep this honest:
+   trim anything you haven't shipped with, so a technical buyer who asks
+   about any one of them gets a confident answer.
+   -------------------------------------------------------------------------- */
+export const techStack = [
+  {
+    group: "AI",
+    tools: ["Claude", "OpenAI", "Gemini", "Vercel AI SDK", "LangChain", "pgvector", "n8n"],
+  },
+  {
+    group: "Product",
+    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "React Native", "Expo"],
+  },
+  {
+    group: "Backend",
+    tools: ["Node.js", "Python", "Supabase", "PostgreSQL", "Redis", "Stripe"],
+  },
+  {
+    group: "Cloud",
+    tools: ["Vercel", "Cloudflare", "Docker", "GitHub Actions", "AWS"],
+  },
+];
+
+/* --------------------------------------------------------------------------
+   The AI audit — a small, fixed-scope first engagement. Lower risk for a
+   buyer than a full build, and it usually turns into one.
+   -------------------------------------------------------------------------- */
+export const aiAudit = {
+  duration: "5 working days",
+  price: "[$000]",
+  steps: [
+    {
+      title: "Map",
+      body: "A working session on how your team spends its week — the tools, the handoffs, the copy-paste.",
+    },
+    {
+      title: "Find",
+      body: "The 3–5 tasks where AI or automation saves the most hours for the least risk, ranked.",
+    },
+    {
+      title: "Price",
+      body: "For each one: what it would take to build, what it costs to run, and the hours it gives back.",
+    },
+    {
+      title: "Hand over",
+      body: "A written plan you own. Build it with us, with someone else, or not at all.",
+    },
+  ],
+};
+
 export const process = [
   {
     step: "01",
-    title: "Call",
-    duration: "30 minutes",
-    body: "You tell me what the business actually needs to happen. I tell you straight whether I am the right person for it — and if I am not, who is. No deck, no pitch theatre.",
+    title: "Listen",
+    duration: "30-minute call",
+    body: "You tell me what the business actually needs to happen. I map the requirement before I propose anything — and if I am not the right person for it, I say so and tell you who is.",
   },
   {
     step: "02",
-    title: "Proposal",
+    title: "Architect",
     duration: "2–3 days",
-    body: "A written scope with a fixed price, a dated timeline and a clear list of what is and is not included. You approve it before a single hour is billed.",
+    body: "A written scope with the system design, a fixed price, a dated timeline and a clear list of what is and is not included. You approve it before a single hour is billed.",
   },
   {
     step: "03",
-    title: "Design",
-    duration: "1–3 weeks",
-    body: "Direction first, then full pages. You see real work in the first week and every week after — never a month of silence followed by a big reveal.",
+    title: "Build",
+    duration: "Weekly demos",
+    body: "Built on a staging link you can open any time. You see working software in the first week and every week after — never a month of silence followed by a big reveal.",
   },
   {
     step: "04",
-    title: "Build",
-    duration: "2–4 weeks",
-    body: "Built on a staging link you can open any time and share with your team. Tested on real devices, tuned for speed, wired to your CMS.",
+    title: "Prove",
+    duration: "Before launch",
+    body: "Tested on real devices and real data, documented, and checked against the signed scope line by line. You sign off on what was agreed, not on a feeling.",
   },
   {
     step: "05",
-    title: "Launch",
-    duration: "1 day",
-    body: "We go live together, watch the analytics, and I stay on for 30 days of free fixes. You get the code, the files and the accounts — all of it in your name.",
+    title: "Launch & support",
+    duration: "30 days included",
+    body: "We go live together and I stay on for 30 days of free fixes. You get the code, the accounts and the docs — all of it in your name — plus a roadmap if you want to keep going.",
   },
 ];
 
@@ -250,8 +367,16 @@ export const faqs = [
     a: "I work from Dhaka, Bangladesh, on GMT+6. In practice it has never been the problem people expect. I keep overlapping hours with your team, everything is agreed in writing, and you can see the work on a live staging link at any hour without waiting for me to wake up.",
   },
   {
-    q: "How much does a website cost?",
-    a: "Most full site projects land between [$0,000] and [$00,000] depending on page count, CMS complexity and whether you need copy and photography. Landing pages start at [$0,000]. You get a fixed number in the proposal — I do not do open-ended hourly billing.",
+    q: "What exactly can you build?",
+    a: "Anything that runs on a computer or a phone: AI agents and automations, chatbots, custom software and SaaS, websites, web and mobile apps, dashboards, browser extensions, bots and integrations. What we don't do is anything outside the screen — no hardware, no print, no marketing campaigns.",
+  },
+  {
+    q: "We want to use AI but don't know where to start.",
+    a: "That's what the AI audit is for. In five working days we map how your team works, find the few tasks where AI saves real hours, and hand you a written plan with build and running costs. You own the plan whether or not we build it.",
+  },
+  {
+    q: "How much does a project cost?",
+    a: "It depends on what's being built. Websites start at [$0,000], automations at [$0,000], and custom software at [$0,000]. You get a fixed number in the proposal — I do not do open-ended hourly billing.",
   },
   {
     q: "How do payments work?",
@@ -263,7 +388,7 @@ export const faqs = [
   },
   {
     q: "How long does it take?",
-    a: "A landing page is 10–14 days. A full marketing site is typically 4–7 weeks from kickoff. The single biggest variable is how fast content and feedback come back from your side, and I will tell you that clearly up front.",
+    a: "An automation or a landing page is usually 2–4 weeks. A full website is 2–6 weeks, and custom software or a mobile app 6–12 weeks from kickoff. The single biggest variable is how fast content and feedback come back from your side, and I will tell you that clearly up front.",
   },
   {
     q: "What happens after launch?",
@@ -321,8 +446,9 @@ export const principles = [
 ];
 
 export const nav = [
-  { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
+  { label: "AI Audit", href: "/#ai-audit" },
+  { label: "Work", href: "/work" },
   { label: "Studio", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
