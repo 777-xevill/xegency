@@ -9,7 +9,6 @@ import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { MotionOrchestrator } from "@/components/motion/motion";
 import { Preloader } from "@/components/motion/preloader";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
-import { Cursor } from "@/components/motion/cursor";
 import { site, siteStatus, founder } from "@/content/site";
 
 const display = Instrument_Serif({
@@ -100,7 +99,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <MotionOrchestrator />
         <RevealObserver />
         <ScrollProgress />
-        <Cursor />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

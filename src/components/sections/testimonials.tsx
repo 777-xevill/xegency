@@ -12,16 +12,23 @@ export function Testimonials() {
   return (
     <section className="grain relative bg-umber py-24 text-bone md:py-32">
       <Shell>
-        <Eyebrow>In their words</Eyebrow>
+        <div data-reveal="">
+          <Eyebrow>In their words</Eyebrow>
+        </div>
 
         <div className="mt-14 grid gap-x-10 gap-y-14 md:grid-cols-2">
           {testimonials.map((t, i) => (
             <figure
               key={t.name + i}
               data-reveal=""
-              style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
-              className="border-t border-bone/20 pt-8"
+              data-reveal-variant="flip"
+              style={{ "--reveal-delay": `${i * 120}ms` } as React.CSSProperties}
             >
+              <span
+                aria-hidden="true"
+                data-draw=""
+                className="mb-8 block h-px w-full bg-bone/20"
+              />
               <blockquote className="display balance text-[clamp(1.4rem,2.6vw,2.1rem)] leading-[1.15]">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>

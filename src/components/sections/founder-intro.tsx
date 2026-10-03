@@ -11,15 +11,18 @@ import { isPlaceholder } from "@/lib/format";
  */
 export function FounderIntro() {
   return (
-    <section className="grain relative bg-ink py-24 md:py-36">
+    <section className="grain ambient relative bg-ink py-24 md:py-36">
       <Shell>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
-          <div
-            data-reveal=""
-            className="relative lg:col-span-5 lg:sticky lg:top-28 lg:self-start"
-          >
-            <div className="relative aspect-[4/5] overflow-hidden bg-ink-800">
+          {/* The sticky column itself carries no motion — only its children —
+              so transforms never interfere with the sticky positioning. */}
+          <div className="relative lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+            <div
+              data-clip-reveal=""
+              className="relative aspect-[4/5] overflow-hidden bg-ink-800"
+            >
               <Image
+                data-clip-inner=""
                 src="/founder/portrait.jpg"
                 alt={`${founder.name}, ${founder.role} of ${site.name}`}
                 fill
@@ -27,7 +30,11 @@ export function FounderIntro() {
                 className="object-cover"
               />
             </div>
-            <p className="eyebrow mt-4 text-bone/45">
+            <p
+              data-reveal=""
+              style={{ "--reveal-delay": "240ms" } as React.CSSProperties}
+              className="eyebrow mt-4 text-bone/45"
+            >
               {founder.fullName} — {founder.role}
             </p>
           </div>
@@ -36,7 +43,7 @@ export function FounderIntro() {
             <Eyebrow>Who you&rsquo;ll actually work with</Eyebrow>
 
             <h2
-              data-reveal=""
+              data-split="lines"
               className="display mt-6 text-[clamp(2.1rem,4.4vw,3.6rem)]"
             >
               I&rsquo;m {founder.name}.
@@ -47,8 +54,14 @@ export function FounderIntro() {
             </h2>
 
             <div className="mt-8 space-y-6 text-base leading-relaxed text-bone/70 md:text-lg">
-              <p className="pretty">{founder.bio}</p>
-              <p className="pretty">
+              <p data-reveal="" className="pretty">
+                {founder.bio}
+              </p>
+              <p
+                data-reveal=""
+                style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
+                className="pretty"
+              >
                 Most people who reach out have been burned before — by an agency
                 that disappeared, a freelancer who over-promised, or a template
                 that never quite fit. That is usually the real conversation, so
@@ -57,50 +70,77 @@ export function FounderIntro() {
               </p>
             </div>
 
-            <dl className="mt-12 grid grid-cols-2 gap-px border-t border-bone/12 sm:grid-cols-3">
+            <span
+              aria-hidden="true"
+              data-draw=""
+              className="mt-12 block h-px w-full bg-bone/12"
+            />
+            <dl
+              data-stagger="0.09"
+              className="grid grid-cols-2 gap-px sm:grid-cols-3"
+            >
               <Fact label="Based in" value={founder.location} />
               <Fact label="Working hours" value={founder.timezone} />
               <Fact label="Doing this since" value={founder.since} />
             </dl>
 
-            <Link
-              href="/about"
-              className="link-sweep eyebrow mt-10 inline-flex items-center gap-2 text-stone"
-            >
-              More about the studio
-              <Arrow />
-            </Link>
+            <div data-reveal="" className="mt-10">
+              <Link
+                href="/about"
+                data-magnetic="0.25"
+                className="link-sweep eyebrow inline-flex items-center gap-2 text-stone"
+              >
+                More about the studio
+                <Arrow />
+              </Link>
+            </div>
 
-            {/* supporting photography */}
+            {/* supporting photography — each frame wipes open from its outer
+                edge, then the photo drifts inside it with the scroll */}
             <div className="mt-14 grid grid-cols-2 gap-4">
-              <figure data-reveal="">
-                <div className="relative aspect-[4/5] overflow-hidden bg-ink-800">
-                  <Image
-                    src="/founder/at-work.jpg"
-                    alt="Working on a build at the studio desk"
-                    fill
-                    sizes="(min-width: 1024px) 25vw, 45vw"
-                    className="object-cover"
-                  />
+              <figure data-velocity-skew="">
+                <div
+                  data-clip-reveal="left"
+                  className="relative aspect-[4/5] overflow-hidden bg-ink-800"
+                >
+                  <div data-parallax-img="" className="absolute inset-0">
+                    <Image
+                      src="/founder/at-work.jpg"
+                      alt="Working on a build at the studio desk"
+                      fill
+                      sizes="(min-width: 1024px) 25vw, 45vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-                <figcaption className="eyebrow mt-3 text-bone/40">
+                <figcaption
+                  data-reveal=""
+                  style={{ "--reveal-delay": "200ms" } as React.CSSProperties}
+                  className="eyebrow mt-3 text-bone/40"
+                >
                   In the build
                 </figcaption>
               </figure>
-              <figure
-                data-reveal=""
-                style={{ "--reveal-delay": "90ms" } as React.CSSProperties}
-              >
-                <div className="relative aspect-[4/5] overflow-hidden bg-ink-800">
-                  <Image
-                    src="/founder/studio.jpg"
-                    alt={`${founder.name} away from the desk`}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, 45vw"
-                    className="object-cover"
-                  />
+              <figure data-velocity-skew="">
+                <div
+                  data-clip-reveal="right"
+                  className="relative aspect-[4/5] overflow-hidden bg-ink-800"
+                >
+                  <div data-parallax-img="" className="absolute inset-0">
+                    <Image
+                      src="/founder/studio.jpg"
+                      alt={`${founder.name} away from the desk`}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, 45vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-                <figcaption className="eyebrow mt-3 text-bone/40">
+                <figcaption
+                  data-reveal=""
+                  style={{ "--reveal-delay": "290ms" } as React.CSSProperties}
+                  className="eyebrow mt-3 text-bone/40"
+                >
                   Off the clock
                 </figcaption>
               </figure>
