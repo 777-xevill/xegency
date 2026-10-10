@@ -121,6 +121,7 @@ export function SiteFooter() {
         >
           <span
             data-scrub-letters=""
+            data-velocity-skew=""
             className="display block pb-[0.2em] text-center text-[clamp(3.5rem,17vw,15rem)] leading-[0.8] text-bone/[0.12]"
           >
             Xegency

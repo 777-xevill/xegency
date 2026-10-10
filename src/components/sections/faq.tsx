@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { faqs } from "@/content/site";
-import { Eyebrow, Shell, cx } from "@/components/ui";
+import { Eyebrow, Float3D, Shell, cx } from "@/components/ui";
 
 export function Faq({
   heading = "The questions people actually ask.",
@@ -30,7 +30,8 @@ export function Faq({
   }, [open]);
 
   return (
-    <section id="faq" className="grain relative bg-bone-50 py-24 text-ink md:py-36">
+    <section id="faq" className="grain relative isolate overflow-clip bg-bone-50 py-24 text-ink md:py-36">
+      <Float3D className="-left-36 bottom-0 hidden h-[26rem] w-[26rem] text-ink/[0.12] md:block" />
       <Shell>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:sticky lg:top-28 lg:col-span-4 lg:self-start">

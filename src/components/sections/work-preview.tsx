@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { featuredPortfolio } from "@/content/portfolio";
 import { WorkCard } from "@/components/work-card";
-import { Arrow, Eyebrow, Shell } from "@/components/ui";
+import { Arrow, Eyebrow, Float3D, Shell } from "@/components/ui";
 
 export function WorkPreview() {
   const items = featuredPortfolio.slice(0, 3);
@@ -9,12 +9,14 @@ export function WorkPreview() {
 
   return (
     <section className="grain ambient relative bg-ink-800 py-24 md:py-36">
+      <Float3D className="-right-36 top-24 hidden h-[30rem] w-[30rem] text-bone/[0.09] md:block" />
       <Shell>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <Eyebrow>Client work &amp; founder products</Eyebrow>
             <h2
               data-split="lines"
+              data-velocity-skew=""
               className="display mt-6 text-[clamp(2.1rem,4.6vw,4rem)]"
             >
               Recent work.

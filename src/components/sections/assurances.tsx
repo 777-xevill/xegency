@@ -1,5 +1,5 @@
 import { assurances } from "@/content/site";
-import { Eyebrow, Shell } from "@/components/ui";
+import { Eyebrow, Float3D, Shell } from "@/components/ui";
 
 /**
  * The section that does the heavy lifting for a studio nobody has heard of
@@ -8,7 +8,8 @@ import { Eyebrow, Shell } from "@/components/ui";
  */
 export function Assurances() {
   return (
-    <section className="grain relative bg-ink-800 py-24 md:py-36">
+    <section className="grain relative isolate overflow-clip bg-ink-800 py-24 md:py-36">
+      <Float3D className="-right-40 top-16 hidden h-[30rem] w-[30rem] text-bone/[0.09] md:block" />
       <Shell>
         <div className="max-w-3xl">
           <Eyebrow>Working with someone new</Eyebrow>

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Eyebrow, Shell } from "@/components/ui";
+import { Eyebrow, Float3D, Shell } from "@/components/ui";
 
 export function PageHero({
   eyebrow,
@@ -16,15 +16,8 @@ export function PageHero({
 }) {
   return (
     <section className="grain ambient relative bg-ink pt-36 pb-16 md:pt-48 md:pb-20">
-      {/* The logo's own diamond, drifting at the edge. */}
-      <div
-        aria-hidden="true"
-        data-parallax="0.25"
-        className="pointer-events-none absolute -right-24 top-1/2 hidden h-[34rem] w-[34rem] -translate-y-1/2 lg:block"
-      >
-        <div className="h-full w-full rotate-45 border border-bone/10" />
-        <div className="absolute inset-[16%] rotate-45 border border-bone/[0.07]" />
-      </div>
+      {/* The logo's slab, turning in 3D at the edge. */}
+      <Float3D className="-right-28 top-1/2 hidden h-[34rem] w-[34rem] -translate-y-1/2 text-bone/[0.12] lg:block" />
       <Shell>
         <Eyebrow>{eyebrow}</Eyebrow>
 

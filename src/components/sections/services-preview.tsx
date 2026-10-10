@@ -19,6 +19,7 @@ export function ServicesPreview() {
             <Eyebrow>What we build</Eyebrow>
             <h2
               data-split="lines"
+              data-velocity-skew=""
               className="display mt-6 text-[clamp(2.1rem,4.6vw,4rem)]"
             >
               Every capability a
