@@ -66,7 +66,7 @@ export async function createStage(
 
   const small = window.innerWidth < 768;
   renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio, small ? 1.5 : maxPixelRatio),
+    Math.min(window.devicePixelRatio, small ? 1.1 : maxPixelRatio),
   );
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.NeutralToneMapping;

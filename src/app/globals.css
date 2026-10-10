@@ -320,3 +320,17 @@ html.intro { overflow: hidden; }
   .grain::after,
   .ambient::before { animation: none; }
 }
+
+/* Phones and tablets: keep the look, drop what costs frames. Blended,
+   animated film grain, drifting glows and blur filters are the usual
+   culprits for janky touch scrolling. */
+@media (max-width: 1023px), (hover: none) {
+  .grain::after {
+    animation: none;
+    mix-blend-mode: normal;
+    opacity: 0.05;
+  }
+  .ambient::before { animation: none; }
+  [data-reveal] { filter: none; transition-property: opacity, transform; }
+  header.fixed { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}

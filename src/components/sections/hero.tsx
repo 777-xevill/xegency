@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { availability, founder, site } from "@/content/site";
 import { HeroScene } from "@/components/three/hero-scene";
 import { Cta, Shell, cx } from "@/components/ui";
@@ -85,37 +84,6 @@ export function Hero() {
             </div>
           </div>
 
-          {/* --------------------------------------------------- portrait */}
-          <div
-            data-reveal=""
-            data-reveal-variant="scale"
-            style={{ "--reveal-delay": "380ms" } as React.CSSProperties}
-            className="relative lg:col-span-5 lg:flex lg:justify-end"
-          >
-            <div data-parallax="0.18" className="w-full max-w-[240px] lg:max-w-[280px]">
-              <div
-                data-tilt="6"
-                className="relative aspect-[4/5] w-full overflow-hidden border border-bone/15 bg-ink-800 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.85)]"
-              >
-                <Image
-                  src="/founder/portrait.jpg"
-                  alt={`${founder.name}, ${founder.role} of ${site.name}`}
-                  fill
-                  loading="eager"
-                  fetchPriority="high"
-                  sizes="(min-width: 1024px) 280px, 240px"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <p className="display text-[clamp(1.2rem,1.8vw,1.55rem)] leading-tight">
-                    {founder.fullName}
-                  </p>
-                  <p className="eyebrow mt-2 text-stone">{founder.role}</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* ------------------------------------------------- meta strip */}

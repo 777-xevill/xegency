@@ -75,7 +75,7 @@ export function HeroScene({ className = "" }: { className?: string }) {
 
         /* ------------------------------------------------- dust */
         const small = window.innerWidth < 768;
-        const COUNT = small ? 260 : 520;
+        const COUNT = small ? 120 : 520;
         const positions = new Float32Array(COUNT * 3);
         for (let i = 0; i < COUNT; i++) {
           const r = 3 + Math.random() * 7;
@@ -113,7 +113,7 @@ export function HeroScene({ className = "" }: { className?: string }) {
           base.visW = base.visH * aspect;
           // Landscape: right of the copy. Portrait: tucked into the empty
           // top-right corner beside the headline.
-          base.x = wide ? base.visW * 0.15 : base.visW * 0.27;
+          base.x = wide ? base.visW * 0.2 : base.visW * 0.27;
           base.y = wide ? 0 : base.visH * 0.2;
         });
 
