@@ -9,10 +9,11 @@ import { Arrow, Eyebrow, Shell } from "@/components/ui";
  */
 export function ServicesPreview() {
   return (
-    <section
-      data-pin-horizontal=""
-      className="grain relative bg-ink py-24 md:py-36"
-    >
+    <section className="grain relative bg-ink">
+      {/* GSAP pins this inner wrapper, never the <section> itself: pinning
+          moves the pinned node into a spacer element, and React has to find
+          the section exactly where it left it when the page unmounts. */}
+      <div data-pin-horizontal="" className="relative py-24 md:py-36">
       <Shell className="relative z-10 w-full">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
@@ -101,6 +102,7 @@ export function ServicesPreview() {
             />
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
