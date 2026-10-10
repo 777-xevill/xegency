@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { PortfolioItem } from "@/content/portfolio";
 import { isProduct } from "@/content/portfolio";
-import { Arrow, cx } from "@/components/ui";
+import { Arrow } from "@/components/ui";
 import { XedineosCardPreview } from "@/components/sections/xedineos-demo";
 import { AlphaFuelCardPreview } from "@/components/sections/alpha-fuel-cover";
 
@@ -77,36 +77,48 @@ export function WorkCard({
   const product = isProduct(item);
   const href = `/work/${item.slug}`;
 
+  // Transforms never share an element: the outer wrapper tilts in from depth,
+  // the frame tilts with the pointer, the cover wipes open and settles.
   return (
-    <Link
-      href={href}
-      data-reveal=""
-      style={{ "--reveal-delay": `${index * 90}ms` } as React.CSSProperties}
-      className={cx("group block", className)}
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-ink-800">
-        <Panel item={item} />
-        <span className="absolute left-4 top-4 border border-bone/25 bg-ink/70 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-bone backdrop-blur-sm">
-          {product ? "Founder product" : "Client project"}
-        </span>
-      </div>
+    <div className={className}>
+      <div data-rotate-in="">
+        <Link href={href} className="group block">
+          <div data-tilt="4" className="relative">
+            <div
+              data-clip-reveal=""
+              className="relative aspect-[4/3] overflow-hidden bg-ink-800"
+            >
+              <div data-clip-inner="" className="absolute inset-0">
+                <Panel item={item} />
+              </div>
+              <span className="absolute left-4 top-4 z-10 border border-bone/25 bg-ink/70 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-bone backdrop-blur-sm">
+                {product ? "Founder product" : "Client project"}
+              </span>
+            </div>
+          </div>
 
-      <div className="flex items-start justify-between gap-6 border-t border-bone/10 pt-5">
-        <div>
-          <h3 className="display text-[clamp(1.35rem,2.2vw,1.9rem)] leading-tight">
-            {item.title}
-          </h3>
-          <p className="pretty mt-2.5 max-w-md text-sm leading-relaxed text-bone/60">
-            {item.summary}
-          </p>
-          <p className="eyebrow mt-4 text-stone">
-            {item.client} · {product ? item.status : item.region}
-          </p>
-        </div>
-        <span className="mt-1.5 shrink-0 text-bone/40 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-bone">
-          <Arrow className="h-4 w-4" />
-        </span>
+          <div
+            data-reveal=""
+            style={{ "--reveal-delay": `${index * 90}ms` } as React.CSSProperties}
+            className="flex items-start justify-between gap-6 border-t border-bone/10 pt-5"
+          >
+            <div>
+              <h3 className="display text-[clamp(1.35rem,2.2vw,1.9rem)] leading-tight">
+                {item.title}
+              </h3>
+              <p className="pretty mt-2.5 max-w-md text-sm leading-relaxed text-bone/60">
+                {item.summary}
+              </p>
+              <p className="eyebrow mt-4 text-stone">
+                {item.client} · {product ? item.status : item.region}
+              </p>
+            </div>
+            <span className="mt-1.5 shrink-0 text-bone/40 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-bone">
+              <Arrow className="h-4 w-4" />
+            </span>
+          </div>
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 }

@@ -62,7 +62,7 @@ export default function ContactPage() {
             <aside className="lg:col-span-4 lg:col-start-9">
               <div className="border-t border-bone/12 pt-6">
                 <Eyebrow>Or reach me directly</Eyebrow>
-                <dl className="mt-6 space-y-5">
+                <dl data-stagger="0.07" className="mt-6 space-y-5">
                   {direct.map((d) => (
                     <div key={d.label}>
                       <dt className="eyebrow text-bone/45">{d.label}</dt>
@@ -98,7 +98,7 @@ export default function ContactPage() {
 
               <div className="mt-12 border-t border-bone/12 pt-6">
                 <Eyebrow>What happens next</Eyebrow>
-                <ol className="mt-6 space-y-5">
+                <ol data-stagger="0.09" className="mt-6 space-y-5">
                   {process.slice(0, 3).map((p) => (
                     <li key={p.step} className="flex gap-4">
                       <span className="eyebrow mt-1 shrink-0 text-stone">

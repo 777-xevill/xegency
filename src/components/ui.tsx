@@ -48,6 +48,7 @@ export function Eyebrow({
     >
       <span
         aria-hidden="true"
+        data-draw=""
         className={cx(
           "h-px w-6",
           invert ? "bg-umber/50" : "bg-stone/50",
@@ -242,8 +243,16 @@ export function Marquee({
 }) {
   const row = [...items, ...items];
   return (
-    <div className="marquee relative overflow-hidden py-6" aria-hidden="true">
-      <div className="marquee-track flex w-max items-center gap-10 whitespace-nowrap">
+    <div
+      data-marquee="60"
+      data-marquee-pause=""
+      className="relative overflow-hidden py-6"
+      aria-hidden="true"
+    >
+      <div
+        data-marquee-track=""
+        className="flex w-max items-center gap-10 whitespace-nowrap"
+      >
         {row.map((item, i) => (
           <span key={i} className="flex items-center gap-10">
             <span

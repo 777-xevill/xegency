@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { nav, availability } from "@/content/site";
 import { cx, Arrow } from "@/components/ui";
 import { Logo } from "@/components/logo";
+import { getLenis } from "@/lib/motion";
 
 const statusDot = {
   open: "bg-emerald-500",
@@ -16,20 +17,40 @@ const statusDot = {
 export function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const openRef = useRef(open);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    openRef.current = open;
+  }, [open]);
+
+  // Slides away while you read downward, comes straight back on any upward
+  // scroll — and never hides behind an open menu.
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      const delta = y - last;
+      if (Math.abs(delta) > 4) {
+        setHidden(delta > 0 && y > 140 && !openRef.current);
+        last = y;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll behind the mobile sheet.
+  // Lock page scroll behind the mobile sheet (Lenis ignores overflow).
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) getLenis()?.stop();
+    else getLenis()?.start();
     return () => {
       document.body.style.overflow = "";
+      getLenis()?.start();
     };
   }, [open]);
 
@@ -37,7 +58,8 @@ export function SiteHeader() {
     <>
       <header
         className={cx(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "fixed inset-x-0 top-0 z-50 transition-[translate,background-color,border-color,backdrop-filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          hidden && !open && "-translate-y-full",
           scrolled
             ? "border-b border-bone/10 bg-ink/85 backdrop-blur-xl"
             : "border-b border-transparent",
@@ -47,9 +69,9 @@ export function SiteHeader() {
           <Link
             href="/"
             aria-label="Xegency — home"
-            className="shrink-0 text-[13px] text-bone md:text-[14px]"
+            className="group shrink-0 text-[13px] text-bone md:text-[14px]"
           >
-            <Logo />
+            <Logo markClassName="transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-90" />
           </Link>
 
           <nav className="hidden items-center gap-10 md:flex">
@@ -85,13 +107,15 @@ export function SiteHeader() {
               </span>
             </span>
 
-            <Link
-              href="/contact"
-              className="group hidden items-center gap-2 bg-bone px-6 py-3 text-[12px] font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-stone sm:inline-flex"
-            >
-              Start a project
-              <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+            <span data-magnetic="0.3" className="hidden sm:inline-block">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-2 bg-bone px-6 py-3 text-[12px] font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-stone"
+              >
+                Start a project
+                <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </Link>
+            </span>
 
             <button
               type="button"
@@ -121,6 +145,7 @@ export function SiteHeader() {
       {/* mobile sheet */}
       <div
         id="mobile-nav"
+        data-lenis-prevent=""
         // Keeps the closed sheet out of the tab order and off screen readers,
         // while still allowing it to animate rather than pop in and out.
         inert={!open}

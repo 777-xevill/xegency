@@ -43,11 +43,14 @@ export default function ServicesPage() {
                 key={s.number}
                 id={s.number}
                 data-reveal=""
-                className="scroll-mt-28 grid gap-10 border-t border-bone/12 pt-10 lg:grid-cols-12 lg:gap-10"
+                className="rule-draw scroll-mt-28 grid gap-10 pt-10 lg:grid-cols-12 lg:gap-10"
               >
                 <div className="lg:col-span-5">
                   <span className="eyebrow text-stone">{s.number}</span>
-                  <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)] leading-[1.02]">
+                  <h2
+                    data-split="lines"
+                    className="display mt-5 text-[clamp(2rem,4vw,3.25rem)] leading-[1.02]"
+                  >
                     {s.title}
                   </h2>
                   <p className="pretty mt-6 max-w-md text-base leading-relaxed text-bone/70 md:text-lg">
@@ -75,15 +78,17 @@ export default function ServicesPage() {
                   </dl>
 
                   <div className="mt-10">
-                    <Cta href="/contact" variant="outline">
-                      Enquire about this
-                    </Cta>
+                    <span data-magnetic="0.3">
+                      <Cta href="/contact" variant="outline">
+                        Enquire about this
+                      </Cta>
+                    </span>
                   </div>
                 </div>
 
                 <div className="lg:col-span-6 lg:col-start-7">
                   <Eyebrow>What&rsquo;s included</Eyebrow>
-                  <ul className="mt-6">
+                  <ul data-stagger="0.05" className="mt-6">
                     {s.deliverables.map((d) => (
                       <li
                         key={d}
@@ -112,7 +117,10 @@ export default function ServicesPage() {
               <Eyebrow>How pricing works</Eyebrow>
             </div>
             <div className="lg:col-span-8">
-              <h2 className="display balance text-[clamp(1.9rem,3.8vw,3.1rem)]">
+              <h2
+                data-split="lines"
+                className="display balance text-[clamp(1.9rem,3.8vw,3.1rem)]"
+              >
                 Why there&rsquo;s a number on this page at all.
               </h2>
               <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12">

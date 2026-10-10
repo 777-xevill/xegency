@@ -17,18 +17,25 @@ export function AiAudit() {
           <div className="lg:col-span-5">
             <Eyebrow invert>AI audit</Eyebrow>
             <h2
-              data-reveal=""
+              data-split="lines"
               className="display balance mt-6 text-[clamp(2.1rem,4.4vw,3.75rem)]"
             >
               Find out what AI can take off your team&rsquo;s plate.
             </h2>
-            <p className="pretty mt-8 max-w-md text-base leading-relaxed text-ink/65">
+            <p
+              data-reveal=""
+              style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
+              className="pretty mt-8 max-w-md text-base leading-relaxed text-ink/65"
+            >
               You know you should be using AI. You don&rsquo;t know where, or
               what it would cost. In one week you get a ranked, priced plan —
               written for your business, not a generic slide deck.
             </p>
 
-            <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-6">
+            <dl
+              data-stagger="0.1"
+              className="mt-10 flex flex-wrap gap-x-12 gap-y-6"
+            >
               <div>
                 <dt className="eyebrow text-ink/45">Takes</dt>
                 <dd className="mt-2 text-sm">{aiAudit.duration}</dd>
@@ -47,9 +54,11 @@ export function AiAudit() {
             </dl>
 
             <div className="mt-10">
-              <Cta href="/contact" invert>
-                Book an AI audit
-              </Cta>
+              <span data-magnetic="0.3">
+                <Cta href="/contact" invert>
+                  Book an AI audit
+                </Cta>
+              </span>
             </div>
           </div>
 
@@ -58,10 +67,11 @@ export function AiAudit() {
               <li
                 key={step.title}
                 data-reveal=""
-                style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+                data-reveal-variant="flip"
+                style={{ "--reveal-delay": `${i * 110}ms` } as React.CSSProperties}
                 className="border-b border-ink/12 py-8 sm:odd:pr-10 sm:even:border-l sm:even:pl-10"
               >
-                <span className="eyebrow text-umber">
+                <span className="display block text-[clamp(3rem,5vw,4.5rem)] leading-[0.8] text-umber/45">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="display mt-4 text-2xl leading-tight md:text-3xl">

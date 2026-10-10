@@ -60,7 +60,10 @@ export default function WorkPage() {
               <Eyebrow>Two kinds of work</Eyebrow>
             </div>
             <div className="lg:col-span-8">
-              <h2 className="display balance text-[clamp(1.9rem,3.6vw,3rem)]">
+              <h2
+                data-split="lines"
+                className="display balance text-[clamp(1.9rem,3.6vw,3rem)]"
+              >
                 Why some names are withheld, and others aren&rsquo;t.
               </h2>
               <p className="pretty mt-8 max-w-2xl text-base leading-relaxed text-bone/70">
@@ -72,7 +75,9 @@ export default function WorkPage() {
                 can show more of how they actually work.
               </p>
               <div className="mt-10">
-                <Cta href="/contact">Ask for references</Cta>
+                <span data-magnetic="0.3">
+                  <Cta href="/contact">Ask for references</Cta>
+                </span>
               </div>
             </div>
           </div>

@@ -36,10 +36,17 @@ export function LogoMark({ className = "" }: { className?: string }) {
   );
 }
 
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({
+  className = "",
+  markClassName = "",
+}: {
+  className?: string;
+  /** Extra classes for the mark alone — e.g. a hover rotation in the header. */
+  markClassName?: string;
+}) {
   return (
     <span className={cx("inline-flex items-center gap-3", className)}>
-      <LogoMark className="h-[1.75em] w-[1.75em] shrink-0" />
+      <LogoMark className={cx("h-[1.75em] w-[1.75em] shrink-0", markClassName)} />
       <svg
         viewBox={WORDMARK.viewBox}
         className="h-[1em] w-auto"

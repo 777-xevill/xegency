@@ -15,12 +15,22 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="grain relative bg-ink pt-36 pb-16 md:pt-48 md:pb-20">
+    <section className="grain ambient relative bg-ink pt-36 pb-16 md:pt-48 md:pb-20">
+      {/* The logo's own diamond, drifting at the edge. */}
+      <div
+        aria-hidden="true"
+        data-parallax="0.25"
+        className="pointer-events-none absolute -right-24 top-1/2 hidden h-[34rem] w-[34rem] -translate-y-1/2 lg:block"
+      >
+        <div className="h-full w-full rotate-45 border border-bone/10" />
+        <div className="absolute inset-[16%] rotate-45 border border-bone/[0.07]" />
+      </div>
       <Shell>
         <Eyebrow>{eyebrow}</Eyebrow>
 
         <h1
-          data-reveal=""
+          data-split="lines"
+          data-split-trigger="intro"
           className="display balance mt-7 max-w-5xl text-[clamp(2.5rem,6.4vw,5.5rem)]"
         >
           {title}
@@ -39,7 +49,10 @@ export function PageHero({
         {children}
 
         {meta && meta.length > 0 && (
-          <dl className="mt-14 grid grid-cols-2 gap-px border-t border-bone/12 md:grid-cols-4">
+          <dl
+            data-stagger="0.08"
+            className="mt-14 grid grid-cols-2 gap-px border-t border-bone/12 md:grid-cols-4"
+          >
             {meta.map((m) => (
               <div key={m.label} className="py-6 pr-6">
                 <dt className="eyebrow text-bone/45">{m.label}</dt>

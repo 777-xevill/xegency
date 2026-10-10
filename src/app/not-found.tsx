@@ -5,7 +5,11 @@ export default function NotFound() {
     <section className="grain relative flex min-h-[70vh] items-center bg-ink pt-32 pb-24">
       <Shell>
         <Eyebrow>404</Eyebrow>
-        <h1 className="display balance mt-7 max-w-3xl text-[clamp(2.5rem,6vw,5rem)]">
+        <h1
+          data-split="lines"
+          data-split-trigger="intro"
+          className="display balance mt-7 max-w-3xl text-[clamp(2.5rem,6vw,5rem)]"
+        >
           That page has moved, or never existed.
         </h1>
         <p className="pretty mt-8 max-w-lg text-lg leading-relaxed text-bone/70">

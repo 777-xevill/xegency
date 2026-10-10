@@ -57,7 +57,8 @@ export default async function PortfolioItemPage({
           </p>
 
           <h1
-            data-reveal=""
+            data-split="lines"
+            data-split-trigger="intro"
             className="display balance mt-5 max-w-5xl text-[clamp(2.3rem,5.6vw,5rem)]"
           >
             {item.title}
@@ -70,7 +71,10 @@ export default async function PortfolioItemPage({
             {item.summary}
           </p>
 
-          <dl className="mt-14 grid grid-cols-2 gap-px border-t border-bone/12 md:grid-cols-4">
+          <dl
+            data-stagger="0.08"
+            className="mt-14 grid grid-cols-2 gap-px border-t border-bone/12 md:grid-cols-4"
+          >
             <Meta label="Sector" value={item.sector} />
             <Meta label={product ? "Status" : "Region"} value={product ? item.status : item.region} />
             <Meta label="Year" value={item.year} />
@@ -230,7 +234,10 @@ export default async function PortfolioItemPage({
               Next {isProduct(next) ? "product" : "case study"}
             </p>
             <div className="mt-6 flex items-end justify-between gap-8 border-t border-bone/15 pt-8">
-              <h2 className="display text-[clamp(1.8rem,4.4vw,3.5rem)] leading-tight">
+              <h2
+                data-split="lines"
+                className="display text-[clamp(1.8rem,4.4vw,3.5rem)] leading-tight"
+              >
                 {next.title}
               </h2>
               <Arrow className="mb-3 h-6 w-6 shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5 group-hover:-translate-y-1.5" />

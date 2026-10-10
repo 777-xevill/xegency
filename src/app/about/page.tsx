@@ -36,18 +36,21 @@ export default function AboutPage() {
         <Shell>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-5">
-              <div
-                data-reveal=""
-                className="relative aspect-[4/5] overflow-hidden bg-ink-800 lg:sticky lg:top-28"
-              >
-                <Image
-                  src="/founder/portrait.jpg"
-                  alt={`${founder.name}, ${founder.role} of ${site.name}`}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover"
-                />
+              <div className="lg:sticky lg:top-28">
+                <div
+                  data-clip-reveal=""
+                  className="relative aspect-[4/5] overflow-hidden bg-ink-800"
+                >
+                  <Image
+                    data-clip-inner=""
+                    src="/founder/portrait.jpg"
+                    alt={`${founder.name}, ${founder.role} of ${site.name}`}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
 
@@ -82,32 +85,39 @@ export default function AboutPage() {
               </p>
 
               <div className="mt-14 grid grid-cols-2 gap-4">
-                <figure data-reveal="">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-ink-800">
-                    <Image
-                      src="/founder/at-work.jpg"
-                      alt="Working on a build at the studio desk"
-                      fill
-                      sizes="(min-width: 1024px) 25vw, 45vw"
-                      className="object-cover"
-                    />
+                <figure>
+                  <div
+                    data-clip-reveal="left"
+                    className="relative aspect-[4/5] overflow-hidden bg-ink-800"
+                  >
+                    <div data-parallax-img="" className="absolute inset-0">
+                      <Image
+                        src="/founder/at-work.jpg"
+                        alt="Working on a build at the studio desk"
+                        fill
+                        sizes="(min-width: 1024px) 25vw, 45vw"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                   <figcaption className="eyebrow mt-3 text-bone/40">
                     In the build
                   </figcaption>
                 </figure>
-                <figure
-                  data-reveal=""
-                  style={{ "--reveal-delay": "90ms" } as React.CSSProperties}
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden bg-ink-800">
-                    <Image
-                      src="/founder/studio.jpg"
-                      alt={`${founder.name} away from the desk`}
-                      fill
-                      sizes="(min-width: 1024px) 25vw, 45vw"
-                      className="object-cover"
-                    />
+                <figure>
+                  <div
+                    data-clip-reveal="right"
+                    className="relative aspect-[4/5] overflow-hidden bg-ink-800"
+                  >
+                    <div data-parallax-img="" className="absolute inset-0">
+                      <Image
+                        src="/founder/studio.jpg"
+                        alt={`${founder.name} away from the desk`}
+                        fill
+                        sizes="(min-width: 1024px) 25vw, 45vw"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                   <figcaption className="eyebrow mt-3 text-bone/40">
                     Off the clock
@@ -126,7 +136,7 @@ export default function AboutPage() {
             <div className="lg:col-span-4">
               <Eyebrow>Studio facts</Eyebrow>
               <h2
-                data-reveal=""
+                data-split="lines"
                 className="display mt-6 text-[clamp(1.9rem,3.8vw,3rem)]"
               >
                 The boring page
@@ -146,7 +156,7 @@ export default function AboutPage() {
                   key={f.label}
                   data-reveal=""
                   style={{ "--reveal-delay": `${i * 40}ms` } as React.CSSProperties}
-                  className="grid gap-2 border-t border-bone/12 py-5 sm:grid-cols-3 sm:gap-6"
+                  className="rule-draw grid gap-2 py-5 sm:grid-cols-3 sm:gap-6"
                 >
                   <dt className="eyebrow pt-1 text-bone/45">{f.label}</dt>
                   <dd
@@ -172,7 +182,7 @@ export default function AboutPage() {
           <div className="max-w-3xl">
             <Eyebrow>How we operate</Eyebrow>
             <h2
-              data-reveal=""
+              data-split="lines"
               className="display balance mt-6 text-[clamp(2rem,4.2vw,3.4rem)]"
             >
               Six rules we don&rsquo;t break, including the one that costs us
@@ -180,14 +190,12 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+          <div
+            data-stagger="0.08"
+            className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3"
+          >
             {principles.map((p, i) => (
-              <div
-                key={p.title}
-                data-reveal=""
-                style={{ "--reveal-delay": `${i * 70}ms` } as React.CSSProperties}
-                className="border-t border-bone/12 pt-6"
-              >
+              <div key={p.title} className="border-t border-bone/12 pt-6">
                 <span className="eyebrow text-stone">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -208,7 +216,10 @@ export default function AboutPage() {
 
       <section className="grain relative bg-ink py-24 md:py-32">
         <Shell className="text-center">
-          <h2 className="display balance mx-auto max-w-3xl text-[clamp(2rem,4.4vw,3.6rem)]">
+          <h2
+            data-split="lines"
+            className="display balance mx-auto max-w-3xl text-[clamp(2rem,4.4vw,3.6rem)]"
+          >
             Still deciding whether to send that first email?
           </h2>
           <p className="pretty mx-auto mt-8 max-w-xl text-base leading-relaxed text-bone/65">
@@ -217,10 +228,14 @@ export default function AboutPage() {
             waiting on the other side.
           </p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-            <Cta href="/contact">Get in touch</Cta>
-            <Cta href="/work" variant="outline">
-              See the work first
-            </Cta>
+            <span data-magnetic="0.3">
+              <Cta href="/contact">Get in touch</Cta>
+            </span>
+            <span data-magnetic="0.3">
+              <Cta href="/work" variant="outline">
+                See the work first
+              </Cta>
+            </span>
           </div>
         </Shell>
       </section>

@@ -128,6 +128,33 @@ function splitText(cleanups: Cleanup[]) {
     });
   }
 
+  for (const el of all("[data-scrub-letters]")) {
+    const split = SplitText.create(el, {
+      type: "chars",
+      mask: "chars",
+      charsClass: "split-char",
+      onSplit(self) {
+        return gsap.fromTo(
+          self.chars,
+          { yPercent: 118, rotate: 7, transformOrigin: "0% 100%" },
+          {
+            yPercent: 0,
+            rotate: 0,
+            ease: "power3.out",
+            stagger: 0.08,
+            scrollTrigger: {
+              trigger: el,
+              start: "top 108%",
+              end: "top 62%",
+              scrub: true,
+            },
+          },
+        );
+      },
+    });
+    cleanups.push(() => split.revert());
+  }
+
   for (const el of all("[data-scrub-words]")) {
     const split = SplitText.create(el, {
       type: "words",
@@ -408,6 +435,25 @@ function desktopLayouts() {
       },
     });
 
+    const bar = section.querySelector<HTMLElement>("[data-pin-progress]");
+    if (bar) {
+      gsap.fromTo(
+        bar,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => `+=${distance()}`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        },
+      );
+    }
+
     for (const card of Array.from(track.children) as HTMLElement[]) {
       gsap.fromTo(
         card,
@@ -436,19 +482,25 @@ function desktopLayouts() {
     cards.forEach((card, i) => {
       const next = cards[i + 1];
       if (!next) return;
+      // Scale the covered card back and dim it with an overlay — never with
+      // opacity, or the card underneath would show through it.
+      const trigger = {
+        trigger: next,
+        start: "top bottom",
+        end: () => `top ${parseFloat(getComputedStyle(next).top) || 0}px`,
+        scrub: true,
+        invalidateOnRefresh: true,
+      };
       gsap.to(card, {
         scale: 0.92,
-        opacity: 0.45,
         transformOrigin: "50% 0%",
         ease: "none",
-        scrollTrigger: {
-          trigger: next,
-          start: "top bottom",
-          end: () => `top ${parseFloat(getComputedStyle(next).top) || 0}px`,
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
+        scrollTrigger: trigger,
       });
+      const shade = card.querySelector<HTMLElement>("[data-stack-shade]");
+      if (shade) {
+        gsap.to(shade, { opacity: 0.16, ease: "none", scrollTrigger: trigger });
+      }
     });
   }
 }

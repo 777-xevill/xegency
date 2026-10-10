@@ -224,18 +224,36 @@ html.motion:not(.motion-ready) [data-scrub-words] { opacity: 0.12; }
   100% { transform: translate3d(-2%, 6%, 0) scale(1.02); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(0, -14px, 0) rotate(4deg); }
+}
+
+/* A rule that draws itself left to right when its row reveals. */
+.rule-draw { position: relative; }
+.rule-draw::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--rule, color-mix(in srgb, var(--color-bone) 12%, transparent));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 1.6s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.rule-draw[data-reveal="in"]::before { transform: scaleX(1); }
+
+/* Each letter of a scrubbed wordmark gets room for its overhangs. */
+.split-char-mask {
+  padding: 0.12em 0.04em;
+  margin: -0.12em -0.04em;
+}
+
 /* First-visit preloader (shown only while <html> has `intro`). */
 .preloader { display: none; }
 html.intro .preloader { display: flex; }
 html.intro { overflow: hidden; }
-
-/* Custom cursor replaces the system one on fine pointers — except where
-   typing needs the caret. */
-html.has-cursor,
-html.has-cursor * { cursor: none !important; }
-html.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
-  cursor: text !important;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .grain::after,
