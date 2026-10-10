@@ -1,5 +1,5 @@
 import { aiAudit } from "@/content/site";
-import { Cta, Eyebrow, Shell, cx } from "@/components/ui";
+import { Cta, Eyebrow, Float3D, Shell, cx } from "@/components/ui";
 import { isPlaceholder } from "@/lib/format";
 
 /**
@@ -10,9 +10,10 @@ export function AiAudit() {
   return (
     <section
       id="ai-audit"
-      className="grain relative scroll-mt-24 bg-bone-50 py-24 text-ink md:py-36"
+      className="grain relative isolate scroll-mt-24 overflow-clip bg-bone-50 py-24 text-ink md:py-36"
     >
-      <Shell>
+      <Float3D className="-bottom-24 -left-48 hidden h-[30rem] w-[30rem] text-ink/[0.14] md:block" />
+      <Shell className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Eyebrow invert>AI audit</Eyebrow>

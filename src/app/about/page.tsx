@@ -46,7 +46,8 @@ export default function AboutPage() {
                     src="/founder/portrait.jpg"
                     alt={`${founder.name}, ${founder.role} of ${site.name}`}
                     fill
-                    priority
+                    loading="eager"
+                    fetchPriority="high"
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover"
                   />

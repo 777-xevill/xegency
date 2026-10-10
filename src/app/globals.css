@@ -49,6 +49,11 @@ html {
   }
 }
 
+/* 3D-tilted elements waiting to animate in can poke past the edge; clip
+   (unlike hidden) does not create a scroll container, so sticky and pinned
+   sections keep working. */
+main { overflow-x: clip; }
+
 body {
   background: var(--shell);
   color: var(--color-bone);
@@ -248,6 +253,62 @@ html.motion:not(.motion-ready) [data-scrub-words] { opacity: 0.12; }
 .split-char-mask {
   padding: 0.12em 0.04em;
   margin: -0.12em -0.04em;
+}
+
+/* Floating 3D slab stack (see Float3D in ui.tsx). */
+.float3d { perspective: 1100px; }
+.float3d-spin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: float3d-spin 46s linear infinite;
+}
+.float3d-layer {
+  position: absolute;
+  inset: 0;
+  border: 1px solid currentColor;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, currentColor 10%, transparent),
+    transparent 62%
+  );
+  transform: translateZ(calc(var(--z) * 1px));
+}
+@keyframes float3d-spin {
+  from { transform: rotateX(62deg) rotateZ(45deg); }
+  to   { transform: rotateX(62deg) rotateZ(405deg); }
+}
+
+/* The pinned services track only becomes a horizontal rail once the motion
+   layer has switched it on (<html class="pin-on">). Without it — no script,
+   reduced motion, narrow screens — it stays an ordinary grid of cards. */
+[data-pin-progress-wrap] { display: none; }
+@media (min-width: 1024px) {
+  html.pin-on [data-pin-horizontal] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    padding-top: 6rem;
+    padding-bottom: 0;
+  }
+  html.pin-on [data-pin-track] {
+    position: relative;
+    display: flex;
+    width: max-content;
+    max-width: none;
+    margin-inline: 0;
+    gap: 1.25rem;
+    padding-left: max(3.5rem, calc((100vw - 1400px) / 2 + 3.5rem));
+    padding-right: 3.5rem;
+  }
+  html.pin-on [data-pin-track] > li {
+    flex: none;
+    width: clamp(300px, 26vw, 400px);
+  }
+  html.pin-on [data-pin-card] { height: min(50vh, 440px); }
+  html.pin-on [data-pin-progress-wrap] { display: block; }
 }
 
 /* First-visit preloader (shown only while <html> has `intro`). */

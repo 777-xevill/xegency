@@ -295,3 +295,38 @@ export function Rule({
     />
   );
 }
+
+/* ------------------------------------------------------- floating 3D slabs */
+
+/**
+ * A stack of thin outlined squares turning slowly in perspective — the logo's
+ * slab, drawn in CSS. Decorative: it drifts and turns with the scroll
+ * (data-float3d, see src/components/motion/motion.tsx). Size and colour come
+ * from the className (the layers draw in currentColor). The section it sits
+ * in needs `isolate overflow-clip`; the content above it `relative z-10`.
+ */
+export function Float3D({
+  className = "",
+  layers = 7,
+}: {
+  className?: string;
+  layers?: number;
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      data-float3d=""
+      className={cx("float3d pointer-events-none absolute -z-10", className)}
+    >
+      <div className="float3d-spin">
+        {Array.from({ length: layers }, (_, i) => (
+          <span
+            key={i}
+            className="float3d-layer"
+            style={{ "--z": (i - (layers - 1) / 2) * 30 } as React.CSSProperties}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}

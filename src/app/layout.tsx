@@ -76,7 +76,7 @@ export const metadata: Metadata = {
  * for reduced motion, and both are withdrawn if the motion layer never
  * reports ready, so a failed bundle can't leave the page hidden.
  */
-const motionBootstrap = `(function(){var d=document.documentElement;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('motion');try{if(!sessionStorage.getItem('xg-intro'))d.classList.add('intro')}catch(e){}setTimeout(function(){if(!d.classList.contains('motion-ready')){d.classList.remove('motion');d.classList.remove('intro')}},6000)}catch(e){}})();`;
+const motionBootstrap = `(function(){var d=document.documentElement;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('motion');if(matchMedia('(min-width: 1024px)').matches)d.classList.add('pin-on');try{if(!sessionStorage.getItem('xg-intro')||/[?&]intro(=|&|$)/.test(location.search))d.classList.add('intro')}catch(e){}setTimeout(function(){if(!d.classList.contains('motion-ready')){d.classList.remove('motion');d.classList.remove('intro');d.classList.remove('pin-on')}},6000)}catch(e){}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

@@ -101,7 +101,8 @@ export function Hero() {
                   src="/founder/portrait.jpg"
                   alt={`${founder.name}, ${founder.role} of ${site.name}`}
                   fill
-                  priority
+                  loading="eager"
+                  fetchPriority="high"
                   sizes="(min-width: 1024px) 280px, 240px"
                   className="object-cover"
                 />

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { MARK } from "@/lib/logo-geometry";
 import { getLenis, markIntroDone } from "@/lib/motion";
 
 /**
@@ -43,14 +42,18 @@ export function Preloader() {
         },
       });
 
+      // The four pieces fly in out of the screen in 3D and lock together; the
+      // finished mark then turns a full revolution as the curtain lifts.
       tl.from(pieces, {
-        scale: 0,
-        rotate: -90,
+        z: -520,
+        rotationX: 110,
+        rotationY: -130,
+        scale: 0.25,
         opacity: 0,
         transformOrigin: "50% 50%",
-        duration: 0.9,
+        duration: 1.25,
         ease: "expo.out",
-        stagger: 0.11,
+        stagger: 0.13,
       })
         .to(
           state,
@@ -65,9 +68,9 @@ export function Preloader() {
           0,
         )
         .fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: 1.3, ease: "power2.inOut" }, 0)
-        .to(mark, { rotate: 90, scale: 0.8, duration: 0.9, ease: "expo.inOut" }, 1.1)
-        .to(el, { clipPath: "inset(0% 0% 100% 0%)", duration: 1.05, ease: "expo.inOut" }, 1.3)
-        .call(markIntroDone, [], 1.42);
+        .to(mark, { rotationY: 360, scale: 0.82, duration: 1.05, ease: "expo.inOut" }, 1.1)
+        .to(el, { clipPath: "inset(0% 0% 100% 0%)", duration: 1.05, ease: "expo.inOut" }, 1.35)
+        .call(markIntroDone, [], 1.45);
     }, el);
 
     return () => ctx.revert();
@@ -80,23 +83,43 @@ export function Preloader() {
       className="preloader grain fixed inset-0 z-[100] flex-col items-center justify-center bg-ink text-bone"
       style={{ clipPath: "inset(0% 0% 0% 0%)" }}
     >
-      <svg data-pl-mark viewBox="0 0 100 100" className="relative z-10 h-16 w-16 md:h-20 md:w-20">
-        <g transform={MARK.transform} fill="currentColor">
-          {MARK.solid.map((d) => (
-            <path key={d} data-pl-piece d={d} />
-          ))}
-          <rect
-            data-pl-piece
-            x={MARK.outline.x}
-            y={MARK.outline.y}
-            width={MARK.outline.size}
-            height={MARK.outline.size}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={MARK.outline.stroke}
-          />
-        </g>
-      </svg>
+      {/* The mark as plain boxes so it can fly in 3D (SVG parts can't). Same
+          grid as the logo: a 2×2 of squares turned 45°; the top-left one is
+          the hollow frame. Positions follow src/lib/logo-geometry.ts. */}
+      <div
+        className="relative z-10 h-20 w-20 md:h-24 md:w-24"
+        style={{ perspective: "800px" }}
+      >
+        <div
+          data-pl-mark
+          className="absolute inset-0"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          <div
+            className="absolute left-1/2 top-1/2 h-[70.71%] w-[70.71%] -translate-x-1/2 -translate-y-1/2 rotate-45"
+            style={{ transformStyle: "preserve-3d" }}
+          >
+            {[
+              { left: "57%", top: "0%" },
+              { left: "0%", top: "57%" },
+              { left: "57%", top: "57%" },
+            ].map((pos) => (
+              <span
+                key={pos.left + pos.top}
+                data-pl-piece=""
+                className="absolute h-[43%] w-[43%] bg-bone"
+                style={pos}
+              />
+            ))}
+            <span
+              data-pl-piece=""
+              className="absolute left-0 top-0 h-[43%] w-[43%] bg-bone"
+            >
+              <span className="absolute inset-[20.9%] bg-ink" />
+            </span>
+          </div>
+        </div>
+      </div>
 
       <div className="absolute inset-x-6 bottom-8 z-10 flex items-end justify-between md:inset-x-10 md:bottom-10 lg:inset-x-14">
         <span className="eyebrow text-stone">Xegency</span>

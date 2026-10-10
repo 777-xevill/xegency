@@ -3,6 +3,7 @@ import { contact, founder, nav, site, availability } from "@/content/site";
 import { services } from "@/content/site";
 import { Shell, Arrow, cx } from "@/components/ui";
 import { Logo } from "@/components/logo";
+import { FooterScene } from "@/components/three/footer-scene";
 import { isPlaceholder, mailtoHref, safeHref } from "@/lib/format";
 
 export function SiteFooter() {
@@ -12,6 +13,13 @@ export function SiteFooter() {
 
   return (
     <footer className="relative grain overflow-hidden bg-ink text-bone">
+      {/* The 3D mark assembles as you scroll down to it. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[32rem] md:h-[40rem]"
+      >
+        <FooterScene className="absolute inset-0" />
+      </div>
       <Shell className="relative z-10 pt-24 pb-10 md:pt-32">
         {/* call to action */}
         <div className="flex flex-col gap-10 border-b border-bone/10 pb-16 md:flex-row md:items-end md:justify-between">

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { onIntroDone, prefersReducedMotion } from "@/lib/motion";
+import { getLenis, onIntroDone, prefersReducedMotion } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -278,6 +278,24 @@ function blocks(cleanups: Cleanup[]) {
     );
   }
 
+  for (const el of all("[data-float3d]")) {
+    gsap.fromTo(
+      el,
+      { rotationY: -26, y: 70 },
+      {
+        rotationY: 26,
+        y: -70,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el.parentElement ?? el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      },
+    );
+  }
+
   for (const el of all("[data-rotate-in]")) {
     const guard = guardTransform(el);
     gsap.from(el, {
@@ -407,7 +425,9 @@ function velocityEffects(cleanups: Cleanup[]) {
 
 /* -------------------------------------------------- desktop layouts */
 
-function desktopLayouts() {
+function desktopLayouts(): Cleanup {
+  const off: Cleanup[] = [];
+
   for (const section of all("[data-pin-horizontal]")) {
     const track = section.querySelector<HTMLElement>("[data-pin-track]");
     if (!track) continue;
@@ -433,6 +453,34 @@ function desktopLayouts() {
         invalidateOnRefresh: true,
         anticipatePin: 1,
       },
+    });
+
+    // Tabbing to a card that is off to the side must bring it into view by
+    // scrolling the page to the matching point, not by shifting the clipped
+    // section sideways.
+    const onFocusIn = (e: FocusEvent) => {
+      const card = (e.target as HTMLElement | null)?.closest<HTMLElement>(
+        "[data-pin-track] > *",
+      );
+      const st = travel.scrollTrigger;
+      const total = distance();
+      if (!card || !st || total <= 0) return;
+      section.scrollLeft = 0;
+      const gutter = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      const want = gsap.utils.clamp(0, total, card.offsetLeft - gutter);
+      const y = st.start + (want / total) * (st.end - st.start);
+      const lenis = getLenis();
+      if (lenis) lenis.scrollTo(y, { duration: 1, force: true });
+      else window.scrollTo({ top: y, behavior: "smooth" });
+    };
+    const keepLeft = () => {
+      if (section.scrollLeft !== 0) section.scrollLeft = 0;
+    };
+    track.addEventListener("focusin", onFocusIn);
+    section.addEventListener("scroll", keepLeft);
+    off.push(() => {
+      track.removeEventListener("focusin", onFocusIn);
+      section.removeEventListener("scroll", keepLeft);
     });
 
     const bar = section.querySelector<HTMLElement>("[data-pin-progress]");
@@ -493,6 +541,8 @@ function desktopLayouts() {
       };
       gsap.to(card, {
         scale: 0.92,
+        rotationX: -4,
+        transformPerspective: 1400,
         transformOrigin: "50% 0%",
         ease: "none",
         scrollTrigger: trigger,
@@ -503,6 +553,8 @@ function desktopLayouts() {
       }
     });
   }
+
+  return () => off.reverse().forEach((c) => c());
 }
 
 /* ------------------------------------------------------------ pointer */
@@ -580,6 +632,23 @@ function pointerEffects(): Cleanup {
 
 export function MotionOrchestrator() {
   const pathname = usePathname();
+
+  // The pinned services rail needs its horizontal layout switched on whenever
+  // the screen is wide and motion is allowed. Tied to the viewport rather than
+  // the route, so it is already in place when the home page mounts.
+  useEffect(() => {
+    const wide = window.matchMedia("(min-width: 1024px)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () =>
+      document.documentElement.classList.toggle("pin-on", wide.matches && !calm.matches);
+    sync();
+    wide.addEventListener("change", sync);
+    calm.addEventListener("change", sync);
+    return () => {
+      wide.removeEventListener("change", sync);
+      calm.removeEventListener("change", sync);
+    };
+  }, []);
 
   // Before paint on every route: re-arm the CSS pre-hide so the new page's
   // animated elements don't flash before GSAP takes them over.

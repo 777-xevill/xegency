@@ -1,10 +1,11 @@
 import { techStack } from "@/content/site";
+import { CoreScene } from "@/components/three/core-scene";
 import { Eyebrow, Shell } from "@/components/ui";
 
 export function EngineRoom() {
   return (
     <section className="grain ambient relative bg-ink py-24 md:py-32">
-      <Shell>
+      <Shell className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Eyebrow>The engine room</Eyebrow>
@@ -24,6 +25,15 @@ export function EngineRoom() {
               fashionable. Your next developer can pick it up without a rescue
               project.
             </p>
+
+            {/* A particle core that flattens into a diamond as you scroll
+                past — its own space, so it never sits behind the copy. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none relative mt-6 h-[17rem] sm:h-[20rem] lg:-ml-8 lg:mt-2 lg:h-[24rem]"
+            >
+              <CoreScene className="absolute inset-0" />
+            </div>
           </div>
 
           <dl className="lg:col-span-7">

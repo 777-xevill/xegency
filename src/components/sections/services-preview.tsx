@@ -11,7 +11,7 @@ export function ServicesPreview() {
   return (
     <section
       data-pin-horizontal=""
-      className="grain relative bg-ink py-24 md:py-36 lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:overflow-hidden lg:py-0 lg:pt-24"
+      className="grain relative bg-ink py-24 md:py-36"
     >
       <Shell className="relative z-10 w-full">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -39,13 +39,10 @@ export function ServicesPreview() {
       <div className="mt-12 lg:mt-12">
         <ul
           data-pin-track=""
-          className="mx-auto grid max-w-[1400px] gap-4 px-6 sm:grid-cols-2 md:px-10 lg:mx-0 lg:flex lg:w-max lg:max-w-none lg:gap-5 lg:pl-[max(3.5rem,calc((100vw-1400px)/2+3.5rem))] lg:pr-14"
+          className="mx-auto grid max-w-[1400px] gap-4 px-6 sm:grid-cols-2 md:px-10 lg:grid-cols-4 lg:px-14"
         >
           {services.map((s, i) => (
-            <li
-              key={s.number}
-              className="lg:w-[clamp(300px,26vw,400px)] lg:shrink-0"
-            >
+            <li key={s.number}>
               <div
                 data-reveal=""
                 style={{ "--reveal-delay": `${(i % 2) * 90}ms` } as React.CSSProperties}
@@ -53,7 +50,8 @@ export function ServicesPreview() {
               >
                 <div
                   data-tilt="5"
-                  className="relative h-full overflow-hidden border border-bone/12 bg-ink-800/70 transition-colors duration-700 ease-out-expo hover:border-bone/30 lg:h-[min(50vh,440px)]"
+                  data-pin-card=""
+                  className="relative h-full overflow-hidden border border-bone/12 bg-ink-800/70 transition-colors duration-700 ease-out-expo hover:border-bone/30"
                 >
                   <Link
                     href={`/services#${s.number}`}
@@ -90,7 +88,10 @@ export function ServicesPreview() {
         </ul>
 
         {/* Travel indicator, desktop only. */}
-        <div className="mx-auto mt-8 hidden max-w-[1400px] px-14 lg:block">
+        <div
+          data-pin-progress-wrap=""
+          className="mx-auto mt-8 max-w-[1400px] px-14"
+        >
           <div className="h-px w-full bg-bone/12">
             <div
               data-pin-progress=""

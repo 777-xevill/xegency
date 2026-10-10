@@ -1,5 +1,5 @@
 import { capabilities, clients, stats } from "@/content/site";
-import { Eyebrow, Marquee, Shell, cx } from "@/components/ui";
+import { Eyebrow, Float3D, Marquee, Shell, cx } from "@/components/ui";
 import { isPlaceholder } from "@/lib/format";
 
 export function CapabilitiesBand() {
@@ -65,8 +65,9 @@ function ClientList({ duplicate = false }: { duplicate?: boolean }) {
 
 export function Manifesto() {
   return (
-    <section className="grain relative bg-bone-50 py-24 text-ink md:py-36">
-      <Shell>
+    <section className="grain relative isolate overflow-clip bg-bone-50 py-24 text-ink md:py-36">
+      <Float3D className="-right-40 top-8 hidden h-[34rem] w-[34rem] text-ink/[0.16] md:block" />
+      <Shell className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Holds its place while the statement lights up beside it. */}
           <div className="lg:sticky lg:top-32 lg:col-span-4 lg:self-start">
@@ -122,7 +123,8 @@ export function Manifesto() {
 export function Stats() {
   return (
     <section className="grain ambient relative bg-ink py-20 text-bone md:py-28">
-      <Shell>
+      <Float3D className="-left-44 top-1/2 hidden h-[30rem] w-[30rem] -translate-y-1/2 text-bone/[0.1] md:block" />
+      <Shell className="relative z-10">
         <dl
           data-stagger="0.1"
           className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4"
