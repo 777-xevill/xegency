@@ -5,6 +5,10 @@ import { isProduct } from "@/content/portfolio";
 import { Arrow } from "@/components/ui";
 import { XedineosCardPreview } from "@/components/sections/xedineos-demo";
 import { AlphaFuelCardPreview } from "@/components/sections/alpha-fuel-cover";
+import {
+  ProductVisual,
+  hasProductVisual,
+} from "@/components/sections/product-visuals";
 
 /**
  * The visual half of a card.
@@ -21,6 +25,10 @@ function Panel({ item }: { item: PortfolioItem }) {
   }
   if (item.slug === "alpha-fuel") {
     return <AlphaFuelCardPreview />;
+  }
+
+  if (!item.cover && hasProductVisual(item.slug)) {
+    return <ProductVisual slug={item.slug} />;
   }
 
   if (item.cover) {

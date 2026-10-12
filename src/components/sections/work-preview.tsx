@@ -13,7 +13,7 @@ export function WorkPreview() {
       <Shell>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <Eyebrow>Client work &amp; founder products</Eyebrow>
+            <Eyebrow>AI products &amp; client work</Eyebrow>
             <h2
               data-split="lines"
               data-velocity-skew=""
@@ -46,9 +46,10 @@ export function WorkPreview() {
           data-reveal=""
           className="pretty rule-draw mt-16 max-w-2xl pt-8 text-sm leading-relaxed text-bone/55"
         >
-          Xegency is both: a studio that builds software for clients, and a
-          founder who builds his own products alongside it. Most client names
-          are withheld on request — the products are ours, so we can show more.
+          Xegency builds software for clients and its own AI products
+          alongside. Products marked &ldquo;Demo build&rdquo; are working
+          concepts shown with sample data &mdash; ready to pilot on a real
+          business.
         </p>
       </Shell>
     </section>
