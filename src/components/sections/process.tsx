@@ -29,13 +29,19 @@ export function Process() {
           </div>
 
           {/* Cards pile up as you scroll: each one sticks and the next slides
-              over it (data-stack, desktop only). */}
+              over it (data-stack). Tighter offsets on phones, where the
+              fixed header is shorter. */}
           <ol data-stack="" className="space-y-5 lg:col-span-8">
             {process.map((p, i) => (
               <li
                 key={p.step}
-                style={{ top: `calc(7rem + ${i * 1.1}rem)` }}
-                className="relative border border-ink/10 bg-bone-100 shadow-[0_-24px_50px_-30px_rgba(15,14,13,0.35)] lg:sticky"
+                style={
+                  {
+                    "--top-m": `calc(5.5rem + ${i * 0.8}rem)`,
+                    "--top-d": `calc(7rem + ${i * 1.1}rem)`,
+                  } as React.CSSProperties
+                }
+                className="sticky top-[var(--top-m)] border border-ink/10 bg-bone-100 shadow-[0_-14px_30px_-22px_rgba(15,14,13,0.35)] lg:top-[var(--top-d)] lg:shadow-[0_-24px_50px_-30px_rgba(15,14,13,0.35)]"
               >
                 <span
                   aria-hidden="true"

@@ -605,6 +605,16 @@ function desktopLayouts(): Cleanup {
     }
   }
 
+  return () => off.reverse().forEach((c) => c());
+}
+
+/* ------------------------------------------------------- card stack */
+
+/**
+ * Pinned cards pile up as you scroll. Runs at every width — phones included —
+ * since it is only a scale and an overlay fade, both cheap on a touch screen.
+ */
+function stackEffects() {
   for (const list of all("[data-stack]")) {
     const cards = Array.from(list.children) as HTMLElement[];
     cards.forEach((card, i) => {
@@ -620,8 +630,8 @@ function desktopLayouts(): Cleanup {
         invalidateOnRefresh: true,
       };
       gsap.to(card, {
-        scale: 0.92,
-        rotationX: -4,
+        scale: 0.94,
+        rotationX: -3,
         transformPerspective: 1400,
         transformOrigin: "50% 0%",
         ease: "none",
@@ -633,8 +643,6 @@ function desktopLayouts(): Cleanup {
       }
     });
   }
-
-  return () => off.reverse().forEach((c) => c());
 }
 
 /* ------------------------------------------------------------ pointer */
@@ -760,6 +768,7 @@ export function MotionOrchestrator() {
           blocks(cleanups);
           velocityEffects(cleanups);
           ringEffects(cleanups);
+          stackEffects();
         });
         mm = gsap.matchMedia();
         mm.add("(min-width: 1024px)", () => desktopLayouts());
