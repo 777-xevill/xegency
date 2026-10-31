@@ -6,12 +6,13 @@ import { Stats } from "@/components/sections/proof";
 import { Assurances } from "@/components/sections/assurances";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Shell, Eyebrow, Cta, cx } from "@/components/ui";
-import { isPlaceholder } from "@/lib/format";
+import { isPlaceholder, shown } from "@/lib/format";
 import { OrganizationSchema } from "@/components/structured-data";
 
 export const metadata: Metadata = {
   title: "Studio",
   description: `Who runs ${site.name}, where we work from, how we operate and what we will and won't take on.`,
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
@@ -152,7 +153,7 @@ export default function AboutPage() {
             </div>
 
             <dl className="lg:col-span-8">
-              {studioFacts.map((f, i) => (
+              {studioFacts.filter((f) => shown(f.value)).map((f, i) => (
                 <div
                   key={f.label}
                   data-reveal=""

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Work",
   description:
     "AI products, client software and founder-led products from Xegency — including a WhatsApp auto-reply assistant, lead follow-up, AI support and more.",
+  alternates: { canonical: "/work" },
 };
 
 export default function WorkPage() {

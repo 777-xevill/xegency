@@ -1,3 +1,5 @@
+import { siteStatus } from "@/content/site";
+
 /**
  * Content in `src/content/*` uses [SQUARE BRACKETS] for facts that have not
  * been filled in yet. These helpers stop a placeholder from turning into a
@@ -8,6 +10,20 @@
 export function isPlaceholder(value: string | null | undefined): boolean {
   if (!value) return true;
   return /^\s*\[.*\]\s*$/.test(value);
+}
+
+/** True when a string still contains an unfilled [PLACEHOLDER] anywhere in it. */
+export function hasPlaceholder(value: string): boolean {
+  return /\[[^\]]+\]/.test(value);
+}
+
+/**
+ * Whether a value should reach the page at all. A draft shows unfilled
+ * placeholders so they get noticed; a live site leaves them out rather than
+ * show a prospect "[$0,000]".
+ */
+export function shown(value: string): boolean {
+  return siteStatus === "draft" || !hasPlaceholder(value);
 }
 
 /** Returns the href, or null when the value is still a placeholder. */

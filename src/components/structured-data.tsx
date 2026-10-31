@@ -1,10 +1,5 @@
 import { contact, faqs, founder, site, siteStatus } from "@/content/site";
-import { isPlaceholder } from "@/lib/format";
-
-/** True when a string still contains an unfilled [PLACEHOLDER] anywhere in it. */
-function hasPlaceholder(value: string) {
-  return /\[[^\]]+\]/.test(value);
-}
+import { hasPlaceholder, isPlaceholder } from "@/lib/format";
 
 /**
  * Structured data. Google uses it for rich results, and it is one of the
@@ -25,17 +20,29 @@ function clean<T extends Record<string, unknown>>(obj: T) {
   );
 }
 
+const ORG_ID = `${site.url}/#organization`;
+
+/**
+ * The organisation and the website as one graph. The WebSite node is what
+ * Google reads for the site name shown above a result; the logo and the
+ * profiles in `sameAs` tie the brand's search result, Facebook Page and
+ * Instagram together as one entity.
+ */
 export function OrganizationSchema() {
   const sameAs = contact.socials
     .map((s) => s.href)
     .filter((h) => !isPlaceholder(h));
+  const [locality, country] = founder.location.split(",").map((p) => p.trim());
+  const logo = `${site.url}/brand/app-icon-512.png`;
 
-  const data = clean({
-    "@context": "https://schema.org",
+  const organization = clean({
     "@type": "ProfessionalService",
+    "@id": ORG_ID,
     name: site.name,
     description: site.description,
     url: site.url,
+    logo,
+    image: logo,
     email: isPlaceholder(contact.email) ? undefined : contact.email,
     telephone: contact.phone || undefined,
     areaServed: "Worldwide",
@@ -46,6 +53,9 @@ export function OrganizationSchema() {
       "Web development",
       "Mobile app development",
       "UI/UX design",
+      "Brand identity",
+      "Facebook advertising",
+      "Instagram advertising",
     ],
     founder: clean({
       "@type": "Person",
@@ -54,11 +64,28 @@ export function OrganizationSchema() {
     }),
     address: isPlaceholder(founder.location)
       ? undefined
-      : { "@type": "PostalAddress", addressLocality: founder.location },
+      : clean({
+          "@type": "PostalAddress",
+          addressLocality: locality,
+          addressCountry: country,
+        }),
     sameAs: sameAs.length ? sameAs : undefined,
   });
 
-  return <Script id="schema-org" data={data} />;
+  const website = {
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    name: site.name,
+    url: `${site.url}/`,
+    publisher: { "@id": ORG_ID },
+  };
+
+  return (
+    <Script
+      id="schema-org"
+      data={{ "@context": "https://schema.org", "@graph": [organization, website] }}
+    />
+  );
 }
 
 export function FaqSchema() {
@@ -87,8 +114,11 @@ function Script({ id, data }: { id: string; data: unknown }) {
     <script
       id={id}
       type="application/ld+json"
-      // Content is authored by us in src/content, not user input.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      // Content is authored by us in src/content, not user input; `<` is
+      // still escaped so no string can close the script tag early.
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }

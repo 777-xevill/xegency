@@ -3,7 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { faqs } from "@/content/site";
+import { faqs as allFaqs } from "@/content/site";
+import { shown } from "@/lib/format";
+
+const faqs = allFaqs.filter((f) => shown(f.a));
 import { Eyebrow, Float3D, Shell, cx } from "@/components/ui";
 
 export function Faq({

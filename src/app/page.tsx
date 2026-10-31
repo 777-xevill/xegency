@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { ClientsBand, Manifesto, Stats } from "@/components/sections/proof";
 import { ServicesPreview } from "@/components/sections/services-preview";
@@ -9,7 +10,14 @@ import { Assurances } from "@/components/sections/assurances";
 import { FounderIntro } from "@/components/sections/founder-intro";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
+import { BrandGrowth } from "@/components/sections/brand-growth";
 import { OrganizationSchema, FaqSchema } from "@/components/structured-data";
+
+export const metadata: Metadata = {
+  // The root is the one URL Google should treat as "Xegency" — not the
+  // .vercel.app alias that serves the same page.
+  alternates: { canonical: "/" },
+};
 
 export default function HomePage() {
   return (
@@ -22,6 +30,7 @@ export default function HomePage() {
       <ServicesPreview />
       <Manifesto />
       <EngineRoom />
+      <BrandGrowth />
       <WorkPreview />
       <AiAudit />
       <FounderIntro />

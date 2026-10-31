@@ -6,13 +6,20 @@ import { Assurances } from "@/components/sections/assurances";
 import { Faq } from "@/components/sections/faq";
 import { CapabilitiesBand } from "@/components/sections/proof";
 import { Shell, Eyebrow, Cta, cx } from "@/components/ui";
-import { isPlaceholder } from "@/lib/format";
+import { isPlaceholder, shown } from "@/lib/format";
 import { FaqSchema } from "@/components/structured-data";
+
+/**
+ * Whether any starting price is on show. Until real prices are filled in, a
+ * live site hides them — and then the copy must stop promising numbers too.
+ */
+const priced = services.some((s) => shown(s.from));
 
 export const metadata: Metadata = {
   title: "Services & pricing",
   description:
-    "AI agents and automation, custom software, websites, web and mobile apps, design and DevOps — with scope, timelines and starting prices written down.",
+    "AI agents and automation, custom software, websites and apps, creative branding and Facebook & Instagram ads — each with a written scope, a timeline and one fixed price.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {
@@ -23,13 +30,25 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services & pricing"
         title={
-          <>
-            What it costs,
-            <br />
-            written down.
-          </>
+          priced ? (
+            <>
+              What it costs,
+              <br />
+              written down.
+            </>
+          ) : (
+            <>
+              Everything we build,
+              <br />
+              scoped in writing.
+            </>
+          )
         }
-        lead="Everything we build, each with a defined scope, a timeline and a starting price. You will get a fixed number in your proposal — never an open-ended hourly meter."
+        lead={
+          priced
+            ? "Everything we build, each with a defined scope, a timeline and a starting price. You will get a fixed number in your proposal — never an open-ended hourly meter."
+            : "Each service has a defined scope and a timeline. You get one fixed number in your proposal — never an open-ended hourly meter."
+        }
       />
 
       <CapabilitiesBand />
@@ -43,8 +62,12 @@ export default function ServicesPage() {
                 key={s.number}
                 id={s.number}
                 data-reveal=""
-                className="rule-draw scroll-mt-28 grid gap-10 pt-10 lg:grid-cols-12 lg:gap-10"
+                className="rule-draw scroll-mt-28 pt-10"
               >
+                {/* Rises in on a tilted plane and tips away on the way out
+                    (desktop). On an inner wrapper: the article's own
+                    transform belongs to the CSS reveal. */}
+                <div data-depth="" className="grid gap-10 lg:grid-cols-12 lg:gap-10">
                 <div className="lg:col-span-5">
                   <span className="eyebrow text-stone">{s.number}</span>
                   <h2
@@ -62,19 +85,21 @@ export default function ServicesPage() {
                       <dt className="eyebrow text-bone/45">Timeline</dt>
                       <dd className="mt-2 text-sm">{s.timeline}</dd>
                     </div>
-                    <div>
-                      <dt className="eyebrow text-bone/45">Starting at</dt>
-                      <dd
-                        className={cx(
-                          "mt-2 text-sm",
-                          isPlaceholder(s.from)
-                            ? "text-bone/35 italic"
-                            : "text-bone",
-                        )}
-                      >
-                        {s.from}
-                      </dd>
-                    </div>
+                    {shown(s.from) && (
+                      <div>
+                        <dt className="eyebrow text-bone/45">Starting at</dt>
+                        <dd
+                          className={cx(
+                            "mt-2 text-sm",
+                            isPlaceholder(s.from)
+                              ? "text-bone/35 italic"
+                              : "text-bone",
+                          )}
+                        >
+                          {s.from}
+                        </dd>
+                      </div>
+                    )}
                   </dl>
 
                   <div className="mt-10">
@@ -103,6 +128,7 @@ export default function ServicesPage() {
                     ))}
                   </ul>
                 </div>
+                </div>
               </article>
             ))}
           </div>
@@ -121,15 +147,26 @@ export default function ServicesPage() {
                 data-split="lines"
                 className="display balance text-[clamp(1.9rem,3.8vw,3.1rem)]"
               >
-                Why there&rsquo;s a number on this page at all.
+                {priced
+                  ? "Why there’s a number on this page at all."
+                  : "One number, agreed before any work starts."}
               </h2>
               <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12">
-                <p className="pretty text-base leading-relaxed text-bone/70">
-                  Most studios make you sit through a call to find out whether
-                  you can afford them. That wastes your afternoon and ours. The
-                  ranges above are real: they are what recent projects of that
-                  shape actually cost.
-                </p>
+                {priced ? (
+                  <p className="pretty text-base leading-relaxed text-bone/70">
+                    Most studios make you sit through a call to find out
+                    whether you can afford them. That wastes your afternoon and
+                    ours. The ranges above are real: they are what recent
+                    projects of that shape actually cost.
+                  </p>
+                ) : (
+                  <p className="pretty text-base leading-relaxed text-bone/70">
+                    No open-ended hourly meter and no surprise line items.
+                    After a short call you get a written proposal with the
+                    scope, the timeline and one fixed price — and nothing is
+                    billed until you approve it.
+                  </p>
+                )}
                 <p className="pretty text-base leading-relaxed text-bone/70">
                   What moves the number is the number of screens and
                   integrations, how much of the content you already have, how

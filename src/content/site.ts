@@ -11,13 +11,14 @@
    ========================================================================== */
 
 /**
- * "draft"  → shows a fixed banner reminding you placeholders are still live,
- *            and adds <meta name="robots" content="noindex"> so Google will
- *            not index a half-finished site.
- * "live"   → banner off, indexing on. Only flip this once every [PLACEHOLDER]
- *            below is gone.
+ * "draft"  → robots.txt blocks every crawler and each page carries
+ *            <meta name="robots" content="noindex">, so Google will not index
+ *            a half-finished site. Unfilled [PLACEHOLDERS] show in italics.
+ * "live"   → indexing and structured data on. Any [PLACEHOLDER] still left
+ *            is hidden from visitors (see `shown` in src/lib/format.ts) — a
+ *            missing price disappears rather than reading "[$0,000]".
  */
-export const siteStatus: "draft" | "live" = "draft";
+export const siteStatus: "draft" | "live" = "live";
 
 export const site = {
   name: "Xegency",
@@ -25,7 +26,7 @@ export const site = {
   url: "https://xegency.com",
   tagline: "AI-native software studio",
   description:
-    "Xegency designs and builds software end to end — AI agents and automation, custom software and SaaS, websites, web and mobile apps. If it runs on a computer, we build it.",
+    "Xegency builds AI agents, automation, custom software, websites and apps — plus the branding and Facebook & Instagram ads that bring customers to them.",
 };
 
 export const founder = {
@@ -43,22 +44,25 @@ export const founder = {
 };
 
 export const contact = {
-  email: "support@xevill.com",
+  email: "rifat@xegency.com",
   // Optional. Leave as an empty string to hide it.
   phone: "",
   // A Cal.com / Calendly / Google Appointment link. Empty string hides the button.
   calendar: "[https://cal.com/your-handle]",
   socials: [
+    { label: "Facebook", href: "https://www.facebook.com/xegency" },
+    { label: "Instagram", href: "https://www.instagram.com/xegency" },
     { label: "LinkedIn", href: "[https://linkedin.com/in/your-handle]" },
-    { label: "Instagram", href: "[https://instagram.com/your-handle]" },
-    { label: "GitHub", href: "https://github.com/777-xevill" },
     { label: "X", href: "https://x.com/777_xevill" },
+    { label: "GitHub", href: "https://github.com/777-xevill" },
   ],
 };
 
 export const availability = {
   status: "limited" as "open" | "limited" | "closed",
-  label: "Taking on 2 projects for September 2026",
+  // Evergreen on purpose: a dated label ("for September") goes stale the day
+  // the month ends, and a stale date reads as an abandoned site.
+  label: "Taking on 2 new projects a month",
   responseTime: "Replies within one business day",
 };
 
@@ -105,6 +109,8 @@ export const capabilities = [
   "Scrapers & data pipelines",
   "API integrations",
   "UI/UX design",
+  "Brand identity",
+  "Facebook & Instagram ads",
 ];
 
 export const services = [
@@ -188,21 +194,53 @@ export const services = [
   },
   {
     number: "06",
-    title: "UI/UX & brand identity",
+    title: "UI/UX design",
     summary:
-      "Interfaces people understand on first use, and a visual identity that matches the ambition — a system, not a logo dropped in a folder.",
+      "Interfaces people understand on first use — researched, prototyped and clicked through before a line of production code is written.",
     deliverables: [
       "UX research and user flows",
       "Wireframes and clickable prototypes",
-      "Logo, type and colour system",
+      "Full interface design for web and mobile",
       "Component library for your product",
-      "A written guideline your team can follow",
+      "Developer-ready handoff",
     ],
     timeline: "2–5 weeks",
     from: "[$0,000]",
   },
   {
     number: "07",
+    title: "Creative branding",
+    summary:
+      "A brand people remember and trust — positioning, voice and a visual identity, plus the creative ideas that carry it into social, ads and launches. A system, not a logo dropped in a folder.",
+    deliverables: [
+      "Brand strategy: audience, positioning and voice",
+      "Naming and tagline, if you need them",
+      "Logo, type and colour system",
+      "Social kit: post, story and ad templates",
+      "Launch and content ideas, ready to shoot",
+      "A written guideline your team can follow",
+    ],
+    timeline: "2–4 weeks",
+    from: "[$0,000]",
+  },
+  {
+    number: "08",
+    title: "Facebook & Instagram ads",
+    summary:
+      "Meta ads run like the rest of our work — tracking wired in properly, creative made for the feed, and every dollar judged by the leads and sales it brings, not by likes.",
+    deliverables: [
+      "Ad account, Pixel and Conversions API set up properly",
+      "Offer, audience and funnel strategy",
+      "Ad creative: static, carousel and short-form video",
+      "Landing pages built for the clicks you pay for",
+      "Weekly testing and budget tuning",
+      "A plain-English report: spend, leads, cost per result",
+    ],
+    timeline: "Setup in 1–2 weeks, then monthly",
+    from: "[$000] / mo",
+  },
+  {
+    number: "09",
     title: "Cloud, DevOps & integrations",
     summary:
       "Deployment, databases and the glue between your systems — so the software stays up, stays fast and talks to everything else.",
@@ -217,7 +255,7 @@ export const services = [
     from: "[$0,000]",
   },
   {
-    number: "08",
+    number: "10",
     title: "Care & growth retainer",
     summary:
       "Software is a living thing. Monthly hours for new features, fixes, speed work and keeping your AI and automations tuned.",
@@ -360,7 +398,7 @@ export const testimonials: {
 export const faqs = [
   {
     q: "Are you an agency or one person?",
-    a: "Xegency is a studio led by me, with a small group of specialists — a copywriter, a motion designer, a back-end developer — who I bring in per project. I say this openly because you will find out anyway, and because it is the reason the work is good: nothing gets handed down to whoever was free that week.",
+    a: "Xegency is a studio led by me, with a small group of specialists — a copywriter, a motion designer, a Meta ads specialist, a back-end developer — who I bring in per project. I say this openly because you will find out anyway, and because it is the reason the work is good: nothing gets handed down to whoever was free that week.",
   },
   {
     q: "Where are you based, and does that matter?",
@@ -368,7 +406,7 @@ export const faqs = [
   },
   {
     q: "What exactly can you build?",
-    a: "Anything that runs on a computer or a phone: AI agents and automations, chatbots, custom software and SaaS, websites, web and mobile apps, dashboards, browser extensions, bots and integrations. What we don't do is anything outside the screen — no hardware, no print, no marketing campaigns.",
+    a: "Anything that runs on a computer or a phone: AI agents and automations, chatbots, custom software and SaaS, websites, web and mobile apps, dashboards, browser extensions, bots and integrations. We also build the brand around it and run the Facebook and Instagram ads that bring people to it. What we don't do is anything outside the screen — no hardware, no print.",
   },
   {
     q: "We want to use AI but don't know where to start.",
@@ -376,7 +414,7 @@ export const faqs = [
   },
   {
     q: "How much does a project cost?",
-    a: "It depends on what's being built. Websites start at [$0,000], automations at [$0,000], and custom software at [$0,000]. You get a fixed number in the proposal — I do not do open-ended hourly billing.",
+    a: "It depends on what's being built — mostly the number of screens and integrations, and how much AI usage it needs to run. After a 30-minute call you get one fixed number in a written proposal. I do not do open-ended hourly billing.",
   },
   {
     q: "How do payments work?",
@@ -411,7 +449,7 @@ export const studioFacts = [
   { label: "Based in", value: "Dhaka, Bangladesh" },
   { label: "Working hours", value: "GMT+6, 09:00–18:00" },
   { label: "Languages", value: "English, Bengali" },
-  { label: "Team", value: "Studio lead plus [0] specialist collaborators" },
+  { label: "Team", value: "Studio lead plus specialist collaborators, per project" },
   { label: "Contracts", value: "Written agreement on every project · NDAs on request" },
   { label: "Invoicing", value: "Wise or bank transfer, milestone-based" },
   { label: "Typical project", value: "[$0,000] – [$00,000]" },
@@ -421,7 +459,7 @@ export const studioFacts = [
 export const principles = [
   {
     title: "Say the number",
-    body: "Prices on the site, fixed scope in the proposal, no surprise line items at the end. If something is going to cost more, you hear it before it happens, not after.",
+    body: "One fixed price in the proposal, no surprise line items at the end. If something is going to cost more, you hear it before it happens, not after.",
   },
   {
     title: "Show the work weekly",

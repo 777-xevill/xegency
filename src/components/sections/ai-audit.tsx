@@ -1,6 +1,6 @@
 import { aiAudit } from "@/content/site";
 import { Cta, Eyebrow, Float3D, Shell, cx } from "@/components/ui";
-import { isPlaceholder } from "@/lib/format";
+import { isPlaceholder, shown } from "@/lib/format";
 
 /**
  * The low-risk first step. Most buyers know they "should be using AI" and
@@ -14,7 +14,7 @@ export function AiAudit() {
     >
       <Float3D className="-bottom-24 -left-48 hidden h-[30rem] w-[30rem] text-ink/[0.14] md:block" />
       <Shell className="relative z-10">
-        <div className="grid gap-12 lg:grid-cols-12">
+        <div data-depth="" className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Eyebrow invert>AI audit</Eyebrow>
             <h2
@@ -41,17 +41,19 @@ export function AiAudit() {
                 <dt className="eyebrow text-ink/45">Takes</dt>
                 <dd className="mt-2 text-sm">{aiAudit.duration}</dd>
               </div>
-              <div>
-                <dt className="eyebrow text-ink/45">Fixed price</dt>
-                <dd
-                  className={cx(
-                    "mt-2 text-sm",
-                    isPlaceholder(aiAudit.price) && "italic text-ink/35",
-                  )}
-                >
-                  {aiAudit.price}
-                </dd>
-              </div>
+              {shown(aiAudit.price) && (
+                <div>
+                  <dt className="eyebrow text-ink/45">Fixed price</dt>
+                  <dd
+                    className={cx(
+                      "mt-2 text-sm",
+                      isPlaceholder(aiAudit.price) && "italic text-ink/35",
+                    )}
+                  >
+                    {aiAudit.price}
+                  </dd>
+                </div>
+              )}
             </dl>
 
             <div className="mt-10">

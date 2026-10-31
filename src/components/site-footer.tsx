@@ -4,7 +4,7 @@ import { services } from "@/content/site";
 import { Shell, Arrow, cx } from "@/components/ui";
 import { Logo } from "@/components/logo";
 import { FooterScene } from "@/components/three/footer-scene";
-import { isPlaceholder, mailtoHref, safeHref } from "@/lib/format";
+import { isPlaceholder, mailtoHref, safeHref, shown } from "@/lib/format";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -101,15 +101,18 @@ export function SiteFooter() {
             )}
             {contact.socials.map((s) => {
               const href = safeHref(s.href);
-              return href ? (
-                <FooterLink key={s.label} href={href}>
-                  {s.label}
-                </FooterLink>
-              ) : (
+              if (href) {
+                return (
+                  <FooterLink key={s.label} href={href}>
+                    {s.label}
+                  </FooterLink>
+                );
+              }
+              return shown(s.href) ? (
                 <li key={s.label} className="text-sm text-bone/40">
                   {s.label} — link not set
                 </li>
-              );
+              ) : null;
             })}
           </FooterColumn>
         </div>

@@ -4,11 +4,12 @@ import { PageHero } from "@/components/page-hero";
 import { ContactForm } from "@/components/contact-form";
 import { Faq } from "@/components/sections/faq";
 import { Shell, Eyebrow, cx } from "@/components/ui";
-import { isPlaceholder, mailtoHref, safeHref } from "@/lib/format";
+import { isPlaceholder, mailtoHref, safeHref, shown } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Contact",
   description: `Start a project with ${site.name}. ${availability.responseTime}.`,
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
@@ -34,7 +35,11 @@ export default function ContactPage() {
       value: founder.location,
       href: null,
     },
-  ].filter(Boolean) as { label: string; value: string; href: string | null }[];
+  ].filter((d) => d && shown(d.value)) as {
+    label: string;
+    value: string;
+    href: string | null;
+  }[];
 
   return (
     <>

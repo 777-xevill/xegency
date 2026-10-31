@@ -311,6 +311,71 @@ html.motion:not(.motion-ready) [data-scrub-words] { opacity: 0.12; }
   html.pin-on [data-pin-progress-wrap] { display: block; }
 }
 
+/* ---------- creative ring (Brand & growth) ----------
+   Cards faced outward round a vertical axis. Everything keys off the card
+   width, so the ring scales as one piece. The motion layer spins .ring-spin
+   and tilts .ring-tilt with the scroll; at rest it is turned a little so it
+   still reads as a ring. Transforms only — nothing here costs a repaint. */
+.ring-stage {
+  /* Sized so the whole ring still fits a 360px-wide phone. */
+  --card-w: clamp(110px, 17vw, 228px);
+  --card-h: calc(var(--card-w) * 1.32);
+  --ring-r: calc(var(--card-w) * 1.5);
+  height: calc(var(--card-h) * 1.9);
+  perspective: 1600px;
+  perspective-origin: 50% 30%;
+}
+.ring-tilt,
+.ring-spin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.ring-tilt { transform: rotateX(-12deg); }
+.ring-spin { transform: rotateY(-22deg); }
+.ring-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--card-w);
+  height: var(--card-h);
+  margin: calc(var(--card-h) / -2) 0 0 calc(var(--card-w) / -2);
+  transform-style: preserve-3d;
+  transform: rotateY(var(--a)) translateZ(var(--ring-r));
+}
+.ring-face,
+.ring-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.ring-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(228 223 215 / 0.08);
+  background: var(--color-ink);
+  transform: rotateY(180deg);
+}
+.ring-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--color-ink);
+  opacity: 0;
+}
+.ring-floor {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  width: calc(var(--ring-r) * 2.6);
+  height: calc(var(--card-h) * 0.55);
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgb(228 223 215 / 0.09), transparent);
+}
+
 /* First-visit preloader (shown only while <html> has `intro`). */
 .preloader { display: none; }
 html.intro .preloader { display: flex; }

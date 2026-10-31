@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
              data-parallax="0.15"  data-parallax-img  data-rotate-in
              data-velocity-skew  data-count
    Layouts   data-marquee="60" > data-marquee-track   data-pin-horizontal > data-pin-track
-             data-stack
+             data-stack  data-depth[="9"]  data-ring > data-ring-tilt > data-ring-spin
    Pointer   data-tilt[="7"]  data-magnetic[="0.3"]   (cursor labels live in cursor.tsx)
 
    Never put two transform-driving attributes on the same element.
@@ -423,10 +423,90 @@ function velocityEffects(cleanups: Cleanup[]) {
   }
 }
 
+/* --------------------------------------------------------------- ring */
+
+/**
+ * The Brand & growth ring: spun by the scroll plus a slow idle drift, tilted
+ * from above to eye level as it passes, and each card shaded by how squarely
+ * it faces the viewer. Only does per-frame work while the ring is on screen.
+ */
+function ringEffects(cleanups: Cleanup[]) {
+  for (const stage of all("[data-ring]")) {
+    const tilt = stage.querySelector<HTMLElement>("[data-ring-tilt]");
+    const spin = stage.querySelector<HTMLElement>("[data-ring-spin]");
+    if (!tilt || !spin) continue;
+
+    const cards = Array.from(spin.children) as HTMLElement[];
+    const shades = cards.map((c) => c.querySelector<HTMLElement>("[data-ring-shade]"));
+    const step = 360 / cards.length;
+    const setSpin = gsap.quickSetter(spin, "rotationY", "deg") as (v: number) => void;
+    const passage = { trigger: stage, start: "top bottom", end: "bottom top" };
+
+    const scrolled = { angle: 0 };
+    gsap.to(scrolled, {
+      angle: -300,
+      ease: "none",
+      scrollTrigger: { ...passage, scrub: 1 },
+    });
+    gsap.fromTo(
+      tilt,
+      { rotationX: -20 },
+      { rotationX: -2, ease: "none", scrollTrigger: { ...passage, scrub: 1 } },
+    );
+    const onScreen = ScrollTrigger.create({ ...passage });
+
+    let drift = 0;
+    const tick = (_time: number, deltaMs: number) => {
+      if (!onScreen.isActive) return;
+      drift -= deltaMs * 0.004;
+      // -22° is the resting turn the CSS gives the ring.
+      const angle = scrolled.angle + drift - 22;
+      setSpin(angle);
+      cards.forEach((_, i) => {
+        const facing = Math.cos(((i * step + angle) * Math.PI) / 180);
+        const shade = shades[i];
+        if (shade) shade.style.opacity = (0.7 * (1 - Math.max(0, facing))).toFixed(3);
+      });
+    };
+    gsap.ticker.add(tick);
+
+    cleanups.push(() => {
+      gsap.ticker.remove(tick);
+      shades.forEach((s) => s?.style.removeProperty("opacity"));
+      gsap.set([spin, tilt], { clearProps: "transform" });
+    });
+  }
+}
+
 /* -------------------------------------------------- desktop layouts */
 
 function desktopLayouts(): Cleanup {
   const off: Cleanup[] = [];
+
+  // Blocks rise in off a tilted floor, stand square to the viewer through
+  // the middle of the screen, and tip back into the ceiling on the way out.
+  for (const el of all("[data-depth]")) {
+    const tilt = num(el.dataset.depth, 9);
+    off.push(guardTransform(el));
+    gsap.set(el, { transformPerspective: 1600 });
+    gsap.fromTo(
+      el,
+      { rotationX: tilt, z: -120 },
+      {
+        rotationX: 0,
+        z: 0,
+        ease: "none",
+        scrollTrigger: { trigger: el, start: "top bottom", end: "top 55%", scrub: true },
+      },
+    );
+    gsap.to(el, {
+      rotationX: -tilt * 0.7,
+      z: -90,
+      ease: "none",
+      immediateRender: false,
+      scrollTrigger: { trigger: el, start: "bottom 45%", end: "bottom top", scrub: true },
+    });
+  }
 
   for (const section of all("[data-pin-horizontal]")) {
     const track = section.querySelector<HTMLElement>("[data-pin-track]");
@@ -679,6 +759,7 @@ export function MotionOrchestrator() {
           splitText(cleanups);
           blocks(cleanups);
           velocityEffects(cleanups);
+          ringEffects(cleanups);
         });
         mm = gsap.matchMedia();
         mm.add("(min-width: 1024px)", () => desktopLayouts());

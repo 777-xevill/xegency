@@ -1,8 +1,8 @@
 /* ============================================================================
    XEGENCY — FOUNDER PRODUCTS
    ----------------------------------------------------------------------------
-   Software Xegency designs, builds and owns. Today that is Xedineos (QR
-   ordering, built, pre-launch) plus six AI products that solve a specific
+   Software Xegency designs, builds and owns. Today that is XEdineOS (QR
+   ordering, live — free trial open) plus six AI products that solve a specific
    business problem each: WhatsApp auto-reply, lead follow-up, customer
    support, invoice entry, stock planning and the daily business summary.
 
@@ -61,35 +61,37 @@ export const products: Product[] = [
   {
     slug: "qr-ordering-platform",
     kind: "product",
-    status: "Built — pre-launch",
-    client: "Founder-led product",
-    title: "Xedineos — QR ordering for restaurants",
+    status: "Live — free trial open",
+    client: "XEdineOS",
+    title: "Guests order from the table. The restaurant keeps the whole bill.",
     sector: "Restaurant tech / SaaS",
-    region: "Bangladesh",
+    region: "Dhaka, Bangladesh",
     year: "2026",
     nda: false,
     services: ["Product design", "Full-stack build", "Founder-led"],
     summary:
-      "A diner scans the code at the table and orders straight from their phone — the kitchen sees it land in real time, and the floor gets told the moment something needs attention, without a waiter ever having to check.",
+      "A QR self-ordering platform for Dhaka restaurants. Guests scan the table code, order in Bengali or English, and the kitchen, floor staff and owner each see exactly what they need to.",
     problem:
-      "Most QR ordering is half a product: it gets the order from the table to a screen, and stops there. Nobody tells the kitchen the order actually arrived, nobody tells the floor a table is waiting on water or that food is ready to run — a human still has to notice, which is the exact job QR ordering was supposed to remove.",
+      "The delivery apps that reached Bangladeshi restaurants first arrived with a commission attached, and for a biryani house running on thin margins a cut of every order is the difference between a good month and a bad one. The alternative was paper: a waiter walks over, writes it down, walks to the kitchen, and the table waits. Existing self-ordering software assumed an English-speaking guest, a card on file, and hardware nobody in the room owned.",
     approach: [
-      "Built the guest-facing menu and order flow first — scan, order, watch it move through Order placed → Accepted → Being prepared → Ready → Served, with Water, Waiter and Bill as one-tap requests instead of a raised hand.",
-      "Paired it with a live kitchen display per table, so orders land as tickets the kitchen accepts and progresses themselves — no relay through a waiter's notepad.",
-      "Closed the loop with a locked waiter's-phone screen that surfaces only what needs a human: a table asking for water, an order that's ready to run. Everything else stays automatic — that's the Autopilot.",
+      "Built the guest side to need nothing but a phone browser — no app install, no account. The table QR opens a session link that expires after an hour, so a code photographed on the way out is useless.",
+      "Made it bilingual properly, not as an afterthought: Bengali and English, switchable mid-order, because a family at one table rarely reads the same language.",
+      "Split the staff views by role. The kitchen sees tickets and a prepare-to-ready workflow but never revenue; floor staff get locked-screen alerts that vibrate, a live list of which table needs water, a waiter or the bill, and an \"on it\" tap to claim it; the owner gets menu, pricing, tables, VAT, coupons, staff accounts and sales trends.",
+      "Kept the money out of the product entirely. XEdineOS never touches a payment — cash, card and bKash all stay between guest and restaurant, no card data is stored, and there is no commission on any order.",
+      "Designed for the room it runs in: branded QR sheets generated from the restaurant’s own imagery and machine-tested before printing, order writes that are all-or-nothing so a dropped connection cannot half-place a ticket, and a paper fallback that resumes cleanly if the internet dies mid-service.",
     ],
     outcome:
-      "Built and tested end to end — guest ordering, kitchen display and waiter notifications all working together. In pre-launch, looking for the first pilot restaurant.",
+      "The platform is built and live, running a seven-day free trial with same-day setup for the first ten restaurants. Multi-branch support, loyalty and coupon tracking and role-based staff accounts are all shipped. Monthly pricing is being finalised — deliberately a flat subscription rather than a per-order cut.",
     metrics: [
-      { value: "Pre-launch", label: "Status" },
-      { value: "3", label: "Screens kept in sync — guest, kitchen, waiter" },
-      { value: "5", label: "Order stages tracked live" },
+      { value: "0%", label: "Commission taken on orders" },
+      { value: "2", label: "Languages, switchable mid-order" },
+      { value: "7 days", label: "Free trial, no card required" },
     ],
-    stack: ["Next.js", "React", "TypeScript", "PostgreSQL", "WebSockets"],
+    stack: ["Next.js", "React", "Vercel"],
     cover: null,
     tint: { from: "#3D3833", to: "#181716", ink: "#E4DFD7" },
     featured: true,
-    link: null,
+    link: "https://xedineos.vercel.app",
   },
   {
     slug: "ai-lead-qualifier",

@@ -47,9 +47,13 @@ export const metadata: Metadata = {
     "web development agency",
     "mobile app development",
     "Next.js development",
-    "Bangladesh software studio",
+    "brand identity design",
+    "Facebook ads agency",
     site.name,
   ],
+  // No `alternates.canonical` here: a layout value is inherited by every page
+  // that doesn't set its own, which would point them all at the home page.
+  // Each page declares its own canonical instead.
   openGraph: {
     type: "website",
     siteName: site.name,
