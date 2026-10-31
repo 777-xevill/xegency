@@ -101,7 +101,7 @@ export function HeroScene({ className = "" }: { className?: string }) {
 
         /* ------------------------------------------------ layout */
         const halfTan = Math.tan((camera.fov * Math.PI) / 360);
-        const base = { x: 0, y: 0, visW: 1, visH: 1 };
+        const base = { x: 0, y: 0, visW: 1, visH: 1, wide: true };
         made.onResize((w, h) => {
           const aspect = w / h;
           const wide = aspect > 1.15;
@@ -115,6 +115,7 @@ export function HeroScene({ className = "" }: { className?: string }) {
           // top-right corner beside the headline.
           base.x = wide ? base.visW * 0.2 : base.visW * 0.27;
           base.y = wide ? 0 : base.visH * 0.2;
+          base.wide = wide;
         });
 
         /* ---------------------------------------------- inputs */
@@ -135,8 +136,10 @@ export function HeroScene({ className = "" }: { className?: string }) {
         let shown = -1;
 
         made.onFrame((t, dt) => {
+          // 0 → 1 across the whole pinned runway (section height minus the
+          // one screen that is always visible).
           const h = heroEl.getBoundingClientRect().height || window.innerHeight;
-          input.scroll = clamp01(window.scrollY / (h * 0.9));
+          input.scroll = clamp01(window.scrollY / Math.max(1, h - window.innerHeight));
           if (!fine) {
             input.px = Math.sin(t * 0.4) * 0.6;
             input.py = Math.cos(t * 0.31) * 0.3;
@@ -147,13 +150,23 @@ export function HeroScene({ className = "" }: { className?: string }) {
           smooth.scroll += (input.scroll - smooth.scroll) * k;
           const s = smooth.scroll;
 
-          rig.rotation.x = smooth.py * 0.28 + s * 0.35 + Math.sin(t * 0.3) * 0.04;
-          rig.rotation.y =
-            smooth.px * 0.38 + s * Math.PI * 0.6 + Math.sin(t * 0.22) * 0.1;
-          rig.position.set(base.x, base.y - s * 0.9, -s * 1.4);
-          rig.scale.setScalar(1 - s * 0.12);
+          // The pieces finish separating by 65% of the runway and hold apart
+          // while the rest plays out, so the split is seen in full. The rig
+          // only tilts a little — turned edge-on, the slabs stop reading as
+          // the logo.
+          const split = clamp01(s / 0.65);
+          const eased = split * split * (3 - 2 * split);
 
-          poseMark(pieces, t, s);
+          rig.rotation.x = smooth.py * 0.28 + eased * 0.22 + Math.sin(t * 0.3) * 0.04;
+          rig.rotation.y = smooth.px * 0.38 + eased * 0.42 + Math.sin(t * 0.22) * 0.1;
+          // Portrait screens are narrow: glide the mark to the middle as it
+          // opens and spread it less, so no piece leaves the frame.
+          const cx = base.wide ? base.x : base.x * (1 - eased);
+          const cy = base.wide ? base.y : base.y * (1 - eased * 0.4);
+          rig.position.set(cx, cy, -eased * 0.9);
+          rig.scale.setScalar(base.wide ? 1 - eased * 0.16 : 1 + eased * 0.2);
+
+          poseMark(pieces, t, eased * (base.wide ? 1.35 : 0.85));
 
           // Cursor light: follows the pointer, fades out when it is idle.
           glow.position.set(
@@ -168,7 +181,7 @@ export function HeroScene({ className = "" }: { className?: string }) {
           dust.position.y = Math.sin(t * 0.1) * 0.15 - s * 0.6;
 
           // Dissolve with the scroll; touch the DOM only when it changes.
-          const next = started ? Math.max(0, 1 - s * s * 0.95) : 0;
+          const next = started ? 1 - clamp01((s - 0.85) / 0.15) * 0.9 : 0;
           if (Math.abs(next - shown) > 0.01) {
             shown = next;
             canvas.style.opacity = String(next);

@@ -20,11 +20,17 @@ export function Hero() {
   ];
 
   return (
-    <section className="relative grain min-h-[100svh] overflow-hidden bg-ink text-bone">
-      {/* ------------------------------------------- 3D mark + glow */}
+    <section className="relative grain min-h-[100svh] overflow-clip bg-ink text-bone">
+      {/* ------------------------------------------- 3D mark + glow
+          The layer spans the whole section but its content is sticky: the
+          mark stays on screen through the scroll runway below while it breaks
+          apart (see HeroScene), then leaves with the section. `overflow-clip`
+          on the section, not `hidden`, or sticky would stop working. */}
       <div aria-hidden="true" className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(42%_52%_at_74%_46%,rgba(122,109,94,0.30),transparent_72%)] max-lg:bg-[radial-gradient(70%_36%_at_50%_24%,rgba(122,109,94,0.28),transparent_72%)]" />
-        <HeroScene className="absolute inset-x-0 top-0 h-[100svh] max-lg:opacity-60 lg:inset-y-0 lg:h-auto" />
+        <div className="sticky top-0 h-[100svh] overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(42%_52%_at_74%_46%,rgba(122,109,94,0.30),transparent_72%)] max-lg:bg-[radial-gradient(70%_36%_at_50%_24%,rgba(122,109,94,0.28),transparent_72%)]" />
+          <HeroScene className="absolute inset-0 max-lg:opacity-60" />
+        </div>
       </div>
 
       <Shell className="relative z-10 flex min-h-[100svh] flex-col pt-28 md:pt-36">
@@ -106,6 +112,9 @@ export function Hero() {
           ))}
         </dl>
       </Shell>
+
+      {/* Scroll runway: the extra distance the mark stays pinned for. */}
+      <div aria-hidden="true" className="h-[90svh] lg:h-[110svh]" />
     </section>
   );
 }
