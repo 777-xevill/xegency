@@ -50,10 +50,11 @@ export const contact = {
   // A Cal.com / Calendly / Google Appointment link. Empty string hides the button.
   calendar: "[https://cal.com/your-handle]",
   socials: [
-    { label: "Facebook", href: "https://www.facebook.com/xegency" },
+    { label: "X", href: "https://x.com/Xegency" },
     { label: "Instagram", href: "https://www.instagram.com/xegency" },
-    { label: "LinkedIn", href: "[https://linkedin.com/in/your-handle]" },
-    { label: "X", href: "https://x.com/777_xevill" },
+    { label: "Facebook", href: "https://www.facebook.com/xegency" },
+    { label: "Threads", href: "https://www.threads.net/@xegency" },
+    { label: "TikTok", href: "https://www.tiktok.com/@xegency" },
     { label: "GitHub", href: "https://github.com/777-xevill" },
   ],
 };
