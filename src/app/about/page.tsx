@@ -36,27 +36,7 @@ export default function AboutPage() {
       <section className="grain relative bg-ink-800 py-20 md:py-28">
         <Shell>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-5">
-              <div className="lg:sticky lg:top-28">
-                <div
-                  data-clip-reveal=""
-                  className="relative aspect-[4/5] overflow-hidden bg-ink-800"
-                >
-                  <Image
-                    data-clip-inner=""
-                    src="/founder/portrait.jpg"
-                    alt={`${founder.name}, ${founder.role} of ${site.name}`}
-                    fill
-                    loading="eager"
-                    fetchPriority="high"
-                    sizes="(min-width: 1024px) 40vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-8">
               <Eyebrow>A note from the founder</Eyebrow>
 
               <div className="mt-8 space-y-6 text-base leading-relaxed text-bone/75 md:text-lg">

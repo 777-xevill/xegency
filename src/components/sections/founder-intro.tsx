@@ -14,32 +14,7 @@ export function FounderIntro() {
     <section className="grain ambient relative bg-ink py-24 md:py-36">
       <Shell>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
-          {/* The sticky column itself carries no motion — only its children —
-              so transforms never interfere with the sticky positioning. */}
-          <div className="relative lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
-            <div
-              data-clip-reveal=""
-              className="relative aspect-[4/5] overflow-hidden bg-ink-800"
-            >
-              <Image
-                data-clip-inner=""
-                src="/founder/portrait.jpg"
-                alt={`${founder.name}, ${founder.role} of ${site.name}`}
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <p
-              data-reveal=""
-              style={{ "--reveal-delay": "240ms" } as React.CSSProperties}
-              className="eyebrow mt-4 text-bone/45"
-            >
-              {founder.fullName} — {founder.role}
-            </p>
-          </div>
-
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-8">
             <Eyebrow>Who you&rsquo;ll actually work with</Eyebrow>
 
             <h2
