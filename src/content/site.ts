@@ -23,7 +23,7 @@ export const siteStatus: "draft" | "live" = "live";
 export const site = {
   name: "Xegency",
   // Used for canonical URLs, sitemap and Open Graph.
-  url: "https://xegency.com",
+  url: "https://www.xegency.com",
   tagline: "AI-native software studio",
   description:
     "Xegency builds AI agents, automation, custom software, websites and apps — plus the branding and Facebook & Instagram ads that bring customers to them.",
