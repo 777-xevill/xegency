@@ -48,7 +48,7 @@ export const contact = {
   // Optional. Leave as an empty string to hide it.
   phone: "",
   // A Cal.com / Calendly / Google Appointment link. Empty string hides the button.
-  calendar: "[https://cal.com/your-handle]",
+  calendar: "https://cal.com/xegency/30min",
   socials: [
     { label: "X", href: "https://x.com/Xegency" },
     { label: "Instagram", href: "https://www.instagram.com/xegency" },
