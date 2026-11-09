@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { ChatWidget } from "@/components/chat-widget";
 import { RevealObserver } from "@/components/reveal";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { MotionOrchestrator } from "@/components/motion/motion";
@@ -106,6 +107,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <ChatWidget />
       </body>
     </html>
   );
