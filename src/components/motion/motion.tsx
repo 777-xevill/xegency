@@ -386,7 +386,13 @@ function velocityEffects(cleanups: Cleanup[]) {
     let boost = 1;
     let hoverDamp = 1;
     let hovering = false;
+    // Pixels still to travel from a prev/next button press, eased out per frame.
+    let nudge = 0;
     const setX = gsap.quickSetter(track, "x", "px") as (v: number) => void;
+    const onNudge = (e: Event) => {
+      nudge += (e as CustomEvent<number>).detail;
+    };
+    el.addEventListener("marquee-nudge", onNudge);
 
     const tick = (_time: number, deltaMs: number) => {
       if (Math.abs(velocity) > 30) direction = velocity > 0 ? -1 : 1;
@@ -394,6 +400,11 @@ function velocityEffects(cleanups: Cleanup[]) {
       boost += (target - boost) * 0.08;
       hoverDamp += ((hovering ? 0 : 1) - hoverDamp) * 0.06;
       x += direction * base * boost * hoverDamp * (deltaMs / 1000);
+      if (Math.abs(nudge) > 0.5) {
+        const step = nudge * (1 - Math.pow(0.001, deltaMs / 1000));
+        x -= step;
+        nudge -= step;
+      }
       if (half > 0) x = gsap.utils.wrap(-half, 0, x);
       setX(x);
     };
@@ -414,6 +425,7 @@ function velocityEffects(cleanups: Cleanup[]) {
     cleanups.push(() => {
       gsap.ticker.remove(tick);
       ro.disconnect();
+      el.removeEventListener("marquee-nudge", onNudge);
       if (pause) {
         el.removeEventListener("pointerenter", enter);
         el.removeEventListener("pointerleave", leave);

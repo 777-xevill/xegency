@@ -1,5 +1,6 @@
 import { capabilities, clients, stats } from "@/content/site";
 import { Eyebrow, Float3D, Marquee, Shell, cx } from "@/components/ui";
+import { MarqueeArrows } from "@/components/marquee-arrows";
 import { isPlaceholder } from "@/lib/format";
 
 export function CapabilitiesBand() {
@@ -37,6 +38,7 @@ export function ClientsBand() {
             <ClientList duplicate />
           </div>
         </div>
+        <MarqueeArrows label="Browse companies" />
       </Shell>
     </section>
   );
