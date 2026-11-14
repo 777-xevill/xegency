@@ -1,14 +1,32 @@
 import Link from "next/link";
-import { featuredPortfolio } from "@/content/portfolio";
-import { WorkCard } from "@/components/work-card";
+import { featuredPortfolio, isProduct } from "@/content/portfolio";
+import { Panel } from "@/components/work-card";
+import { WorkShowcase, type Slide } from "@/components/sections/work-showcase";
 import { Arrow, Eyebrow, Float3D, Shell } from "@/components/ui";
 
 export function WorkPreview() {
-  const items = featuredPortfolio.slice(0, 3);
+  const items = featuredPortfolio;
   if (items.length === 0) return null;
 
+  // Panels are built here, on the server, and handed to the client showcase
+  // as ready-made elements so it only has to swap between them.
+  const slides: Slide[] = items.map((item) => ({
+    slug: item.slug,
+    title: item.title,
+    // Founder products all share one generic "client" line; their real name
+    // is the part of the title before the dash (ReplyDesk, Leadsmith, …).
+    client:
+      isProduct(item) && item.title.includes(" — ")
+        ? item.title.split(" — ")[0]
+        : item.client,
+    sector: item.sector,
+    summary: item.summary,
+    tag: isProduct(item) ? "Founder product" : "Client project",
+    panel: <Panel item={item} />,
+  }));
+
   return (
-    <section className="grain ambient relative bg-ink-800 py-24 md:py-36">
+    <section className="grain ambient relative overflow-clip bg-ink-800 py-24 md:py-36">
       <Float3D className="-right-36 top-24 hidden h-[30rem] w-[30rem] text-bone/[0.09] md:block" />
       <Shell>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -19,7 +37,7 @@ export function WorkPreview() {
               data-velocity-skew=""
               className="display mt-6 text-[clamp(2.1rem,4.6vw,4rem)]"
             >
-              Recent work.
+              Work that <span className="italic text-stone">moves.</span>
             </h2>
           </div>
           <Link
@@ -31,16 +49,7 @@ export function WorkPreview() {
           </Link>
         </div>
 
-        <div className="mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2">
-          {items.map((item, i) => (
-            <WorkCard
-              key={item.slug}
-              item={item}
-              index={i}
-              className={i === 0 ? "md:col-span-2" : ""}
-            />
-          ))}
-        </div>
+        <WorkShowcase slides={slides} />
 
         <p
           data-reveal=""

@@ -19,7 +19,7 @@ import {
  * /public/work/<slug>/cover.jpg (client work) or /public/products/<slug>/cover.jpg
  * (products) and set `cover` when you have them.
  */
-function Panel({ item }: { item: PortfolioItem }) {
+export function Panel({ item }: { item: PortfolioItem }) {
   if (item.slug === "qr-ordering-platform") {
     return <XedineosCardPreview />;
   }

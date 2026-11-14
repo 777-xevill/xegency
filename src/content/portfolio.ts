@@ -30,11 +30,13 @@ export const portfolio: PortfolioItem[] = order
   .map(bySlug)
   .filter(Boolean) as PortfolioItem[];
 
-/** Homepage preview — the three strongest, in this order. */
+/** Homepage showcase — the strongest five, in this order. */
 export const featuredPortfolio: PortfolioItem[] = [
   "whatsapp-auto-reply",
+  "ai-lead-qualifier",
   "alpha-fuel",
   "qr-ordering-platform",
+  "ai-support-agent",
 ]
   .map(bySlug)
   .filter(Boolean) as PortfolioItem[];

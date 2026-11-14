@@ -91,11 +91,11 @@ export function AlphaFuelCardPreview() {
     <div className="grain absolute inset-0 flex flex-col justify-between overflow-hidden bg-[#0c0f08] p-7 transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] md:p-9">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-[0.14] blur-3xl"
+        className="pv-pulse pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-[0.14] blur-3xl"
         style={{ background: LIME }}
       />
 
-      <div className="relative flex items-center justify-between gap-6">
+      <div className="pv-s1 relative flex items-center justify-between gap-6">
         <div className="flex items-center gap-2">
           <Mark size={24} />
           <span className="font-sans text-[13px] font-black uppercase tracking-tight text-bone">
@@ -108,12 +108,26 @@ export function AlphaFuelCardPreview() {
       </div>
 
       <p className="relative font-sans text-[clamp(1.6rem,3vw,2.4rem)] font-black uppercase leading-[0.95] tracking-tight opacity-90">
-        <span className="text-bone">Real tubs.</span>
+        <span className="pv-s2 inline-block text-bone">Real tubs.</span>
         <br />
-        <span style={{ color: LIME }}>Checked batches.</span>
+        <span className="pv-s3 inline-block" style={{ color: LIME }}>
+          Checked batches.
+        </span>
       </p>
 
-      <div className="relative flex gap-5">
+      {/* a seal check, ticking over as if a tub just passed */}
+      <div className="pv-s5 relative flex items-center gap-3 self-start max-sm:hidden border border-bone/15 bg-ink/60 px-3 py-2 backdrop-blur-sm">
+        <span
+          className="pv-pulse flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-black text-[#0c0f08]"
+          style={{ background: LIME }}
+        >
+          &#10003;
+        </span>
+        <span className="eyebrow text-bone/70">Foil seal intact</span>
+        <span className="eyebrow text-bone/40">Batch logged</span>
+      </div>
+
+      <div className="pv-s7 relative flex gap-5">
         {[
           { value: "46", label: "Products" },
           { value: "27", label: "Brands" },

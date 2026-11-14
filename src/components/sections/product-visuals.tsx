@@ -119,6 +119,7 @@ function Bubble({
   lines,
   out = false,
   meta,
+  step,
 }: {
   x: number;
   y: number;
@@ -126,10 +127,11 @@ function Bubble({
   lines: string[];
   out?: boolean;
   meta?: string;
+  step?: number;
 }) {
   const h = lines.length * 16 + 18 + (meta ? 12 : 0);
   return (
-    <g>
+    <g className={step ? `pv-s${step}` : undefined}>
       <rect x={x} y={y} width={w} height={h} rx={10} fill={out ? "#005c4b" : "#202c33"} />
       {lines.map((l, i) => (
         <T key={i} x={x + 12} y={y + 20 + i * 16} size={11.5}>
@@ -158,8 +160,9 @@ function ReplyDesk() {
       <circle cx={158} cy={102} r={3} fill={WA} />
       <T x={166} y={105} size={9.5} fill="rgba(255,255,255,0.6)">AI assistant · online</T>
 
-      <Bubble x={118} y={130} w={176} lines={["Black panjabi, size L —", "do you have it? Price?"]} meta="10:42" />
+      <Bubble step={1} x={118} y={130} w={176} lines={["Black panjabi, size L —", "do you have it? Price?"]} meta="10:42" />
       <Bubble
+        step={2}
         x={150}
         y={200}
         w={208}
@@ -167,8 +170,9 @@ function ReplyDesk() {
         lines={["Yes — size L is in stock.", "৳2,450. Shall I reserve it", "and send it today?"]}
         meta="AI · replied in 3s ✓✓"
       />
-      <Bubble x={160} y={286} w={170} lines={["Yes please, Mirpur 10"]} meta="10:43" />
+      <Bubble step={4} x={160} y={286} w={170} lines={["Yes please, Mirpur 10"]} meta="10:43" />
       <Bubble
+        step={5}
         x={150}
         y={340}
         w={208}
@@ -184,7 +188,7 @@ function ReplyDesk() {
       <rect x={426} y={70} width={290} height={360} rx={18} fill={PANEL} stroke={LINE} />
       <Label x={448} y={100}>ReplyDesk · today</Label>
       <rect x={618} y={86} width={80} height={22} rx={11} fill="rgba(37,211,102,0.14)" stroke="rgba(37,211,102,0.5)" />
-      <circle cx={632} cy={97} r={3.5} fill={WA} />
+      <circle className="pv-pulse" cx={632} cy={97} r={3.5} fill={WA} />
       <T x={642} y={101} size={9.5} fill={WA} weight={600}>Auto-reply ON</T>
 
       <T x={448} y={168} size={54} weight={600} fill={TEXT}>142</T>
@@ -196,15 +200,17 @@ function ReplyDesk() {
         ["3s", "average first reply"],
         ["2", "languages · বাংলা + English"],
       ].map(([v, l], i) => (
-        <g key={l}>
+        <g key={l} className={`pv-s${i + 3}`}>
           <T x={448} y={246 + i * 40} size={20} weight={600}>{v}</T>
           <T x={500} y={246 + i * 40} size={11.5} fill={MUTED}>{l}</T>
         </g>
       ))}
 
-      <rect x={448} y={362} width={246} height={44} rx={10} fill={PANEL2} />
-      <T x={462} y={381} size={10.5} weight={600}>Not sure? It asks you.</T>
-      <T x={462} y={396} size={9.5} fill={MUTED}>Refunds and angry customers go to a person</T>
+      <g className="pv-s6">
+        <rect x={448} y={362} width={246} height={44} rx={10} fill={PANEL2} />
+        <T x={462} y={381} size={10.5} weight={600}>Not sure? It asks you.</T>
+        <T x={462} y={396} size={9.5} fill={MUTED}>Refunds and angry customers go to a person</T>
+      </g>
 
       <SampleNote />
     </Scene>
@@ -250,8 +256,10 @@ function Leadsmith() {
   return (
     <Scene id="ls" accent={A} label="Sales pipeline where an AI scores and follows up with leads">
       <Label x={74} y={86}>Leadsmith · pipeline</Label>
-      <T x={726} y={86} size={10} fill={A} anchor="end" weight={600}>AI follow-ups: sent automatically</T>
-      {cols.map((c) => (
+      <g className="pv-pulse">
+        <T x={726} y={86} size={10} fill={A} anchor="end" weight={600}>AI follow-ups: sent automatically</T>
+      </g>
+      {cols.map((c, ci) => (
         <g key={c.name}>
           <rect x={c.x} y={104} width={216} height={336} rx={14} fill={PANEL} stroke={LINE} />
           <T x={c.x + 16} y={130} size={12} weight={600}>{c.name}</T>
@@ -259,12 +267,12 @@ function Leadsmith() {
           {c.cards.map((card, i) => {
             const y = 150 + i * 96;
             return (
-              <g key={card.n}>
+              <g key={card.n} className={`pv-s${Math.min(9, ci * 3 + i + 1)}`}>
                 <rect x={c.x + 12} y={y} width={192} height={84} rx={10} fill={PANEL2} stroke={LINE} />
                 <T x={c.x + 26} y={y + 26} size={12} weight={600}>{card.n}</T>
                 <T x={c.x + 26} y={y + 44} size={10} fill={MUTED}>{card.s}</T>
                 <rect x={c.x + 26} y={y + 56} width={96} height={5} rx={2.5} fill="rgba(228,223,215,0.1)" />
-                <rect x={c.x + 26} y={y + 56} width={(96 * card.sc) / 100} height={5} rx={2.5} fill={card.sc > 80 ? A : "rgba(228,223,215,0.45)"} />
+                <rect className="pv-grow-x" x={c.x + 26} y={y + 56} width={(96 * card.sc) / 100} height={5} rx={2.5} fill={card.sc > 80 ? A : "rgba(228,223,215,0.45)"} />
                 <rect x={c.x + 150} y={y + 14} width={42} height={22} rx={11} fill={card.sc > 80 ? "rgba(242,153,74,0.16)" : "rgba(228,223,215,0.08)"} />
                 <T x={c.x + 171} y={y + 29} size={11} weight={700} anchor="middle" fill={card.sc > 80 ? A : TEXT}>{card.sc}</T>
               </g>
@@ -288,7 +296,7 @@ function SupportPilot() {
       <Label x={90} y={100}>Knowledge base</Label>
       {["Refund policy.pdf", "Shipping & delivery", "Pricing sheet", "Product manual", "Warranty terms"].map((d, i) => (
         <g key={d}>
-          <rect x={86} y={118 + i * 48} width={164} height={38} rx={9} fill={i === 0 ? "rgba(86,180,245,0.14)" : PANEL2} stroke={i === 0 ? "rgba(86,180,245,0.5)" : LINE} />
+          <rect x={86} y={118 + i * 48} width={164} height={38} rx={9} fill={i === 0 ? "rgba(86,180,245,0.14)" : PANEL2} stroke={i === 0 ? "rgba(86,180,245,0.5)" : LINE} className={i === 0 ? "pv-pulse" : undefined} />
           <rect x={98} y={130 + i * 48} width={12} height={15} rx={2} fill="none" stroke={i === 0 ? A : MUTED} />
           <T x={120} y={142 + i * 48} size={10.5} fill={i === 0 ? TEXT : "rgba(228,223,215,0.7)"}>{d}</T>
         </g>
@@ -302,20 +310,28 @@ function SupportPilot() {
       <T x={338} y={112} size={9.5} fill={MUTED}>Answers from your documents only</T>
       <line x1={290} x2={730} y1={128} y2={128} stroke={LINE} />
 
-      <rect x={510} y={146} width={196} height={34} rx={12} fill="#2b2824" />
-      <T x={524} y={167} size={11.5}>Can I return a used item?</T>
+      <g className="pv-s1">
+        <rect x={510} y={146} width={196} height={34} rx={12} fill="#2b2824" />
+        <T x={524} y={167} size={11.5}>Can I return a used item?</T>
+      </g>
 
-      <rect x={314} y={196} width={324} height={104} rx={12} fill="rgba(86,180,245,0.1)" stroke="rgba(86,180,245,0.3)" />
-      <T x={330} y={220} size={11.5}>Used items can be returned within 7 days if</T>
-      <T x={330} y={238} size={11.5}>the product is unopened or faulty. Opened</T>
-      <T x={330} y={256} size={11.5}>items get store credit instead of a refund.</T>
-      <rect x={330} y={268} width={176} height={22} rx={11} fill={PANEL2} stroke={LINE} />
-      <T x={342} y={283} size={9.5} fill={A} weight={600}>Source · Refund policy.pdf, p.2</T>
+      <g className="pv-s3">
+        <rect x={314} y={196} width={324} height={104} rx={12} fill="rgba(86,180,245,0.1)" stroke="rgba(86,180,245,0.3)" />
+        <T x={330} y={220} size={11.5}>Used items can be returned within 7 days if</T>
+        <T x={330} y={238} size={11.5}>the product is unopened or faulty. Opened</T>
+        <T x={330} y={256} size={11.5}>items get store credit instead of a refund.</T>
+      </g>
+      <g className="pv-s5">
+        <rect x={330} y={268} width={176} height={22} rx={11} fill={PANEL2} stroke={LINE} />
+        <T x={342} y={283} size={9.5} fill={A} weight={600}>Source · Refund policy.pdf, p.2</T>
+      </g>
 
+      <g className="pv-s7">
       <rect x={314} y={318} width={118} height={30} rx={15} fill="none" stroke={LINE} />
       <T x={373} y={337} size={10.5} anchor="middle" fill="rgba(228,223,215,0.75)">Talk to a person</T>
       <rect x={442} y={318} width={96} height={30} rx={15} fill="none" stroke={LINE} />
       <T x={490} y={337} size={10.5} anchor="middle" fill="rgba(228,223,215,0.75)">Helpful ✓</T>
+      </g>
 
       <rect x={314} y={382} width={392} height={32} rx={16} fill={PANEL2} stroke={LINE} />
       <T x={332} y={402} size={10.5} fill="rgba(228,223,215,0.35)">Ask a question…</T>
@@ -356,6 +372,9 @@ function InvoiceIQ() {
       <T x={274} y={366} size={12} fill="#0f0e0d" weight={700} anchor="middle">৳9,200</T>
       <T x={104} y={412} size={8.5} fill="#8a847b">Photo taken on phone · 2 seconds ago</T>
 
+      {/* scan line */}
+      <rect className="pv-scan" x={86} y={64} width={238} height={3} fill={A} opacity={0.9} />
+
       {/* arrow */}
       <circle cx={366} cy={250} r={20} fill={PANEL} stroke={A} />
       <path d="M358 250h16m-6-6 6 6-6 6" stroke={A} strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -363,17 +382,21 @@ function InvoiceIQ() {
       {/* extracted */}
       <rect x={408} y={64} width={312} height={372} rx={16} fill={PANEL} stroke={LINE} />
       <Label x={430} y={94}>Read by InvoiceIQ</Label>
-      <rect x={618} y={80} width={84} height={22} rx={11} fill="rgba(167,139,250,0.16)" stroke="rgba(167,139,250,0.5)" />
-      <T x={660} y={95} size={9.5} anchor="middle" fill={A} weight={600}>6 fields found</T>
+      <g className="pv-s2">
+        <rect x={618} y={80} width={84} height={22} rx={11} fill="rgba(167,139,250,0.16)" stroke="rgba(167,139,250,0.5)" />
+        <T x={660} y={95} size={9.5} anchor="middle" fill={A} weight={600}>6 fields found</T>
+      </g>
       {rows.map(([k, v], i) => (
-        <g key={k}>
+        <g key={k} className={`pv-s${i + 3}`}>
           <line x1={430} x2={698} y1={116 + i * 44} y2={116 + i * 44} stroke={LINE} />
           <T x={430} y={144 + i * 44} size={10.5} fill={MUTED}>{k}</T>
           <T x={698} y={144 + i * 44} size={12.5} weight={600} anchor="end">{v}</T>
         </g>
       ))}
-      <rect x={430} y={390} width={268} height={30} rx={15} fill={A} />
-      <T x={564} y={410} size={11.5} fill={BG} weight={700} anchor="middle">Sync to accounting  ✓</T>
+      <g className="pv-s9">
+        <rect x={430} y={390} width={268} height={30} rx={15} fill={A} />
+        <T x={564} y={410} size={11.5} fill={BG} weight={700} anchor="middle">Sync to accounting  ✓</T>
+      </g>
       <SampleNote />
     </Scene>
   );
@@ -401,14 +424,16 @@ function StockSense() {
       {[200, 250, 300, 350].map((y) => (
         <line key={y} x1={92} x2={478} y1={y} y2={y} stroke={LINE} />
       ))}
-      <path d={`${actual} L320 390 L92 390 Z`} fill="rgba(45,212,191,0.12)" />
-      <path d={actual} stroke={A} strokeWidth={2.5} fill="none" strokeLinejoin="round" strokeLinecap="round" />
-      <path d={forecast} stroke={A} strokeWidth={2.5} fill="none" strokeDasharray="6 5" strokeLinejoin="round" strokeLinecap="round" />
-      <rect x={320} y={176} width={158} height={214} fill="rgba(45,212,191,0.05)" />
-      <line x1={320} x2={320} y1={176} y2={390} stroke={A} strokeDasharray="3 4" opacity={0.6} />
+      <path className="pv-s1" d={`${actual} L320 390 L92 390 Z`} fill="rgba(45,212,191,0.12)" />
+      <path className="pv-draw" pathLength={1} d={actual} stroke={A} strokeWidth={2.5} fill="none" strokeLinejoin="round" strokeLinecap="round" />
+      <g className="pv-s5">
+        <path d={forecast} stroke={A} strokeWidth={2.5} fill="none" strokeDasharray="6 5" strokeLinejoin="round" strokeLinecap="round" />
+        <rect x={320} y={176} width={158} height={214} fill="rgba(45,212,191,0.05)" />
+        <line x1={320} x2={320} y1={176} y2={390} stroke={A} strokeDasharray="3 4" opacity={0.6} />
+        <circle className="pv-pulse" cx={472} cy={196} r={5} fill={BG} stroke={A} strokeWidth={2} />
+        <Label x={332} y={192} fill={A}>AI forecast</Label>
+      </g>
       <circle cx={320} cy={276} r={5} fill={A} />
-      <circle cx={472} cy={196} r={5} fill={BG} stroke={A} strokeWidth={2} />
-      <Label x={332} y={192} fill={A}>AI forecast</Label>
       {["Wk 1", "Wk 2", "Wk 3", "Wk 4", "Wk 5", "Wk 6"].map((w, i) => (
         <T key={w} x={92 + i * 76} y={412} size={9.5} fill={MUTED}>{w}</T>
       ))}
@@ -416,7 +441,7 @@ function StockSense() {
       <rect x={522} y={70} width={208} height={360} rx={16} fill={PANEL} stroke={LINE} />
       <Label x={542} y={100}>Reorder this week</Label>
       {items.map((it, i) => (
-        <g key={it.n}>
+        <g key={it.n} className={`pv-s${i + 5}`}>
           <rect x={538} y={118 + i * 74} width={176} height={62} rx={10} fill={PANEL2} stroke={LINE} />
           <circle cx={556} cy={149 + i * 74} r={4.5} fill={it.c} />
           <T x={570} y={146 + i * 74} size={11.5} weight={600}>{it.n}</T>
@@ -445,7 +470,7 @@ function Briefly() {
         ["61", "Orders", "▲ 8", "#6FCF97"],
         ["2", "Refunds", "▼ 1", "#6FCF97"],
       ].map(([v, l, d, c], i) => (
-        <g key={l}>
+        <g key={l} className={`pv-s${i + 1}`}>
           <rect x={202 + i * 134} y={162} width={124} height={74} rx={10} fill={PANEL2} stroke={LINE} />
           <T x={216 + i * 134} y={190} size={19} weight={600}>{v}</T>
           <T x={216 + i * 134} y={208} size={10} fill={MUTED}>{l}</T>
@@ -454,18 +479,20 @@ function Briefly() {
       ))}
 
       {bars.map((b, i) => (
-        <rect key={i} x={206 + i * 18} y={330 - b * 0.8} width={11} height={b * 0.8} rx={2.5} fill={i === 6 ? A : "rgba(232,197,71,0.28)"} />
+        <rect key={i} className="pv-grow-y" style={{ animationDelay: `${i * 0.06}s` }} x={206 + i * 18} y={330 - b * 0.8} width={11} height={b * 0.8} rx={2.5} fill={i === 6 ? A : "rgba(232,197,71,0.28)"} />
       ))}
       <T x={206} y={346} size={9} fill={MUTED}>Last 7 days</T>
 
-      <rect x={352} y={262} width={248} height={92} rx={10} fill="rgba(232,197,71,0.08)" stroke="rgba(232,197,71,0.35)" />
-      <Label x={366} y={282} fill={A}>AI noticed</Label>
-      <T x={366} y={302} size={11}>Panjabi (L) sold 3× its usual</T>
-      <T x={366} y={318} size={11}>pace — only 4 left in stock.</T>
-      <T x={366} y={338} size={10.5} fill={A} weight={600}>Suggested: reorder 30 today</T>
+      <g className="pv-s6">
+        <rect x={352} y={262} width={248} height={92} rx={10} fill="rgba(232,197,71,0.08)" stroke="rgba(232,197,71,0.35)" />
+        <Label x={366} y={282} fill={A}>AI noticed</Label>
+        <T x={366} y={302} size={11}>Panjabi (L) sold 3× its usual</T>
+        <T x={366} y={318} size={11}>pace — only 4 left in stock.</T>
+        <T x={366} y={338} size={10.5} fill={A} weight={600}>Suggested: reorder 30 today</T>
+      </g>
 
       {["WhatsApp", "Email", "Telegram"].map((c, i) => (
-        <g key={c}>
+        <g key={c} className={`pv-s${i + 7}`}>
           <rect x={202 + i * 90} y={386} width={80} height={24} rx={12} fill="none" stroke={LINE} />
           <T x={242 + i * 90} y={402} size={10} anchor="middle" fill="rgba(228,223,215,0.7)">{c}</T>
         </g>
