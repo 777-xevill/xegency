@@ -196,17 +196,37 @@ function TypeArt() {
   );
 }
 
+function Photo({
+  src,
+  className,
+}: {
+  src: string;
+  className?: string;
+}) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      draggable={false}
+      className={cx("absolute inset-0 h-full w-full object-cover", className)}
+    />
+  );
+}
+
 function FeedArt() {
   return (
-    <div className="flex h-full flex-col bg-[linear-gradient(150deg,#c8643b,#61564a)] text-[#f4ece0]">
-      <span className="flex items-center gap-[3cqw] px-[5cqw] pt-[5cqw] font-mono text-[4.5cqw] uppercase tracking-[0.14em] opacity-80">
+    <div className="relative flex h-full flex-col text-[#f4ece0]">
+      <Photo src="/ring/feed.jpg" />
+      <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.35),transparent_35%,rgba(0,0,0,0.7))]" />
+      <span className="relative flex items-center gap-[3cqw] px-[5cqw] pt-[5cqw] font-mono text-[4.5cqw] uppercase tracking-[0.14em] opacity-90">
         <span className="h-[7cqw] w-[7cqw] rounded-full bg-[#f4ece0]" />
         Sponsored
       </span>
-      <span className="display mt-auto px-[5cqw] text-[15cqw] leading-[0.95]">
+      <span className="display relative mt-auto px-[5cqw] text-[13cqw] leading-[0.95]">
         Your offer, in one line.
       </span>
-      <span className="mt-[6cqw] flex items-center justify-between bg-black/25 px-[5cqw] py-[3.5cqw] font-mono text-[4.5cqw] uppercase tracking-[0.12em]">
+      <span className="relative mt-[5cqw] flex items-center justify-between bg-black/45 px-[5cqw] py-[3.5cqw] font-mono text-[4.5cqw] uppercase tracking-[0.12em] backdrop-blur-sm">
         Learn more
         <span>→</span>
       </span>
@@ -216,9 +236,11 @@ function FeedArt() {
 
 function StoryArt() {
   return (
-    <div className="flex h-full flex-col bg-[#2f3b33] p-[5cqw] text-[#e9dfcf]">
-      <span className="flex gap-[2cqw]">
-        {[1, 0.35, 0.35].map((o, i) => (
+    <div className="relative flex h-full flex-col p-[5cqw] text-[#f4ece0]">
+      <Photo src="/ring/story.jpg" />
+      <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.15)_40%,rgba(0,0,0,0.75))]" />
+      <span className="relative flex gap-[2cqw]">
+        {[1, 0.4, 0.4].map((o, i) => (
           <span
             key={i}
             style={{ opacity: o }}
@@ -226,10 +248,10 @@ function StoryArt() {
           />
         ))}
       </span>
-      <span className="display my-auto text-[16cqw] leading-[0.95]">
+      <span className="display relative mt-auto mb-[8cqw] text-[15cqw] leading-[0.95]">
         Seen in the first second.
       </span>
-      <span className="self-center rounded-full border border-[#e9dfcf]/60 px-[6cqw] py-[2.5cqw] font-mono text-[4.5cqw] uppercase tracking-[0.14em]">
+      <span className="relative self-center rounded-full border border-[#f4ece0]/70 bg-black/25 px-[6cqw] py-[2.5cqw] font-mono text-[4.5cqw] uppercase tracking-[0.14em] backdrop-blur-sm">
         Learn more
       </span>
     </div>
@@ -238,12 +260,14 @@ function StoryArt() {
 
 function ReelArt() {
   return (
-    <div className="flex h-full flex-col items-center justify-center bg-[#e9dfcf] text-[#181716]">
-      <span className="flex h-[30cqw] w-[30cqw] items-center justify-center rounded-full bg-[#181716]">
-        <span className="ml-[2cqw] h-0 w-0 border-y-[6cqw] border-l-[10cqw] border-y-transparent border-l-[#e9dfcf]" />
+    <div className="relative flex h-full flex-col items-center justify-center text-[#f4ece0]">
+      <Photo src="/ring/reel.jpg" />
+      <span className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(0,0,0,0.65))]" />
+      <span className="relative flex h-[26cqw] w-[26cqw] items-center justify-center rounded-full bg-black/45 backdrop-blur-sm">
+        <span className="ml-[2cqw] h-0 w-0 border-y-[5.5cqw] border-l-[9cqw] border-y-transparent border-l-[#f4ece0]" />
       </span>
-      <span className="mt-[10cqw] flex w-[72%] items-center gap-[3cqw] font-mono text-[4.5cqw] tracking-[0.1em]">
-        <span className="h-[1cqw] flex-1 bg-[#181716]/20">
+      <span className="absolute inset-x-[7%] bottom-[7cqw] flex items-center gap-[3cqw] font-mono text-[4.5cqw] tracking-[0.1em]">
+        <span className="h-[1cqw] flex-1 bg-[#f4ece0]/30">
           <span className="block h-full w-[38%] bg-[#c8643b]" />
         </span>
         0:15
@@ -256,17 +280,20 @@ function CarouselArt() {
   return (
     <div className="flex h-full flex-col bg-ink-800">
       <div className="relative flex-1">
-        {["#61564a", "#2f3b33", "#c8643b"].map((hex, i) => (
-          <span
-            key={hex}
-            style={{
-              left: `${8 + i * 14}%`,
-              background: hex,
-              transform: `rotate(${(i - 1) * 4}deg)`,
-            }}
-            className="absolute top-[12%] h-[64%] w-[58%] border border-black/20 shadow-[0_6px_18px_rgba(0,0,0,0.35)]"
-          />
-        ))}
+        {["/ring/car-1.jpg", "/ring/car-2.jpg", "/ring/car-3.jpg"].map(
+          (src, i) => (
+            <span
+              key={src}
+              style={{
+                left: `${8 + i * 14}%`,
+                transform: `rotate(${(i - 1) * 4}deg)`,
+              }}
+              className="absolute top-[12%] h-[64%] w-[58%] overflow-hidden border border-black/20 shadow-[0_6px_18px_rgba(0,0,0,0.45)]"
+            >
+              <Photo src={src} />
+            </span>
+          ),
+        )}
       </div>
       <span className="flex justify-center gap-[2.5cqw] pb-[6cqw]">
         {[1, 0.3, 0.3].map((o, i) => (
