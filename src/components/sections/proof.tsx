@@ -18,14 +18,14 @@ export function CapabilitiesBand() {
 export function ClientsBand() {
   if (clients.length === 0) return null;
   return (
-    <section className="grain relative border-y border-bone/10 bg-ink-800 py-10 md:py-12">
-      <Shell className="flex flex-col gap-6 md:flex-row md:items-center md:gap-10 lg:gap-14">
+    <section className="grain relative border-y border-bone/10 bg-ink-800 py-5 md:py-6">
+      <Shell className="flex flex-col gap-3 md:flex-row md:items-center md:gap-8 lg:gap-10">
         <p data-reveal="" className="eyebrow shrink-0 text-stone">
-          Built for
+          Companies we worked with
         </p>
         <span
           aria-hidden="true"
-          className="hidden h-10 w-px shrink-0 bg-bone/15 md:block"
+          className="hidden h-7 w-px shrink-0 bg-bone/15 md:block"
         />
         <div
           data-marquee="45"
@@ -48,14 +48,28 @@ function ClientList({ duplicate = false }: { duplicate?: boolean }) {
       aria-hidden={duplicate || undefined}
       className="flex shrink-0 items-center"
     >
-      {clients.map((name) => (
+      {clients.map(({ name, logo, wordmark }) => (
         <li key={name} className="flex shrink-0 items-center">
-          <span className="whitespace-nowrap font-display text-[clamp(1.75rem,3.2vw,2.75rem)] leading-none tracking-[-0.01em] text-bone/70 transition-colors duration-500 hover:text-bone">
-            {name}
+          <span className="group flex items-center gap-2.5 opacity-60 transition-opacity duration-500 hover:opacity-100">
+            {logo && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={logo}
+                alt=""
+                aria-hidden="true"
+                className={cx(
+                  "w-auto object-contain brightness-0 invert",
+                  wordmark ? "h-4 md:h-5" : "h-6 max-w-[5.5rem] md:h-7",
+                )}
+              />
+            )}
+            <span className={cx("whitespace-nowrap font-display text-[1.05rem] leading-none tracking-[-0.01em] text-bone md:text-[1.2rem]", logo && wordmark && "sr-only")}>
+              {name}
+            </span>
           </span>
           <span
             aria-hidden="true"
-            className="mx-7 h-1.5 w-1.5 shrink-0 rotate-45 bg-stone/50 md:mx-10 lg:mx-12"
+            className="mx-6 h-1 w-1 shrink-0 rotate-45 bg-stone/50 md:mx-9"
           />
         </li>
       ))}

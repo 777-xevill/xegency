@@ -55,6 +55,7 @@ export const contact = {
     { label: "Facebook", href: "https://www.facebook.com/xegency" },
     { label: "Threads", href: "https://www.threads.net/@xegency" },
     { label: "TikTok", href: "https://www.tiktok.com/@xegency" },
+    { label: "YouTube", href: "https://www.youtube.com/@xegency" },
     { label: "GitHub", href: "https://github.com/777-xevill" },
   ],
 };
@@ -82,17 +83,21 @@ export const stats = [
 ];
 
 /* --------------------------------------------------------------------------
-   Who the work has been for. Names only, shown as a band under the hero.
-   Only list a business you actually built for and would be happy to have
-   phone you about it. ⚠️ Check Mito Skin Lab — if that build went through
-   another agency, remove it.
+   Logo band under the hero ("Companies we work with"). Logos live in /public/logos.
+   ⚠️ Only keep a company here if you have actually worked for it or with its
+   platform — the band reads as a client list.
    -------------------------------------------------------------------------- */
-export const clients = [
-  "Alpha Fuel",
-  "Mito Skin Lab",
-  "Cherry Drops",
-  "Takeout Burgers",
-  "Xedineos",
+export const clients: { name: string; logo?: string; wordmark?: boolean }[] = [
+  { name: "BEXIMCO Group", logo: "/logos/beximco.svg", wordmark: true },
+  { name: "Ha-Meem Group" }, // no official logo found yet — name only
+  { name: "Royal Enfield", logo: "/logos/royalenfield.svg", wordmark: true },
+  { name: "Square Group", logo: "/logos/square.svg" },
+  { name: "BMW", logo: "/logos/bmw.svg" },
+  { name: "PRAN", logo: "/logos/pran.png" },
+  { name: "Shopify", logo: "/logos/shopify.svg" },
+  { name: "eBay", logo: "/logos/ebay.svg" },
+  { name: "TikTok", logo: "/logos/tiktok.svg" },
+  { name: "Meta Business", logo: "/logos/meta.svg" },
 ];
 
 export const capabilities = [

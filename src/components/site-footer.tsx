@@ -4,7 +4,8 @@ import { services } from "@/content/site";
 import { Shell, Arrow, cx } from "@/components/ui";
 import { Logo } from "@/components/logo";
 import { FooterScene } from "@/components/three/footer-scene";
-import { isPlaceholder, mailtoHref, safeHref, shown } from "@/lib/format";
+import { MailIcon, SocialIcon, hasSocialIcon } from "@/components/social-icons";
+import { isPlaceholder, mailtoHref, safeHref } from "@/lib/format";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -93,28 +94,25 @@ export function SiteFooter() {
             ))}
           </FooterColumn>
 
-          <FooterColumn title="Elsewhere">
-            {email ? (
-              <FooterLink href={email}>{contact.email}</FooterLink>
-            ) : (
-              <li className="text-sm text-bone/40">{contact.email}</li>
-            )}
-            {contact.socials.map((s) => {
-              const href = safeHref(s.href);
-              if (href) {
+          <div>
+            <p className="eyebrow text-stone">Elsewhere</p>
+            <ul className="mt-6 flex flex-wrap gap-3">
+              {email && (
+                <IconLink href={email} label={`Email ${contact.email}`}>
+                  <MailIcon className="h-[18px] w-[18px]" />
+                </IconLink>
+              )}
+              {contact.socials.map((s) => {
+                const href = safeHref(s.href);
+                if (!href || !hasSocialIcon(s.label)) return null;
                 return (
-                  <FooterLink key={s.label} href={href}>
-                    {s.label}
-                  </FooterLink>
+                  <IconLink key={s.label} href={href} label={s.label} external>
+                    <SocialIcon label={s.label} className="h-[18px] w-[18px]" />
+                  </IconLink>
                 );
-              }
-              return shown(s.href) ? (
-                <li key={s.label} className="text-sm text-bone/40">
-                  {s.label} — link not set
-                </li>
-              ) : null;
-            })}
-          </FooterColumn>
+              })}
+            </ul>
+          </div>
         </div>
 
         {/* oversized wordmark */}
@@ -158,6 +156,32 @@ function FooterColumn({
       <p className="eyebrow text-stone">{title}</p>
       <ul className="mt-6 space-y-3">{children}</ul>
     </div>
+  );
+}
+
+function IconLink({
+  href,
+  label,
+  external = false,
+  children,
+}: {
+  href: string;
+  label: string;
+  external?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <li>
+      <a
+        href={href}
+        aria-label={label}
+        title={label}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        className="flex h-11 w-11 items-center justify-center border border-bone/15 text-bone/65 transition-colors duration-300 hover:border-bone/60 hover:bg-bone hover:text-ink"
+      >
+        {children}
+      </a>
+    </li>
   );
 }
 

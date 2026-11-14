@@ -113,8 +113,10 @@ export function Hero() {
         </dl>
       </Shell>
 
-      {/* Scroll runway: the extra distance the mark stays pinned for. */}
-      <div aria-hidden="true" className="h-[90svh] lg:h-[110svh]" />
+      {/* Scroll runway: the extra distance the mark stays pinned for. Kept short
+          on purpose: a long runway reads as an empty page once the copy has
+          scrolled away. */}
+      <div aria-hidden="true" className="h-[28svh] lg:h-[40svh]" />
     </section>
   );
 }
