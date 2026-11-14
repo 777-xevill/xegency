@@ -5,7 +5,7 @@ import { Shell, Arrow, cx } from "@/components/ui";
 import { Logo } from "@/components/logo";
 import { FooterScene } from "@/components/three/footer-scene";
 import { MailIcon, SocialIcon, hasSocialIcon } from "@/components/social-icons";
-import { isPlaceholder, mailtoHref, safeHref } from "@/lib/format";
+import { mailtoHref, safeHref } from "@/lib/format";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -73,12 +73,11 @@ export function SiteFooter() {
           <div>
             <Logo className="text-[15px] text-bone" />
             <p className="pretty mt-6 max-w-xs text-sm leading-relaxed text-bone/55">
-              {site.tagline}. Founded and run by {founder.fullName}
-              {!isPlaceholder(founder.location) && <> in {founder.location}</>}.
+              {site.tagline}. Founded and run by {founder.fullName}.
             </p>
           </div>
 
-          <FooterColumn title="Studio">
+          <FooterColumn title="Xegency">
             {nav.map((item) => (
               <FooterLink key={item.href} href={item.href}>
                 {item.label}
@@ -134,9 +133,7 @@ export function SiteFooter() {
             &copy; {year} {site.name}. All rights reserved.
           </p>
           <p>
-            {isPlaceholder(founder.timezone)
-              ? "Working hours set in src/content/site.ts"
-              : `Working ${founder.timezone}`}
+            Fixed price · Written contracts
           </p>
         </div>
       </Shell>

@@ -85,7 +85,7 @@ export function Manifesto() {
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Holds its place while the statement lights up beside it. */}
           <div className="lg:sticky lg:top-32 lg:col-span-4 lg:self-start">
-            <Eyebrow invert>Why this studio exists</Eyebrow>
+            <Eyebrow invert>Why Xegency exists</Eyebrow>
           </div>
 
           <div className="lg:col-span-8">

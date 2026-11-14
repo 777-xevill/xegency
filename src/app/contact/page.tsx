@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { availability, contact, founder, process, site } from "@/content/site";
+import { availability, contact, process, site } from "@/content/site";
 import { PageHero } from "@/components/page-hero";
 import { ContactForm } from "@/components/contact-form";
 import { Faq } from "@/components/sections/faq";
@@ -29,11 +29,6 @@ export default function ContactPage() {
       label: "Book a call",
       value: calendar ? "30 minutes, no pitch" : contact.calendar,
       href: calendar,
-    },
-    {
-      label: "Based in",
-      value: founder.location,
-      href: null,
     },
   ].filter((d) => d && shown(d.value)) as {
     label: string;
@@ -143,7 +138,7 @@ export default function ContactPage() {
 
       <Faq
         heading="Answers before you write."
-        intro="The things most people want to know before sending a first message to a studio they haven't worked with."
+        intro="The things most people want to know before sending a first message to a company they haven't worked with."
       />
     </>
   );

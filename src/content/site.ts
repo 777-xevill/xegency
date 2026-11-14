@@ -24,7 +24,7 @@ export const site = {
   name: "Xegency",
   // Used for canonical URLs, sitemap and Open Graph.
   url: "https://www.xegency.com",
-  tagline: "AI-native software studio",
+  tagline: "AI-native software forge",
   description:
     "Xegency builds AI agents, automation, custom software, websites and apps — plus the branding and Facebook & Instagram ads that bring customers to them.",
 };
@@ -404,11 +404,7 @@ export const testimonials: {
 export const faqs = [
   {
     q: "Are you an agency or one person?",
-    a: "Xegency is a studio led by me, with a small group of specialists — a copywriter, a motion designer, a Meta ads specialist, a back-end developer — who I bring in per project. I say this openly because you will find out anyway, and because it is the reason the work is good: nothing gets handed down to whoever was free that week.",
-  },
-  {
-    q: "Where are you based, and does that matter?",
-    a: "I work from Dhaka, Bangladesh, on GMT+6. In practice it has never been the problem people expect. I keep overlapping hours with your team, everything is agreed in writing, and you can see the work on a live staging link at any hour without waiting for me to wake up.",
+    a: "Xegency is led by me, with a small group of specialists — a copywriter, a motion designer, a Meta ads specialist, a back-end developer — who I bring in per project. I say this openly because you will find out anyway, and because it is the reason the work is good: nothing gets handed down to whoever was free that week.",
   },
   {
     q: "What exactly can you build?",
@@ -450,12 +446,10 @@ export const faqs = [
    than anything else on the site.
    -------------------------------------------------------------------------- */
 export const studioFacts = [
-  { label: "Studio lead", value: "Ashikur Rahman Rifat, Founder & CEO" },
+  { label: "Lead", value: "Ashikur Rahman Rifat, Founder & CEO" },
   { label: "Founded", value: "2026" },
-  { label: "Based in", value: "Dhaka, Bangladesh" },
-  { label: "Working hours", value: "GMT+6, 09:00–18:00" },
   { label: "Languages", value: "English, Bengali" },
-  { label: "Team", value: "Studio lead plus specialist collaborators, per project" },
+  { label: "Team", value: "Lead plus specialist collaborators, per project" },
   { label: "Contracts", value: "Written agreement on every project · NDAs on request" },
   { label: "Invoicing", value: "Wise or bank transfer, milestone-based" },
   { label: "Typical project", value: "[$0,000] – [$00,000]" },
@@ -493,6 +487,6 @@ export const nav = [
   { label: "Services", href: "/services" },
   { label: "AI Audit", href: "/#ai-audit" },
   { label: "Work", href: "/work" },
-  { label: "Studio", href: "/about" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;

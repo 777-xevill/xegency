@@ -55,7 +55,7 @@ export function BrandGrowth() {
             className="pretty max-w-md text-base leading-relaxed text-bone/65 md:text-lg lg:col-span-5"
           >
             A brand people remember, and Facebook &amp; Instagram ads that pay
-            their way — made by the studio that builds your product, so the ad,
+            their way — made by the team that builds your product, so the ad,
             the landing page and the tracking all tell one story.
           </p>
         </div>

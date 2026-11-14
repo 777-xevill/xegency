@@ -10,8 +10,8 @@ import { isPlaceholder, shown } from "@/lib/format";
 import { OrganizationSchema } from "@/components/structured-data";
 
 export const metadata: Metadata = {
-  title: "Studio",
-  description: `Who runs ${site.name}, where we work from, how we operate and what we will and won't take on.`,
+  title: "About",
+  description: `Who runs ${site.name}, how we operate and what we will and won't take on.`,
   alternates: { canonical: "/about" },
 };
 
@@ -21,12 +21,12 @@ export default function AboutPage() {
       <OrganizationSchema />
 
       <PageHero
-        eyebrow="The studio"
+        eyebrow="About"
         title={
           <>
-            A small studio,
+            Small by design.
             <br />
-            deliberately.
+            Sharp on purpose.
           </>
         }
         lead={`${site.name} is led by ${founder.name} and built around a simple idea: the person who understands your business should be the person shaping the pages.`}
@@ -44,12 +44,12 @@ export default function AboutPage() {
                   Most of the people who contact me have the same worry, even if
                   they are too polite to say it: <em>who exactly am I about to
                   pay?</em> It is a reasonable question. The internet is full of
-                  studios that are a stock photo and a contact form.
+                  agencies that are a stock photo and a contact form.
                 </p>
                 <p className="pretty">{founder.bio}</p>
                 <p className="pretty">
-                  So this page is here to be checkable. My name, my face, where
-                  I work from, how I invoice, who else is involved and what I
+                  So this page is here to be checkable. My name, my face, how
+                  I invoice, who else is involved and what I
                   will refuse to take on. If you want to talk to a past client
                   before you commit, ask — where they have agreed to it, I will
                   connect you directly.
@@ -58,7 +58,7 @@ export default function AboutPage() {
                   What I care about is the part most people skip: whether the
                   site actually earns the trust of the person reading it. That
                   is a craft problem and a business problem at the same time,
-                  and it is the reason this studio exists.
+                  and it is the reason Xegency exists.
                 </p>
               </div>
 
@@ -75,7 +75,7 @@ export default function AboutPage() {
                     <div data-parallax-img="" className="absolute inset-0">
                       <Image
                         src="/founder/at-work.jpg"
-                        alt="Working on a build at the studio desk"
+                        alt="Working on a build at the desk"
                         fill
                         sizes="(min-width: 1024px) 25vw, 45vw"
                         className="object-cover"
@@ -116,7 +116,7 @@ export default function AboutPage() {
         <Shell>
           <div className="grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-4">
-              <Eyebrow>Studio facts</Eyebrow>
+              <Eyebrow>The facts</Eyebrow>
               <h2
                 data-split="lines"
                 className="display mt-6 text-[clamp(1.9rem,3.8vw,3rem)]"
@@ -126,7 +126,7 @@ export default function AboutPage() {
                 nobody else writes.
               </h2>
               <p className="pretty mt-8 max-w-sm text-base leading-relaxed text-bone/65">
-                If you are about to send money to a studio in another country,
+                If you are about to send money to a company you have never met,
                 you should be able to find all of this in one place without
                 asking.
               </p>

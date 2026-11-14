@@ -13,9 +13,9 @@ export function Hero() {
   const status = statusStyles[availability.status];
 
   const meta = [
-    { label: "Studio", value: `Est. ${founder.since}` },
-    { label: "Based in", value: founder.location },
-    { label: "Hours", value: founder.timezone },
+    { label: "Founded", value: `${founder.since}` },
+    { label: "Focus", value: "AI agents & custom software" },
+    { label: "Pricing", value: "Fixed price, in writing" },
     { label: "Response", value: "Within 1 business day" },
   ];
 
@@ -68,7 +68,7 @@ export function Hero() {
               style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
               className="pretty mt-8 max-w-xl text-lg leading-relaxed text-bone/60 md:text-xl"
             >
-              {site.name} is an AI-native software studio. AI agents and
+              {site.name} is an AI-native software forge. AI agents and
               automation, custom software, websites, web and mobile apps —
               designed and engineered end to end by the person you actually
               talk to.

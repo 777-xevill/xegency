@@ -54,9 +54,9 @@ export function FounderIntro() {
               data-stagger="0.09"
               className="grid grid-cols-2 gap-px sm:grid-cols-3"
             >
-              <Fact label="Based in" value={founder.location} />
-              <Fact label="Working hours" value={founder.timezone} />
               <Fact label="Doing this since" value={founder.since} />
+              <Fact label="Replies within" value="1 business day" />
+              <Fact label="Contracts" value="Written, every project" />
             </dl>
 
             <div data-reveal="" className="mt-10">
@@ -65,7 +65,7 @@ export function FounderIntro() {
                 data-magnetic="0.25"
                 className="link-sweep eyebrow inline-flex items-center gap-2 text-stone"
               >
-                More about the studio
+                More about Xegency
                 <Arrow />
               </Link>
             </div>
@@ -81,7 +81,7 @@ export function FounderIntro() {
                   <div data-parallax-img="" className="absolute inset-0">
                     <Image
                       src="/founder/at-work.jpg"
-                      alt="Working on a build at the studio desk"
+                      alt="Working on a build at the desk"
                       fill
                       sizes="(min-width: 1024px) 25vw, 45vw"
                       className="object-cover"

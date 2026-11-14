@@ -276,12 +276,12 @@ export function ChatWidget() {
           >
             {messages.length === 0 && (
               <div>
-                <p className="eyebrow text-stone">Ask the studio</p>
+                <p className="eyebrow text-stone">Ask Xegency</p>
                 <h2 className="display balance mt-4 text-[2.5rem]">
                   What are you trying to <em className="text-stone">build?</em>
                 </h2>
                 <p className="pretty mt-4 text-sm leading-relaxed text-bone/65">
-                  I&apos;m the studio&apos;s AI assistant. Ask about services, how
+                  I&apos;m Xegency&apos;s AI assistant. Ask about services, how
                   a project runs, or whether we&apos;re the right fit.
                 </p>
                 <ul className="mt-6 border-t border-bone/15">

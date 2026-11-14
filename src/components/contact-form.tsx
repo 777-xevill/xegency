@@ -125,7 +125,7 @@ export function ContactForm() {
         <p className="pretty mt-5 max-w-md text-base leading-relaxed text-bone/65">
           {state === "sent"
             ? "You'll get a reply within one business day, from a person, with actual thoughts on your project."
-            : "Send the message that's been prepared for you and it'll reach the studio the same way."}
+            : "Send the message that's been prepared for you and it'll reach us the same way."}
         </p>
         <button
           type="button"

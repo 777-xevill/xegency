@@ -154,7 +154,7 @@ export default function ServicesPage() {
               <div className="mt-8 grid gap-8 md:grid-cols-2 md:gap-12">
                 {priced ? (
                   <p className="pretty text-base leading-relaxed text-bone/70">
-                    Most studios make you sit through a call to find out
+                    Most agencies make you sit through a call to find out
                     whether you can afford them. That wastes your afternoon and
                     ours. The ranges above are real: they are what recent
                     projects of that shape actually cost.
