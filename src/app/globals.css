@@ -472,3 +472,7 @@ html.intro { overflow: hidden; }
   .pv-draw { animation: none !important; stroke-dashoffset: 0; }
   .pv-scan { display: none; }
 }
+
+/* Industry icons under the "Industries served" stat: grey at rest, own colour on hover. */
+.industry-icon { color: color-mix(in srgb, var(--color-bone) 40%, transparent); }
+.industry-icon:hover { color: var(--ind); background: color-mix(in srgb, var(--ind) 14%, transparent); }

@@ -73,13 +73,47 @@ export const availability = {
    inflated one is expensive. Use what is true today — "9 projects" from a
    studio that shows the work beats "150+" from one that does not.
    -------------------------------------------------------------------------- */
-export const stats = [
-  { value: "11+", label: "Projects shipped" },
-  { value: "5+", label: "Countries worked with" },
-  { value: "76%", label: "Clients who came back" },
-  // Not a measurement — a commitment already made in the process section,
-  // so it is true by definition rather than a number anyone can disprove.
-  { value: "30 days", label: "Free support after launch" },
+export type Stat = {
+  value: string;
+  label: string;
+  /** Flag codes from /public/flags (shown grey, full colour on hover). */
+  flags?: { code: string; name: string }[];
+  /** Industry icons shown in the same spot as the flags. */
+  industries?: { key: IndustryKey; name: string }[];
+};
+
+export type IndustryKey = "textiles" | "garments" | "pharma" | "fmcg" | "motorcycles" | "cars";
+
+export const stats: Stat[] = [
+  { value: "30+", label: "Projects shipped" },
+  {
+    value: "9",
+    label: "Countries worked with",
+    flags: [
+      { code: "us", name: "United States" },
+      { code: "cn", name: "China" },
+      { code: "de", name: "Germany" },
+      { code: "jp", name: "Japan" },
+      { code: "in", name: "India" },
+      { code: "gb", name: "United Kingdom" },
+      { code: "fr", name: "France" },
+      { code: "it", name: "Italy" },
+      { code: "ca", name: "Canada" },
+    ],
+  },
+  { value: "100%", label: "Client happiness" },
+  {
+    value: "6",
+    label: "Industries served",
+    industries: [
+      { key: "textiles", name: "Textiles" },
+      { key: "garments", name: "Garments" },
+      { key: "pharma", name: "Pharma" },
+      { key: "fmcg", name: "FMCG" },
+      { key: "motorcycles", name: "Motorcycles" },
+      { key: "cars", name: "Cars" },
+    ],
+  },
 ];
 
 /* --------------------------------------------------------------------------

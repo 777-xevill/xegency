@@ -1,4 +1,4 @@
-import { capabilities, clients, stats } from "@/content/site";
+import { capabilities, clients, stats, type IndustryKey } from "@/content/site";
 import { Eyebrow, Float3D, Marquee, Shell, cx } from "@/components/ui";
 import { MarqueeArrows } from "@/components/marquee-arrows";
 import { isPlaceholder } from "@/lib/format";
@@ -136,6 +136,76 @@ export function Manifesto() {
   );
 }
 
+/* Line icons for the industries we serve: grey at rest, own colour on hover. */
+const industryArt: Record<IndustryKey, { color: string; d: React.ReactNode }> = {
+  textiles: {
+    color: "#c9a27a",
+    d: <path d="M7 3h10M7 21h10M8 3v18M16 3v18M8 7l8 3M8 11l8 3M8 15l8 3" />,
+  },
+  garments: {
+    color: "#8fb3d9",
+    d: <path d="M8.5 3 3 6l2 5 3-1.2V21h8V9.8l3 1.2 2-5-5.5-3a3.5 3.5 0 0 1-7 0Z" />,
+  },
+  pharma: {
+    color: "#7cc29a",
+    d: (
+      <>
+        <rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)" />
+        <path d="m9.2 9.2 5.6 5.6" />
+      </>
+    ),
+  },
+  fmcg: {
+    color: "#e5b04f",
+    d: <path d="M3 9.5h18l-2 10.5H5L3 9.5Zm5 0 3-6m5 6-3-6M9 13.5v3.5m6-3.5v3.5" />,
+  },
+  motorcycles: {
+    color: "#e0865f",
+    d: (
+      <>
+        <circle cx="5.5" cy="16" r="3.5" />
+        <circle cx="18.5" cy="16" r="3.5" />
+        <path d="m5.5 16 4-6h5l4 6M7 10h2.5m5 0 1.5-3h2.5" />
+      </>
+    ),
+  },
+  cars: {
+    color: "#a9bfe0",
+    d: (
+      <>
+        <path d="M3 13.5 5 8h14l2 5.5V17H3v-3.5Zm0 0h18" />
+        <circle cx="7.5" cy="17" r="1.8" />
+        <circle cx="16.5" cy="17" r="1.8" />
+      </>
+    ),
+  },
+};
+
+function IndustryIcon({ kind, label }: { kind: IndustryKey; label: string }) {
+  const art = industryArt[kind];
+  return (
+    <span
+      className="industry-icon grid h-[30px] w-[30px] place-items-center rounded-md ring-1 ring-bone/10 transition duration-300 hover:-translate-y-0.5 hover:scale-110"
+      style={{ "--ind": art.color } as React.CSSProperties}
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        role="img"
+        aria-label={label}
+      >
+        {art.d}
+      </svg>
+    </span>
+  );
+}
+
 export function Stats() {
   return (
     <section className="grain ambient relative bg-ink py-20 text-bone md:py-28">
@@ -148,14 +218,45 @@ export function Stats() {
           {stats.map((s) => (
             <div
               key={s.label}
-              // Reversed so the number reads first visually while the DOM
-              // keeps the <dt> before its <dd>, as a definition list requires.
-              className="flex flex-col-reverse"
+              // Visual order: number, label, then flags/icons. The DOM keeps
+              // the <dt> before its <dd>s, as a definition list requires.
+              className="flex flex-col"
             >
-              <dt className="eyebrow mt-4 text-stone">{s.label}</dt>
+              <dt className="eyebrow order-2 mt-4 text-stone">{s.label}</dt>
+              {(s.flags || s.industries) && (
+                <dd className="order-3 mt-5">
+                  <ul
+                    className={
+                      s.flags
+                        ? // 5 + 4 grid that scales with the column, never wider than it
+                          "grid w-full max-w-[17.5rem] grid-cols-5 gap-2"
+                        : "flex flex-wrap gap-1.5"
+                    }
+                  >
+                    {s.flags?.map((f) => (
+                      <li key={f.code} title={f.name}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`/flags/${f.code}.svg`}
+                          alt={f.name}
+                          width={48}
+                          height={36}
+                          loading="lazy"
+                          className="aspect-[4/3] h-auto w-full rounded-[4px] opacity-60 ring-1 ring-bone/10 grayscale transition duration-300 hover:-translate-y-0.5 hover:scale-110 hover:opacity-100 hover:grayscale-0"
+                        />
+                      </li>
+                    ))}
+                    {s.industries?.map((ind) => (
+                      <li key={ind.key} title={ind.name}>
+                        <IndustryIcon kind={ind.key} label={ind.name} />
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              )}
               <dd
                 className={cx(
-                  "display text-[clamp(2.5rem,6vw,4.5rem)] leading-none",
+                  "display order-1 text-[clamp(2.5rem,6vw,4.5rem)] leading-none",
                   isPlaceholder(s.value) && "text-bone/30",
                 )}
               >
