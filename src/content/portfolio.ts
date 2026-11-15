@@ -17,6 +17,7 @@ const bySlug = (slug: string) =>
 const order = [
   "whatsapp-auto-reply",
   "alpha-fuel",
+  "beximco-export-tracker",
   "ai-lead-qualifier",
   "qr-ordering-platform",
   "ai-support-agent",
@@ -33,6 +34,7 @@ export const portfolio: PortfolioItem[] = order
 /** Homepage showcase — the strongest five, in this order. */
 export const featuredPortfolio: PortfolioItem[] = [
   "whatsapp-auto-reply",
+  "beximco-export-tracker",
   "ai-lead-qualifier",
   "alpha-fuel",
   "qr-ordering-platform",

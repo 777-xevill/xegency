@@ -34,6 +34,12 @@ export type CaseStudy = {
   stack: string[];
   /** Path under /public, e.g. "/work/atelier/cover.jpg". null → typographic panel. */
   cover: string | null;
+  /** Extra photos shown under the cover on the case-study page. */
+  gallery?: { src: string; alt: string }[];
+  /** Sidebar facts on the case-study page, e.g. deliverable, what's inside. */
+  details?: { label: string; value: string }[];
+  /** Small note under the visuals, e.g. that figures on screen are sample data. */
+  visualNote?: string;
   /** Panel colours used when there is no cover image. */
   tint: { from: string; to: string; ink: string };
   featured: boolean;
@@ -68,6 +74,44 @@ export const work: CaseStudy[] = [
     stack: ["Next.js", "React", "Tailwind CSS"],
     cover: null,
     tint: { from: "#221F1D", to: "#61564A", ink: "#E4DFD7" },
+    featured: true,
+  },
+  {
+    slug: "beximco-export-tracker",
+    kind: "client",
+    client: "BEXIMCO Group",
+    title: "One workbook for every export order on the floor",
+    sector: "Manufacturing / Textiles",
+    region: "Bangladesh",
+    year: "2026",
+    nda: false,
+    services: ["Spreadsheet system", "Excel automation", "Reporting"],
+    summary:
+      "A spreadsheet for BEXIMCO that tracks each export order from cutting to ex-factory, and flags the ones slipping behind before the ship date arrives.",
+    problem:
+      "Order status was spread across separate files and floor updates. To see which purchase orders were behind, someone had to chase each line by hand, so problems tended to show up close to the ship date, when they are hardest to fix.",
+    approach: [
+      "Built one workbook with a sheet per job: orders, line plan, fabric stock, buyers and shipments, all linked so a figure is entered once.",
+      "Each order shows its cutting, sewing and finishing progress, and a formula sets its status (on track, at risk, late or shipped) from progress and days left to ex-factory.",
+      "Added a summary at the top and two charts, so the week's position can be read in seconds without opening a filter.",
+    ],
+    outcome:
+      "Delivered and in use. The screen shown here is the workbook's layout recreated with sample figures; the client's real order data stays private.",
+    metrics: [],
+    stack: ["Microsoft Excel", "Formulas", "Conditional formatting"],
+    cover: "/work/beximco/cover.jpg",
+    gallery: [
+      { src: "/work/beximco/laptop.jpg", alt: "The BEXIMCO export-order workbook open on a laptop beside fabric swatches" },
+    ],
+    details: [
+      { label: "Deliverable", value: "Excel workbook (.xlsx), ready to use" },
+      { label: "Sheets", value: "Orders, Line plan, Fabric stock, Buyers, Shipments, Dashboard" },
+      { label: "Tracks", value: "Cutting, sewing and finishing per order, plus days to ex-factory" },
+      { label: "Status", value: "Set automatically by formula: on track, at risk, late or shipped" },
+      { label: "Reports", value: "Weekly summary figures and two charts" },
+    ],
+    visualNote: "Workbook layout shown with sample figures — client data stays private",
+    tint: { from: "#181716", to: "#61564A", ink: "#E4DFD7" },
     featured: true,
   },
 ];

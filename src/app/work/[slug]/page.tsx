@@ -136,6 +136,18 @@ export default async function PortfolioItemPage({
             )}
           </div>
           )}
+          {!product && item.gallery && item.gallery.length > 0 && (
+            <div className="mt-6 grid gap-6 md:mt-8 md:grid-cols-1">
+              {item.gallery.map((g) => (
+                <div key={g.src} className="relative aspect-[4/3] overflow-hidden bg-ink-800 md:aspect-[16/9]">
+                  <Image src={g.src} alt={g.alt} fill sizes="100vw" className="object-cover" />
+                </div>
+              ))}
+            </div>
+          )}
+          {!product && item.visualNote && (
+            <p className="eyebrow mt-4 text-bone/40">{item.visualNote}</p>
+          )}
           {!product && item.nda && (
             <p className="eyebrow mt-4 text-bone/40">
               Client name withheld at their request
@@ -186,7 +198,8 @@ export default async function PortfolioItemPage({
             {/* -------------------------------------------------- sidebar */}
             <aside className="lg:col-span-4 lg:col-start-9">
               <div className="lg:sticky lg:top-28">
-                <div className="border-t border-bone/12 pt-6">
+                {item.metrics.length > 0 && (
+                <div className="mb-12 border-t border-bone/12 pt-6">
                   <Eyebrow>{product ? "At a glance" : "Results"}</Eyebrow>
                   <dl className="mt-6 space-y-6">
                     {item.metrics.map((m) => (
@@ -204,8 +217,23 @@ export default async function PortfolioItemPage({
                     ))}
                   </dl>
                 </div>
+                )}
 
-                <div className="mt-12 border-t border-bone/12 pt-6">
+                {item.details && item.details.length > 0 && (
+                  <div className="mb-12 border-t border-bone/12 pt-6">
+                    <Eyebrow>Project details</Eyebrow>
+                    <dl className="mt-6 space-y-5">
+                      {item.details.map((d) => (
+                        <div key={d.label}>
+                          <dt className="eyebrow text-bone/45">{d.label}</dt>
+                          <dd className="mt-1.5 text-sm leading-relaxed text-bone/80">{d.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
+
+                <div className="border-t border-bone/12 pt-6">
                   <Eyebrow>Built with</Eyebrow>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {item.stack.map((s) => (
