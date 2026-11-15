@@ -78,15 +78,6 @@ export function WorkShowcase({ slides }: { slides: Slide[] }) {
                 <span className="text-bone/25"> &nbsp;/&nbsp; </span>
                 {slide.tag}
               </span>
-              <span className="eyebrow ml-auto flex shrink-0 items-center gap-2 text-bone/50">
-                <span
-                  className={cx(
-                    "h-1.5 w-1.5 rounded-full bg-emerald-400",
-                    playing && "pv-pulse",
-                  )}
-                />
-                Live demo
-              </span>
             </div>
 
             <Link
