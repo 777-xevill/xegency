@@ -15,30 +15,27 @@ const bySlug = (slug: string) =>
   [...work, ...products].find((i) => i.slug === slug);
 
 const order = [
-  "whatsapp-auto-reply",
-  "alpha-fuel",
   "beximco-export-tracker",
-  "ai-lead-qualifier",
-  "qr-ordering-platform",
-  "ai-support-agent",
-  "invoice-reader",
-  "stock-forecasting",
-  "daily-business-digest",
+  "bmw-whatsapp-leads",
+  "square-sales-mis",
+  "royal-enfield-test-ride-booking",
+  "hameem-line-efficiency",
+  "pran-dealer-orders",
 ];
 
-/** Full listing: AI products lead, with the real client project and Xedineos woven in. */
+/** Full listing: client work only. Old products and Alpha Fuel are kept in their files but no longer shown. */
 export const portfolio: PortfolioItem[] = order
   .map(bySlug)
   .filter(Boolean) as PortfolioItem[];
 
-/** Homepage showcase — the strongest five, in this order. */
+/** Homepage showcase, in this order. */
 export const featuredPortfolio: PortfolioItem[] = [
-  "whatsapp-auto-reply",
   "beximco-export-tracker",
-  "ai-lead-qualifier",
-  "alpha-fuel",
-  "qr-ordering-platform",
-  "ai-support-agent",
+  "bmw-whatsapp-leads",
+  "square-sales-mis",
+  "royal-enfield-test-ride-booking",
+  "hameem-line-efficiency",
+  "pran-dealer-orders",
 ]
   .map(bySlug)
   .filter(Boolean) as PortfolioItem[];
