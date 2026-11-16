@@ -42,7 +42,7 @@ export default function CareersPage() {
           { label: "Role", value: role.title },
           { label: "Pay", value: role.pay },
           { label: "Where", value: role.location },
-          { label: "To apply", value: "5-minute form, no CV" },
+          { label: "To apply", value: "3 minutes, no CV" },
         ]}
       >
         <a
@@ -197,7 +197,7 @@ export default function CareersPage() {
                 Apply for {role.title}
               </h2>
               <p className="mt-3 text-sm text-bone/50">
-                Takes about five minutes. Write in Bangla or English.
+                Eleven quick questions, most of them one tap. About three minutes.
               </p>
               <div className="mt-10">
                 <ApplyForm />

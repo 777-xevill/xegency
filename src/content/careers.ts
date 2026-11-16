@@ -66,7 +66,7 @@ export const fits = [
 ];
 
 export const steps = [
-  { title: "Apply", time: "5 minutes", body: "Fill in the form on this page. No CV needed." },
+  { title: "Apply", time: "3 minutes", body: "Answer a few quick questions on this page. No CV needed." },
   { title: "Phone call", time: "within 3 days", body: "A 10-minute call to get to know you and answer your questions." },
   { title: "Interview", time: "30 minutes", body: "You pitch Xegency to us as if we were a factory owner. We give you feedback." },
   { title: "Trial week", time: "7 days", body: "Training, then real calls with our support. You earn commission on anything you close." },
@@ -114,6 +114,21 @@ export const experienceOptions = [
   "1–3 years",
   "3+ years",
 ];
+
+export const areaOptions = [
+  "Mirpur",
+  "Uttara",
+  "Dhanmondi",
+  "Mohammadpur",
+  "Gulshan / Banani",
+  "Badda / Rampura",
+  "Bashundhara",
+  "Motijheel / Old Dhaka",
+  "Farmgate / Tejgaon",
+  "Savar / Ashulia",
+];
+
+export const sourceOptions = ["Facebook group", "Friend or family", "LinkedIn", "Xegency website"];
 
 export const yesNo = ["Yes", "Not sure", "No"];
 

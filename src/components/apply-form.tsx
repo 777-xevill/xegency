@@ -1,316 +1,343 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import {
+  areaOptions,
   englishOptions,
   experienceOptions,
   role,
+  sourceOptions,
   statusOptions,
   yesNo,
 } from "@/content/careers";
 import { Arrow, cx } from "@/components/ui";
 
-type State = "idle" | "sending" | "sent" | "error";
+/**
+ * The application, one question at a time. Choices are tap targets that move
+ * straight on; only name, phone and the pitch need typing.
+ */
 
-/** Remembers which Facebook group (or other link) brought the visitor here. */
+type Answers = Record<string, string>;
+
+type Step =
+  | { key: string; kind: "text"; q: string; hint?: string; placeholder?: string; type?: string; optional?: boolean; check?: (v: string) => string | null }
+  | { key: string; kind: "long"; q: string; hint: string; optional?: boolean; min?: number }
+  | { key: string; kind: "choice"; q: string; hint?: string; options: string[]; other?: boolean };
+
+const phoneOk = (v: string) => {
+  const d = v.replace(/\D/g, "").replace(/^880/, "0").replace(/^(?=1[3-9])/, "0");
+  return /^01[3-9]\d{8}$/.test(d) ? null : "Enter a mobile number like 01712345678";
+};
+
+const steps: Step[] = [
+  { key: "name", kind: "text", q: "What's your name?", placeholder: "Full name", check: (v) => (v.trim().length < 2 ? "Please write your name" : null) },
+  { key: "phone", kind: "text", q: "Your WhatsApp number?", hint: "We'll call or message you on this number.", placeholder: "01XXXXXXXXX", type: "tel", check: phoneOk },
+  { key: "area", kind: "choice", q: "Where in Dhaka do you live?", options: areaOptions, other: true },
+  { key: "status_now", kind: "choice", q: "What are you doing right now?", options: statusOptions },
+  { key: "experience", kind: "choice", q: "How much sales experience do you have?", hint: "None is completely fine. We train you.", options: experienceOptions },
+  { key: "hours", kind: "choice", q: "Can you do 50 calls and 5 meetings a day?", options: yesNo },
+  { key: "field_ok", kind: "choice", q: "Can you travel around Dhaka to meet business owners?", options: yesNo },
+  { key: "english", kind: "choice", q: "How is your English?", options: englishOptions },
+  { key: "pitch", kind: "long", q: "Pitch Xegency in your own words.", hint: "You have 30 seconds with the owner of a garment factory. What do you say? Bangla or English.", min: 60 },
+  { key: "network", kind: "long", q: "Do you know any business owners or managers?", hint: "Who could you introduce us to? This helps, but you can skip it.", optional: true },
+  { key: "source", kind: "choice", q: "Where did you find this job?", options: sourceOptions, other: true },
+];
+
+const TOTAL = steps.length;
+
 function sourceFromUrl() {
-  if (typeof window === "undefined") return "";
   const p = new URLSearchParams(window.location.search);
-  return [p.get("src"), p.get("utm_source"), p.get("utm_campaign")]
-    .filter(Boolean)
-    .join(" / ");
+  return [p.get("src"), p.get("utm_source"), p.get("utm_campaign")].filter(Boolean).join(" / ");
 }
 
 export function ApplyForm() {
-  const [state, setState] = useState<State>("idle");
+  const [i, setI] = useState(0);
+  const [a, setA] = useState<Answers>({});
+  const [draft, setDraft] = useState("");
+  const [otherOpen, setOtherOpen] = useState(false);
   const [error, setError] = useState("");
-  const [name, setName] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [editing, setEditing] = useState(false); // came from the review screen
+  const trap = useRef<HTMLInputElement>(null);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (!form.reportValidity()) return;
-    const data = Object.fromEntries(new FormData(form).entries()) as Record<
-      string,
-      string
-    >;
-    data.role = role.slug;
-    data.ref = sourceFromUrl();
+  const done = i >= TOTAL; // the review screen
+  const step = steps[i];
 
-    setState("sending");
+  function go(to: number, answers = a) {
+    setError("");
+    setOtherOpen(false);
+    setI(to);
+    setDraft(to < TOTAL ? (answers[steps[to].key] ?? "") : "");
+  }
+
+  function commit(value: string) {
+    const next = { ...a, [step.key]: value };
+    setA(next);
+    go(editing ? TOTAL : i + 1, next);
+    if (editing) setEditing(false);
+  }
+
+  function submitText() {
+    if (step.kind === "choice") return;
+    const v = draft.trim();
+    if (!v && step.optional) return commit("");
+    if (step.kind === "text" && step.check) {
+      const problem = step.check(v);
+      if (problem) return setError(problem);
+    }
+    if (step.kind === "long" && step.min && v.length < step.min) {
+      return setError("Write a little more: two or three sentences.");
+    }
+    commit(v);
+  }
+
+  async function send() {
+    setSending(true);
     setError("");
     try {
       const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...a, role: role.slug, ref: sourceFromUrl(), website: trap.current?.value ?? "" }),
       });
-      if (res.ok) {
-        setName(data.name.split(" ")[0] ?? "");
-        setState("sent");
-        form.reset();
-        return;
-      }
+      if (res.ok) return setSent(true);
       const payload = (await res.json().catch(() => ({}))) as { error?: string };
-      setState("error");
       setError(payload.error ?? "Something went wrong. Please try again.");
     } catch {
-      setState("error");
       setError("Network problem. Check your connection and try again.");
+    } finally {
+      setSending(false);
     }
   }
 
-  if (state === "sent") {
+  if (sent) {
+    const first = a.name?.split(" ")[0];
     return (
-      <div className="border border-bone/15 bg-ink-800 p-10 md:p-14">
+      <div className="pv-stage-in py-6">
         <p className="eyebrow text-stone">Application received</p>
-        <h3 className="display mt-5 text-[clamp(1.7rem,3vw,2.5rem)]">
-          Thank you{name ? `, ${name}` : ""}.
-        </h3>
+        <h3 className="display mt-5 text-[clamp(2rem,3.4vw,2.8rem)]">Thank you{first ? `, ${first}` : ""}.</h3>
         <p className="pretty mt-5 max-w-md text-base leading-relaxed text-bone/65">
-          We read every application. If you&rsquo;re a fit, we&rsquo;ll call or
-          WhatsApp you within three days from a Xegency number. Keep your phone
-          close.
+          We read every application. If you&rsquo;re a fit, we&rsquo;ll call or WhatsApp you within three days. Keep your phone close.
         </p>
-        <p className="pretty mt-4 max-w-md text-sm leading-relaxed text-bone/45">
-          Xegency never asks for money at any stage. If someone does, it
-          isn&rsquo;t us.
-        </p>
+        <p className="mt-4 max-w-md text-sm text-bone/45">Xegency never asks for money at any stage.</p>
       </div>
     );
   }
 
+  const onEnter = (e: KeyboardEvent) => {
+    if (e.key === "Enter" && !(step?.kind === "long" && !e.ctrlKey && !e.metaKey)) {
+      e.preventDefault();
+      submitText();
+    }
+  };
+
   return (
-    <form onSubmit={onSubmit} className="space-y-9">
+    <div>
       {/* honeypot */}
-      <div className="absolute left-[-9999px]" aria-hidden="true">
-        <label htmlFor="website">Website</label>
-        <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+      <input ref={trap} name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute left-[-9999px]" />
+
+      {/* progress */}
+      <div className="flex items-center justify-between text-xs text-bone/45">
+        <span className="tabular-nums">{done ? "Ready to send" : `${i + 1} of ${TOTAL}`}</span>
+        {i > 0 && (
+          <button type="button" onClick={() => go(i - 1)} className="transition-colors hover:text-bone">
+            ← Back
+          </button>
+        )}
+      </div>
+      <div className="mt-3 h-px w-full bg-bone/12">
+        <div className="h-px bg-bone transition-[width] duration-500 ease-out" style={{ width: `${(Math.min(i, TOTAL) / TOTAL) * 100}%` }} />
       </div>
 
-      <Group n="01" title="About you">
-        <div className="grid gap-8 sm:grid-cols-2">
-          <Field label="Full name" name="name" required autoComplete="name" />
-          <Field
-            label="Phone (WhatsApp)"
-            name="phone"
-            type="tel"
-            required
-            autoComplete="tel"
-            placeholder="01XXXXXXXXX"
-          />
-          <Field label="Email" name="email" type="email" optional autoComplete="email" />
-          <Field
-            label="Area in Dhaka"
-            name="area"
-            required
-            placeholder="Mirpur, Uttara, Gulshan…"
-          />
+      <div key={i} className="pv-stage-in min-h-[22rem] pt-12">
+        {done ? (
+          <Review answers={a} onEdit={(k) => {
+              setEditing(true);
+              go(steps.findIndex((s) => s.key === k));
+            }} />
+        ) : (
+          <>
+            <h3 className="display text-[clamp(1.7rem,3vw,2.5rem)] leading-tight">{step.q}</h3>
+            {step.hint && <p className="pretty mt-3 max-w-lg text-base text-bone/50">{step.hint}</p>}
+
+            <div className="mt-9">
+              {step.kind === "choice" && !otherOpen && (
+                <ul className="grid gap-3 sm:grid-cols-2">
+                  {step.options.map((o) => (
+                    <li key={o}>
+                      <Choice selected={a[step.key] === o} onClick={() => commit(o)}>
+                        {o}
+                      </Choice>
+                    </li>
+                  ))}
+                  {step.other && (
+                    <li>
+                      <Choice selected={false} muted onClick={() => setOtherOpen(true)}>
+                        Somewhere else…
+                      </Choice>
+                    </li>
+                  )}
+                </ul>
+              )}
+
+              {(step.kind === "text" || (step.kind === "choice" && otherOpen)) && (
+                <input
+                  autoFocus
+                  type={step.kind === "text" ? (step.type ?? "text") : "text"}
+                  inputMode={step.kind === "text" && step.type === "tel" ? "tel" : undefined}
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key !== "Enter") return;
+                    e.preventDefault();
+                    if (step.kind === "choice") {
+                      if (draft.trim()) commit(draft.trim());
+                    } else submitText();
+                  }}
+                  placeholder={step.kind === "text" ? step.placeholder : "Type it here"}
+                  className="w-full border-0 border-b border-bone/25 bg-transparent pb-3 text-2xl text-bone outline-none transition-colors placeholder:text-bone/25 focus:border-bone"
+                />
+              )}
+
+              {step.kind === "long" && (
+                <>
+                  <textarea
+                    autoFocus
+                    rows={5}
+                    maxLength={2000}
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                    onKeyDown={onEnter}
+                    className="w-full resize-none border-0 border-b border-bone/25 bg-transparent pb-3 text-lg leading-relaxed text-bone outline-none transition-colors focus:border-bone"
+                  />
+                  {step.min && (
+                    <p className="mt-2 text-xs tabular-nums text-bone/40">
+                      {draft.trim().length < step.min ? `${step.min - draft.trim().length} more characters` : "Looks good"}
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+
+            {error && <p role="alert" className="mt-5 text-sm text-red-400">{error}</p>}
+
+            {(step.kind !== "choice" || otherOpen) && (
+              <div className="mt-9 flex items-center gap-6">
+                <PrimaryButton
+                  onClick={() => (step.kind === "choice" ? draft.trim() && commit(draft.trim()) : submitText())}
+                >
+                  {step.kind !== "choice" && step.optional && !draft.trim() ? "Skip" : "Next"}
+                </PrimaryButton>
+                {step.kind === "choice" ? (
+                  <button type="button" onClick={() => setOtherOpen(false)} className="text-sm text-bone/45 hover:text-bone">
+                    Show options
+                  </button>
+                ) : (
+                  <span className="hidden text-xs text-bone/35 sm:inline">
+                    {step.kind === "long" ? "or Ctrl + Enter" : "or press Enter"}
+                  </span>
+                )}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {done && (
+        <div className="mt-10">
+          {error && <p role="alert" className="mb-5 text-sm text-red-400">{error}</p>}
+          <PrimaryButton onClick={() => void send()} disabled={sending}>
+            {sending ? "Sending…" : "Send application"}
+          </PrimaryButton>
+          <p className="mt-5 max-w-sm text-xs leading-relaxed text-bone/40">
+            Your details are used only to review this application. We never ask for money.
+          </p>
         </div>
-      </Group>
-
-      <Group n="02" title="Where you are now">
-        <div className="grid gap-8 sm:grid-cols-2">
-          <Select label="Right now you are" name="status_now" options={statusOptions} required />
-          <Select label="Sales experience" name="experience" options={experienceOptions} required />
-          <Select
-            label="Can you do 50 calls + 5 meetings a day?"
-            name="hours"
-            options={yesNo}
-            required
-          />
-          <Select
-            label="Can you travel around Dhaka for meetings?"
-            name="field_ok"
-            options={yesNo}
-            required
-          />
-          <Select label="Your English" name="english" options={englishOptions} required />
-        </div>
-      </Group>
-
-      <Group n="03" title="Show us how you sell">
-        <TextArea
-          label="Pitch Xegency in your own words"
-          name="pitch"
-          required
-          minLength={60}
-          rows={5}
-          hint="Imagine you have 30 seconds with the owner of a garment factory. What do you say? Bangla or English, both are fine."
-        />
-        <TextArea
-          label="Who do you already know?"
-          name="network"
-          optional
-          rows={3}
-          hint="Business owners, managers, shops or companies you could introduce us to. This helps a lot, but it's not required."
-        />
-      </Group>
-
-      <Group n="04" title="Last details">
-        <div className="grid gap-8 sm:grid-cols-2">
-          <Field
-            label="Where did you find this job?"
-            name="source"
-            placeholder="Facebook group name, a friend…"
-            optional
-          />
-          <Field
-            label="CV or LinkedIn link"
-            name="cv_link"
-            type="url"
-            placeholder="https://"
-            optional
-          />
-        </div>
-      </Group>
-
-      {state === "error" && (
-        <p role="alert" className="text-sm text-red-400">
-          {error}
-        </p>
       )}
-
-      <div className="flex flex-col gap-5 pt-2 sm:flex-row sm:items-center sm:justify-between">
-        <button
-          type="submit"
-          disabled={state === "sending"}
-          className={cx(
-            "group inline-flex items-center justify-center gap-3 bg-bone px-9 py-4 text-[12px] font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300",
-            state === "sending" ? "cursor-wait opacity-60" : "hover:bg-stone",
-          )}
-        >
-          {state === "sending" ? "Sending…" : "Send application"}
-          <Arrow className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:translate-x-1" />
-        </button>
-        <p className="max-w-xs text-xs leading-relaxed text-bone/45">
-          Your details are used only to review this application. We never ask
-          for money at any stage.
-        </p>
-      </div>
-    </form>
-  );
-}
-
-/* -------------------------------------------------------------- controls */
-
-const inputCls =
-  "mt-3 w-full border-0 border-b border-bone/20 bg-transparent pb-3 pt-2 text-base text-bone outline-none transition-colors placeholder:text-bone/30 focus:border-bone user-invalid:border-red-400";
-
-function Group({ n, title, children }: { n: string; title: string; children: ReactNode }) {
-  return (
-    <fieldset className="space-y-8 border-t border-bone/12 pt-7">
-      <legend className="float-left mb-1 flex w-full items-baseline gap-4">
-        <span className="eyebrow text-stone">{n}</span>
-        <span className="display text-xl text-bone">{title}</span>
-      </legend>
-      <div className="clear-both space-y-8">{children}</div>
-    </fieldset>
-  );
-}
-
-function Label({ htmlFor, label, optional }: { htmlFor: string; label: string; optional?: boolean }) {
-  return (
-    <label htmlFor={htmlFor} className="eyebrow text-bone/50">
-      {label}
-      {optional && <span className="ml-2 normal-case tracking-normal opacity-60">optional</span>}
-    </label>
-  );
-}
-
-function Field({
-  label,
-  name,
-  type = "text",
-  required = false,
-  optional = false,
-  ...rest
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  required?: boolean;
-  optional?: boolean;
-  autoComplete?: string;
-  placeholder?: string;
-  pattern?: string;
-  title?: string;
-}) {
-  return (
-    <div>
-      <Label htmlFor={name} label={label} optional={optional} />
-      <input id={name} name={name} type={type} required={required} className={inputCls} {...rest} />
     </div>
   );
 }
 
-function Select({
-  label,
-  name,
-  options,
-  required = false,
+/* -------------------------------------------------------------- pieces */
+
+function Choice({
+  children,
+  selected,
+  muted = false,
+  onClick,
 }: {
-  label: string;
-  name: string;
-  options: string[];
-  required?: boolean;
+  children: string;
+  selected: boolean;
+  muted?: boolean;
+  onClick: () => void;
 }) {
   return (
-    <div>
-      <Label htmlFor={name} label={label} />
-      <select
-        id={name}
-        name={name}
-        required={required}
-        defaultValue=""
-        className={cx(inputCls, "appearance-none")}
-      >
-        <option value="" disabled>
-          Select…
-        </option>
-        {options.map((o) => (
-          <option key={o} value={o} className="bg-ink">
-            {o}
-          </option>
+    <button
+      type="button"
+      onClick={onClick}
+      className={cx(
+        "group flex w-full items-center justify-between gap-4 border px-5 py-4 text-left text-base transition-all duration-300",
+        selected
+          ? "border-bone bg-bone text-ink"
+          : "border-bone/15 text-bone hover:border-bone/60 hover:bg-bone/[0.04]",
+        muted && "text-bone/55",
+      )}
+    >
+      {children}
+      <Arrow className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity duration-300 group-hover:opacity-60" />
+    </button>
+  );
+}
+
+function PrimaryButton({ children, onClick, disabled }: { children: string; onClick: () => void; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={cx(
+        "group inline-flex items-center gap-3 bg-bone px-8 py-4 text-[12px] font-medium uppercase tracking-[0.16em] text-ink transition-colors duration-300",
+        disabled ? "cursor-wait opacity-60" : "hover:bg-stone",
+      )}
+    >
+      {children}
+      <Arrow className="transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+    </button>
+  );
+}
+
+const reviewLabels: Record<string, string> = {
+  name: "Name",
+  phone: "Phone",
+  area: "Area",
+  status_now: "Right now",
+  experience: "Experience",
+  hours: "Daily targets",
+  field_ok: "Meetings in Dhaka",
+  english: "English",
+  pitch: "Your pitch",
+  network: "Who you know",
+  source: "Found us via",
+};
+
+function Review({ answers, onEdit }: { answers: Answers; onEdit: (key: string) => void }) {
+  return (
+    <>
+      <h3 className="display text-[clamp(1.7rem,3vw,2.5rem)] leading-tight">All set. Check and send.</h3>
+      <dl className="mt-8 border-t border-bone/10">
+        {steps.map((s) => (
+          <div key={s.key} className="grid grid-cols-[8.5rem_1fr_auto] items-baseline gap-4 border-b border-bone/10 py-3 text-sm">
+            <dt className="text-bone/45">{reviewLabels[s.key]}</dt>
+            <dd className="line-clamp-2 text-bone/85">{answers[s.key] || "—"}</dd>
+            <dd>
+              <button type="button" onClick={() => onEdit(s.key)} className="text-xs text-bone/40 hover:text-bone">
+                Edit
+              </button>
+            </dd>
+          </div>
         ))}
-      </select>
-    </div>
-  );
-}
-
-function TextArea({
-  label,
-  name,
-  hint,
-  rows,
-  required = false,
-  optional = false,
-  minLength,
-}: {
-  label: string;
-  name: string;
-  hint: string;
-  rows: number;
-  required?: boolean;
-  optional?: boolean;
-  minLength?: number;
-}) {
-  return (
-    <div>
-      <Label htmlFor={name} label={label} optional={optional} />
-      <p id={`${name}-hint`} className="pretty mt-2 max-w-xl text-sm leading-relaxed text-bone/45">
-        {hint}
-      </p>
-      <textarea
-        id={name}
-        name={name}
-        rows={rows}
-        required={required}
-        minLength={minLength}
-        maxLength={2000}
-        aria-describedby={`${name}-hint`}
-        className={cx(inputCls, "resize-y leading-relaxed")}
-      />
-    </div>
+      </dl>
+    </>
   );
 }
