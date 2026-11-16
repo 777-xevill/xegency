@@ -14,7 +14,7 @@ import { Arrow, cx } from "@/components/ui";
 
 /**
  * The application, one question at a time. Choices are tap targets that move
- * straight on; only name, phone and the pitch need typing.
+ * straight on; only name and phone need typing.
  */
 
 type Answers = Record<string, string>;
@@ -30,17 +30,16 @@ const phoneOk = (v: string) => {
 };
 
 const steps: Step[] = [
-  { key: "name", kind: "text", q: "What's your name?", placeholder: "Full name", check: (v) => (v.trim().length < 2 ? "Please write your name" : null) },
-  { key: "phone", kind: "text", q: "Your WhatsApp number?", hint: "We'll call or message you on this number.", placeholder: "01XXXXXXXXX", type: "tel", check: phoneOk },
-  { key: "area", kind: "choice", q: "Where in Dhaka do you live?", options: areaOptions, other: true },
+  { key: "area", kind: "choice", q: "Where do you live?", hint: "We're hiring all over Bangladesh.", options: areaOptions, other: true },
   { key: "status_now", kind: "choice", q: "What are you doing right now?", options: statusOptions },
   { key: "experience", kind: "choice", q: "How much sales experience do you have?", hint: "None is completely fine. We train you.", options: experienceOptions },
   { key: "hours", kind: "choice", q: "Can you do 50 calls and 5 meetings a day?", options: yesNo },
-  { key: "field_ok", kind: "choice", q: "Can you travel around Dhaka to meet business owners?", options: yesNo },
+  { key: "field_ok", kind: "choice", q: "Can you meet business owners in your area?", options: yesNo },
   { key: "english", kind: "choice", q: "How is your English?", options: englishOptions },
-  { key: "pitch", kind: "long", q: "Pitch Xegency in your own words.", hint: "You have 30 seconds with the owner of a garment factory. What do you say? Bangla or English.", min: 60 },
-  { key: "network", kind: "long", q: "Do you know any business owners or managers?", hint: "Who could you introduce us to? This helps, but you can skip it.", optional: true },
   { key: "source", kind: "choice", q: "Where did you find this job?", options: sourceOptions, other: true },
+  { key: "network", kind: "long", q: "Do you know any business owners or managers?", hint: "Who could you introduce us to? This helps, but you can skip it.", optional: true },
+  { key: "name", kind: "text", q: "Almost done. What's your name?", placeholder: "Full name", check: (v) => (v.trim().length < 2 ? "Please write your name" : null) },
+  { key: "phone", kind: "text", q: "And your WhatsApp number?", hint: "We'll call or message you on this number.", placeholder: "01XXXXXXXXX", type: "tel", check: phoneOk },
 ];
 
 const TOTAL = steps.length;
@@ -314,9 +313,8 @@ const reviewLabels: Record<string, string> = {
   status_now: "Right now",
   experience: "Experience",
   hours: "Daily targets",
-  field_ok: "Meetings in Dhaka",
+  field_ok: "Meets owners locally",
   english: "English",
-  pitch: "Your pitch",
   network: "Who you know",
   source: "Found us via",
 };

@@ -322,10 +322,12 @@ function Detail({
             </div>
           )}
         </dl>
-        <div>
-          <p className="eyebrow text-bone/45">Their pitch</p>
-          <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-bone/80">{app.pitch}</p>
-        </div>
+        {app.pitch && (
+          <div>
+            <p className="eyebrow text-bone/45">Their pitch</p>
+            <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-bone/80">{app.pitch}</p>
+          </div>
+        )}
         {app.network && (
           <div>
             <p className="eyebrow text-bone/45">Who they know</p>

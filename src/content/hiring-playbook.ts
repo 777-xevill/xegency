@@ -6,7 +6,7 @@
 
 export const careersUrl = "https://www.xegency.com/careers";
 
-export const postBn = `📢 নিয়োগ বিজ্ঞপ্তি: Business Development Executive, Xegency (ঢাকা)
+export const postBn = `📢 নিয়োগ বিজ্ঞপ্তি: Business Development Executive, Xegency (সারা বাংলাদেশ)
 
 Xegency একটি সফটওয়্যার ও AI এজেন্সি। আমরা BEXIMCO, Square, PRAN, Ha-Meem, Royal Enfield ও BMW-এর মতো প্রতিষ্ঠানের জন্য সিস্টেম তৈরি করেছি। এখন আমাদের সেলস টিমে নতুন সদস্য নিচ্ছি।
 
@@ -16,7 +16,7 @@ Xegency একটি সফটওয়্যার ও AI এজেন্সি
 
 📋 কাজ:
 • প্রতিদিন ৫০টি কল
-• প্রতিদিন ৫টি সরাসরি মিটিং (ঢাকার মধ্যে)
+• প্রতিদিন ৫টি সরাসরি মিটিং (আপনার নিজের এলাকায়)
 • ব্যবসার মালিক ও ম্যানেজারদের কাছে আমাদের কাজ তুলে ধরা
 
 ✅ যা লাগবে:
@@ -30,7 +30,7 @@ Xegency একটি সফটওয়্যার ও AI এজেন্সি
 👉 আবেদন করুন (৫ মিনিট, CV লাগবে না):
 {link}`;
 
-export const postEn = `📢 Hiring: Business Development Executive, Xegency (Dhaka)
+export const postEn = `📢 Hiring: Business Development Executive, Xegency (all over Bangladesh)
 
 Xegency is a software and AI agency. We've built systems for BEXIMCO, Square, PRAN, Ha-Meem, Royal Enfield and BMW, and we're growing our sales team.
 
@@ -40,7 +40,7 @@ Example: a ৳2,00,000 project = ৳50,000 for you
 
 📋 The work:
 • 50 calls a day
-• 5 face-to-face meetings a day, inside Dhaka
+• 5 face-to-face meetings a day, in your own area
 • Presenting our work to business owners and managers
 
 ✅ You need:
@@ -58,7 +58,9 @@ export const commentReply = `ধন্যবাদ! আবেদন করতে
 ইনবক্সে CV পাঠানোর দরকার নেই, ফর্মটাই যথেষ্ট।`;
 
 export const groupSearches = [
+  "Jobs in Bangladesh",
   "Jobs in Dhaka",
+  "Jobs in Chattogram",
   "Job Circular BD",
   "Part Time Job Dhaka",
   "Sales and Marketing Jobs Bangladesh",

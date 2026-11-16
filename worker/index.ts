@@ -332,14 +332,13 @@ async function apply(request: Request, env: Env) {
 
   if (!/^[a-z-]{3,60}$/.test(v.role)) v.role = "business-development-executive";
   const phone = normalisePhone(v.phone);
-  if (!v.name || !v.area || !v.pitch) {
-    return fail("Please fill in your name, area and pitch.", 400);
+  if (!v.name || !v.area) {
+    return fail("Please fill in your name and area.", 400);
   }
   if (!phone) return fail("Please enter a Bangladeshi mobile number, like 01712345678.", 400);
   if (v.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email)) {
     return fail("That email address doesn't look right.", 400);
   }
-  if (v.pitch.length < 60) return fail("Write a little more in your pitch: two or three sentences.", 400);
   if (v.cv_link && !/^https?:\/\//i.test(v.cv_link)) v.cv_link = "";
 
   try {

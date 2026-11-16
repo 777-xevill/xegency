@@ -7,11 +7,11 @@ export const role = {
   slug: "business-development-executive",
   title: "Business Development Executive",
   team: "Sales team",
-  location: "Dhaka · field + phone",
+  location: "Anywhere in Bangladesh",
   pay: "25% commission on every deal you close",
   type: "Commission only",
   summary:
-    "Open doors for Xegency across Dhaka. You find the businesses that need better software, websites and AI — and you start the conversation that turns into a project.",
+    "Open doors for Xegency across Bangladesh. You find the businesses that need better software, websites and AI — and you start the conversation that turns into a project.",
 };
 
 /** The numbers, stated plainly. */
@@ -60,13 +60,13 @@ export const gives = [
 export const fits = [
   "You can talk to a business owner with confidence and respect",
   "Your Bangla is clear and you can read and write basic English",
-  "You can travel around Dhaka for meetings",
+  "You can meet business owners in your area",
   "You have a smartphone with WhatsApp",
   "You keep going after a no. Most calls are a no",
 ];
 
 export const steps = [
-  { title: "Apply", time: "3 minutes", body: "Answer a few quick questions on this page. No CV needed." },
+  { title: "Apply", time: "2 minutes", body: "Answer a few quick questions on this page. No CV needed." },
   { title: "Phone call", time: "within 3 days", body: "A 10-minute call to get to know you and answer your questions." },
   { title: "Interview", time: "30 minutes", body: "You pitch Xegency to us as if we were a factory owner. We give you feedback." },
   { title: "Trial week", time: "7 days", body: "Training, then real calls with our support. You earn commission on anything you close." },
@@ -116,16 +116,17 @@ export const experienceOptions = [
 ];
 
 export const areaOptions = [
-  "Mirpur",
-  "Uttara",
-  "Dhanmondi",
-  "Mohammadpur",
-  "Gulshan / Banani",
-  "Badda / Rampura",
-  "Bashundhara",
-  "Motijheel / Old Dhaka",
-  "Farmgate / Tejgaon",
-  "Savar / Ashulia",
+  "Dhaka",
+  "Gazipur",
+  "Narayanganj",
+  "Chattogram",
+  "Cumilla",
+  "Sylhet",
+  "Rajshahi",
+  "Khulna",
+  "Barishal",
+  "Rangpur",
+  "Mymensingh",
 ];
 
 export const sourceOptions = ["Facebook group", "Friend or family", "LinkedIn", "Xegency website"];

@@ -17,10 +17,10 @@ import { Arrow, Eyebrow, Shell } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: `Careers: ${role.title}`,
-  description: `Join the ${site.name} sales team in Dhaka as a ${role.title}. ${role.pay}. No fees, no CV needed to apply.`,
+  description: `Join the ${site.name} sales team anywhere in Bangladesh as a ${role.title}. ${role.pay}. No fees, no CV needed to apply.`,
   alternates: { canonical: "/careers" },
   openGraph: {
-    title: `${role.title} at ${site.name}, Dhaka`,
+    title: `${role.title} at ${site.name}, Bangladesh`,
     description: `${role.pay}. Bring businesses to the team that built systems for BEXIMCO, Square and PRAN.`,
   },
 };
@@ -42,7 +42,7 @@ export default function CareersPage() {
           { label: "Role", value: role.title },
           { label: "Pay", value: role.pay },
           { label: "Where", value: role.location },
-          { label: "To apply", value: "3 minutes, no CV" },
+          { label: "To apply", value: "2 minutes, no CV" },
         ]}
       >
         <a
@@ -197,7 +197,7 @@ export default function CareersPage() {
                 Apply for {role.title}
               </h2>
               <p className="mt-3 text-sm text-bone/50">
-                Eleven quick questions, most of them one tap. About three minutes.
+                Ten quick questions, most of them one tap. About two minutes.
               </p>
               <div className="mt-10">
                 <ApplyForm />
