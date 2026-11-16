@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/services", priority: 0.9 },
     { path: "/about", priority: 0.8 },
     { path: "/contact", priority: 0.8 },
+    { path: "/careers", priority: 0.6 },
   ];
 
   return [

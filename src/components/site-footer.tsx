@@ -83,6 +83,7 @@ export function SiteFooter() {
                 {item.label}
               </FooterLink>
             ))}
+            <FooterLink href="/careers">Careers</FooterLink>
           </FooterColumn>
 
           <FooterColumn title="Services">

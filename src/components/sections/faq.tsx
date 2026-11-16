@@ -6,16 +6,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { faqs as allFaqs } from "@/content/site";
 import { shown } from "@/lib/format";
 
-const faqs = allFaqs.filter((f) => shown(f.a));
+const siteFaqs = allFaqs.filter((f) => shown(f.a));
 import { Eyebrow, Float3D, Shell, cx } from "@/components/ui";
 
 export function Faq({
   heading = "The questions people actually ask.",
   intro,
+  items,
 }: {
   heading?: string;
   intro?: string;
+  /** Defaults to the site-wide questions. */
+  items?: { q: string; a: string }[];
 }) {
+  const faqs = items ?? siteFaqs;
   const [open, setOpen] = useState<number | null>(0);
   const settled = useRef(open);
 
