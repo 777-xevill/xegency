@@ -24,10 +24,14 @@ export const terms = [
 
 /** What a deal is worth to the person who closes it. Illustrative project sizes. */
 export const earnings = [
-  { deal: "Business website", size: "৳60,000", yours: "৳15,000" },
-  { deal: "Custom dashboard or system", size: "৳2,00,000", yours: "৳50,000" },
-  { deal: "AI agent or full platform", size: "৳5,00,000", yours: "৳1,25,000" },
+  { deal: "Business website", size: "৳40,000", yours: "৳10,000" },
+  { deal: "Business website", size: "৳40,000", yours: "৳10,000" },
+  { deal: "Online shop", size: "৳60,000", yours: "৳15,000" },
+  { deal: "AI chatbot or automation", size: "৳60,000", yours: "৳15,000" },
+  { deal: "Custom software", size: "৳1,00,000", yours: "৳25,000" },
 ];
+
+export const earningsTotal = { size: "৳3,00,000", yours: "৳75,000" };
 
 export const day = [
   {

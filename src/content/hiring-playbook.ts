@@ -12,7 +12,7 @@ Xegency একটি সফটওয়্যার ও AI এজেন্সি
 
 💰 আয়: প্রতিটি ডিলের ২৫% কমিশন
 (কমিশন-ভিত্তিক, কোনো ফিক্সড বেতন নেই, আয়ের কোনো সীমাও নেই)
-উদাহরণ: ৳২,০০,০০০ টাকার প্রজেক্ট = আপনার আয় ৳৫০,০০০
+উদাহরণ: ৫ জন ক্লায়েন্ট, মোট ৳৩,০০,০০০ এর প্রজেক্ট = আপনার আয় ৳৭৫,০০০
 
 📋 কাজ:
 • প্রতিদিন ৫০টি কল
@@ -36,7 +36,7 @@ Xegency is a software and AI agency. We've built systems for BEXIMCO, Square, PR
 
 💰 Pay: 25% commission on every deal you close
 (Commission only, no fixed salary, no cap on earnings)
-Example: a ৳2,00,000 project = ৳50,000 for you
+Example: 5 clients, ৳3,00,000 of projects in total = ৳75,000 for you
 
 📋 The work:
 • 50 calls a day

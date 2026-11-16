@@ -4,6 +4,7 @@ import {
   careerFaqs,
   day,
   earnings,
+  earningsTotal,
   fits,
   gives,
   role,
@@ -85,7 +86,7 @@ export default function CareersPage() {
 
               <div className="mt-14 border border-bone/12">
                 <p className="eyebrow border-b border-bone/12 px-5 py-4 text-bone/50">
-                  What one deal can pay you
+                  Example: five clients
                 </p>
                 <table className="w-full text-left text-sm">
                   <thead className="sr-only">
@@ -105,11 +106,18 @@ export default function CareersPage() {
                         </td>
                       </tr>
                     ))}
+                    <tr className="bg-bone text-ink">
+                      <td className="px-5 py-4 font-medium">Total</td>
+                      <td className="px-5 py-4 tabular-nums text-ink/60">{earningsTotal.size}</td>
+                      <td className="px-5 py-4 text-right text-lg font-semibold tabular-nums">
+                        {earningsTotal.yours}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 <p className="border-t border-bone/12 px-5 py-3 text-xs text-bone/40">
-                  Example project sizes. Your commission is always 25% of what the
-                  client actually pays.
+                  Example only. What you earn depends on the deals you close: always
+                  25% of what the client actually pays.
                 </p>
               </div>
             </div>
